@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+    <h1>Dashboard Admin</h1>
+
+    <div class="dashboard-actions">
+       <button id="addProductBtn">Ajouter Produit</button>
+       <button id="viewOrdersBtn">Voir les commandes</button>
+    </div>
+
+
+    <table border="1" id="productsTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nom</th>
+                <th>Prix</th>
+                <th>Description</th>
+                <th>Image</th>
+                <th>Category</th>
+                <th>Colors</th>
+                <th>Sizes</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- المنتجات تظهر هنا -->
+        </tbody>
+    </table>
+
+    <div id="productFormContainer" style="display:none;">
+        <h2 id="formTitle">Ajouter Produit</h2>
+        <form id="productForm">
+            <input type="hidden" id="productId">
+
+            <input type="text" id="name" placeholder="Nom" required><br>
+            <input type="number" id="price" placeholder="Prix" step="0.01" required><br>
+            <input type="text" id="description" placeholder="Description"><br>
+            <input type="text" id="category_id" placeholder="Category ID" required><br>
+            <input type="file" id="media" name="media" multiple ><br>
+
+            <div>
+                <strong>Colors:</strong>
+                <div id="colorsContainer"></div>
+            </div>
+
+            <div>
+                <strong>Sizes:</strong>
+                <div id="sizesContainer"></div>
+            </div>
+
+            <button type="submit">Enregistrer</button>
+            <button type="button" id="cancelBtn">Annuler</button>
+        </form>
+
+       
+    </div>
+
+   
+
+    <script>
+const API_URL = 'http://localhost:5003/admin/products';
+const tableBody = document.querySelector('#productsTable tbody');
+const formContainer = document.getElementById('productFormContainer');
+const form = document.getElementById('productForm');
+const addBtn = document.getElementById('addProductBtn');
+const cancelBtn = document.getElementById('cancelBtn');
+const formTitle = document.getElementById('formTitle');
+const productIdInput = document.getElementById('productId');
+const colorsContainer = document.getElementById('colorsContainer');
+const sizesContainer = document.getElementById('sizesContainer');
+
+// حماية الدخول
+if(localStorage.getItem('loggedIn') !== 'true'){
+    window.location.href = 'Login.html';
+}
+
+// مساعدة: تنظيف/إزالة تكرارات مع المحافظة على الترتيب
+function uniquePreserveOrder(arr){
+    const seen = new Set();
+    const out = [];
+    for(const item of arr){
+        const v = (item === null || item === undefined) ? '' : String(item).trim();
+        if(v === '') continue;
+        if(!seen.has(v)){
+            seen.add(v);
+            out.push(v);
+        }
+    }
+    return out;
+}
+
+// جلب الألوان والقياسات من السيرفر (مع إزالة التكرارات)
+async function loadColorsAndSizes() {
+    try {
+        const [colorsRes, sizesRes] = await Promise.all([
+            fetch(`${API_URL}/colors`),
+            fetch(`${API_URL}/sizes`)
+        ]);
+
+        const colors = await colorsRes.json();
+        const sizes = await sizesRes.json();
+
+        colorsContainer.innerHTML = '';
+        sizesContainer.innerHTML = '';
+
+        // استخراج الأسماء وإزالة التكرارات
+        const uniqueColorNames = uniquePreserveOrder((colors || []).map(c => c.name));
+        const uniqueSizeNames = uniquePreserveOrder((sizes || []).map(s => s.name));
+
+        uniqueColorNames.forEach(name => {
+            const label = document.createElement('label');
+            const input = document.createElement('input');
+            input.type = 'checkbox';
+            input.name = 'colors';
+            input.value = name;
+            label.appendChild(input);
+            label.append(' ' + name);
+            colorsContainer.appendChild(label);
+        });
+
+        uniqueSizeNames.forEach(name => {
+            const label = document.createElement('label');
+            const input = document.createElement('input');
+            input.type = 'checkbox';
+            input.name = 'sizes';
+            input.value = name;
+            label.appendChild(input);
+            label.append(' ' + name);
+            sizesContainer.appendChild(label);
+        });
+
+    } catch(err) {
+        console.error("Error loading colors/sizes:", err);
+    }
+}
+
+loadColorsAndSizes();
+
+// ضبط checkboxes عند تعديل منتج (يدعم string JSON / CSV أو array) مع إزالة التكرارات
+function setCheckboxes(containerId, valuesStr) {
+    let values = [];
+    if (typeof valuesStr === 'string') {
+        try {
+            values = JSON.parse(valuesStr);
+        } catch(e){
+            values = valuesStr.split(',');
+        }
+    } else if (Array.isArray(valuesStr)) {
+        values = valuesStr;
+    }
+
+    values = uniquePreserveOrder(values);
+
+    document.querySelectorAll(`#${containerId} input[type="checkbox"]`).forEach(cb => {
+        cb.checked = values.includes(cb.value);
+    });
+}
+
+// جلب كل المنتجات وعرضهم في الجدول (مع إزالة تكرار الألوان/الأحجام قبل العرض)
+async function loadProducts() {
+    try {
+        const res = await fetch(API_URL);
+        const products = await res.json();
+
+        tableBody.innerHTML = '';
+
+        products.forEach(p => {
+            let mediaArray = [];
+            try {
+                mediaArray = p.media ? JSON.parse(p.media) : [];
+            } catch(e) {
+                console.error("Invalid JSON for media:", p.media);
+                mediaArray = [];
+            }
+
+            let colors = [];
+            try { colors = p.colors ? JSON.parse(p.colors) : []; } catch(e){ colors = []; }
+            let sizes = [];
+            try { sizes = p.sizes ? JSON.parse(p.sizes) : []; } catch(e){ sizes = []; }
+
+           
+            colors = uniquePreserveOrder(colors);
+            sizes = uniquePreserveOrder(sizes);
+
+            const mediaHTML = mediaArray.map(file => {
+                const ext = file.split('.').pop().toLowerCase();
+                if(['mp4','webm'].includes(ext)){
+                    return `<video width="50" controls>
+                                <source src="http://localhost:5003/uploads/${file}" type="video/${ext}">
+                            </video>`;
+                } else {
+                    return `<img src="http://localhost:5003/uploads/${file}" width="50">`;
+                }
+            }).join('');
+
+            tableBody.innerHTML += `
+                <tr>
+                    <td>${p.id}</td>
+                    <td>${p.name}</td>
+                    <td>${p.price}</td>
+                    <td>${p.description}</td>
+                    <td>${mediaHTML}</td>
+                    <td>${p.category_id}</td>
+                    <td>${colors.join(', ')}</td>
+                    <td>${sizes.join(', ')}</td>
+                    <td>
+                        <button onclick="editProduct(${p.id})">Edit</button>
+                        <button onclick="deleteProduct(${p.id})">Delete</button>
+                    </td>
+                </tr>
+            `;
+        });
+    } catch(err) {
+        console.error("Error loading products:", err);
+        tableBody.innerHTML = `<tr><td colspan="9">Erreur de chargement des produits</td></tr>`;
+    }
+}
+
+// إضافة منتج
+addBtn.onclick = () => {
+    formTitle.textContent = 'Ajouter Produit';
+    productIdInput.value = '';
+    form.reset();
+    setCheckboxes('colorsContainer', []);
+    setCheckboxes('sizesContainer', []);
+    formContainer.style.display = 'block';
+};
+
+// الغاء الفورم
+cancelBtn.onclick = () => formContainer.style.display = 'none';
+
+// ارسال الفورم
+form.onsubmit = async (e) => {
+    e.preventDefault();
+    const id = productIdInput.value;
+    const formData = new FormData();
+    formData.append('name', document.getElementById('name').value);
+    formData.append('price', document.getElementById('price').value);
+    formData.append('description', document.getElementById('description').value);
+    formData.append('category_id', document.getElementById('category_id').value);
+
+    const selectedColors = Array.from(document.querySelectorAll('input[name="colors"]:checked'))
+                            .map(cb => cb.value);
+    const selectedSizes = Array.from(document.querySelectorAll('input[name="sizes"]:checked'))
+                           .map(cb => cb.value);
+
+    // إزالة التكرارات قبل الإرسال
+    formData.append('colors', JSON.stringify(uniquePreserveOrder(selectedColors)));
+    formData.append('sizes', JSON.stringify(uniquePreserveOrder(selectedSizes)));
+
+    const files = document.getElementById('media').files;
+    for(let i=0; i<files.length; i++){
+        formData.append('media', files[i]);
+    }
+
+    try {
+        if(id){
+            await fetch(`${API_URL}/${id}`, { method: 'PUT', body: formData });
+        } else {
+            await fetch(API_URL, { method: 'POST', body: formData });
+        }
+        formContainer.style.display = 'none';
+        loadProducts();
+    } catch(err) {
+        console.error("Error saving product:", err);
+        alert("Erreur lors de l'enregistrement du produit.");
+    }
+};
+
+// تعديل منتج
+async function editProduct(id){
+    try {
+        const res = await fetch(`${API_URL}/${id}`);
+        const p = await res.json();
+        formTitle.textContent = 'Modifier Produit';
+        productIdInput.value = p.id;
+        document.getElementById('name').value = p.name;
+        document.getElementById('price').value = p.price;
+        document.getElementById('description').value = p.description;
+        document.getElementById('category_id').value = p.category_id || '';
+        setCheckboxes('colorsContainer', p.colors);
+        setCheckboxes('sizesContainer', p.sizes);
+        formContainer.style.display = 'block';
+    } catch(err) {
+        console.error("Error fetching product:", err);
+        alert("Impossible de charger le produit.");
+    }
+}
+
+// حذف منتج
+async function deleteProduct(id){
+    if(confirm('Voulez-vous supprimer ce produit ?')){
+        try {
+            await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
+            loadProducts();
+        } catch(err) {
+            console.error("Error deleting product:", err);
+            alert("Erreur lors de la suppression du produit.");
+        }
+    }
+}
+
+// initial load
+
+
+
+
+
+
+
+document.getElementById('viewOrdersBtn')?.addEventListener('click', () => {
+
+  window.location.href = 'orders.html';
+});
+
+
+
+
+loadProducts();
+
+
+</script>
+
+
+
+
+
+</script>
+
+</body>
+</html>

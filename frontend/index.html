@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <title>ICONIC clothing</title>
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+<header class="header">
+    <div class="container header-container">
+        <div class="logo-text">
+            ICONIC
+        </div>
+
+
+        <nav class="nav">
+            <ul class="nav-list">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Shop</a></li>
+                <li><a href="#about">About</a></li>
+                <li class="contact-item">
+
+    <input type="checkbox" id="contact-toggle">
+
+    <label for="contact-toggle" class="contact-label">
+        Contact
+    </label>
+
+    <div class="contact-dropdown">
+        <a href="https://www.instagram.com/iconicbyyass?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank">
+            <i class="fab fa-instagram"></i>
+        </a>
+        <a href="https://www.facebook.com/iconicbyyass" target="_blank">
+            <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="https://tiktok.com/@iconic.ys" target="_blank">
+            <i class="fab fa-tiktok"></i>
+        </a>
+    </div>
+
+</li>
+            </ul>
+        </nav>
+
+        <div class="menu-toggle">☰</div>
+    </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+    <div class="hero-content">
+        <h1>Because you're ICONIC </h1>
+        <a href="products.html" class="btn-outline">Shop All</a>
+    </div>
+</section>
+
+<!-- ================= BRAND STORY ================= -->
+<section class="brand-story" id="about">
+    <div class="container">
+        <h2>Welcome to ICONIC brand</h2>
+        <p>
+            We began with a dream "life is too short to
+             wear boring clothes". I have a lot of ideas that I want to design,
+             and I'm not here to please everyone. I'm with high taste. 
+             A QUALITY NOT QUANTITY. So, classy girls, I'm here for u.
+        </p>
+    </div>
+</section>
+
+<!-- ================= COLLECTION ================= -->
+<section class="collection">
+    <div class="container collection-grid">
+        <div class="collection-image">
+            <img src="assets/product2.jpg" alt="New Collection">
+        </div>
+
+        <div class="collection-text">
+            <span class="tag">Just Launched</span>
+            <h3>Winter 2025/26</h3>
+            <p>
+                The art of being elegant.
+            </p>
+            <a href="products.html" class="btn-outline">Shop Now</a>
+        </div>
+    </div>
+</section>
+
+<!-- ================= BEST SELLERS ================= -->
+<section class="best-sellers">
+    <div class="container">
+        <h2>Our Bestsellers</h2>
+
+        <div class="products-grid">
+            <!-- المنتجات ستعرض هنا تلقائياً -->
+        </div>
+
+        <a href="products.html" class="btn-outline">Shop Favourites</a>
+    </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+
+  <div class="footer-top">
+
+    <div>
+      <h4>Brand</h4>
+      <ul>
+        <li>Online store </li>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#about">About Us</a></li>
+        <li><a href="https://www.instagram.com/lionnetteee">Owner</a></li>
+      </ul>
+    </div>
+
+     <div>
+      <h4>Developer</h4>
+      <p>Developed by <strong>Lameche.I</strong></p>
+      <a href="https://github.com/ghezlan-dev" class="footer-link">Developer Profile</a><br>
+      <a href="lamghezlandev@yahoo.com" class="footer-link">Email</a><br>
+      <a href="https://www.instagram.com/leonn_ette" class="footer-link">Instagram</a><br>
+      <a href="https://tiktok.com/@leonette.ima" class="footer-link">TikTok</a>
+
+    </div>
+
+    <div>
+      <h4>Follow us</h4>
+      <ul>
+        <li><a href="https://www.instagram.com/iconicbyyass?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">Instagram</a></li>
+        <li><a href="https://www.facebook.com/iconicbyyass">Facebook</a></li>
+        <li><a href="https://tiktok.com/@iconic.ys">Tiktok</a></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    <span>ICONIC © 2026 January. All rights reserved</span>
+    <span>EN | DZ</span>
+  </div>
+
+</footer>
+
+<script>
+const API_URL = 'http://localhost:5003/products';
+const UPLOADS_BASE = 'http://localhost:5003/uploads';
+
+function renderError(msg){
+    const container = document.querySelector('.products-grid');
+    if(container) container.innerHTML = `<p>${msg}</p>`;
+}
+
+async function loadProducts() {
+    try {
+        const res = await fetch(API_URL);
+        console.log('Products API status:', res.status, res.statusText);
+
+        if(!res.ok){
+            const body = await res.text().catch(()=>'<no body>');
+            console.error('Products API error body:', body);
+            renderError(`Erreur: impossible de charger les produits (status ${res.status}). Voir console.`);
+            return;
+        }
+
+        const text = await res.text();
+        let products;
+        try {
+            products = JSON.parse(text);
+        } catch(parseErr){
+            console.error('Invalid JSON from products API:', parseErr, 'raw:', text);
+            renderError('Erreur: réponse JSON invalide. Voir console.');
+            return;
+        }
+
+        if(!Array.isArray(products)) products = [];
+
+        // keep first 3 products
+        products = products.slice(0, 3);
+
+        const container = document.querySelector('.products-grid');
+        container.innerHTML = '';
+
+        products.forEach(p => {
+            let mediaHTML = '';
+            try {
+                let mediaArray = [];
+
+                if (typeof p.media === 'string' && p.media.trim() !== '') {
+                    try {
+                        mediaArray = JSON.parse(p.media);
+                    } catch(e) {
+                        mediaArray = p.media.split(',').map(s => s.trim()).filter(Boolean);
+                    }
+                } else if (Array.isArray(p.media)) {
+                    mediaArray = p.media;
+                }
+
+                // use only the first valid file
+                const firstFile = (mediaArray || []).find(f => String(f || '').trim());
+                if(firstFile){
+                    const fileStr = String(firstFile).trim();
+                    const ext = fileStr.split('.').pop().toLowerCase();
+                    const safeFile = encodeURIComponent(fileStr);
+                    const src = `${UPLOADS_BASE}/${safeFile}`;
+
+                    if(['mp4','webm'].includes(ext)){
+                        mediaHTML = `<video width="220" controls muted playsinline><source src="${src}" type="video/${ext}"></video>`;
+                    } else {
+                        mediaHTML = `<img src="${src}" width="220" alt="">`;
+                    }
+                } else {
+                    mediaHTML = `<img src="assets/placeholder.png" width="220" alt="">`;
+                }
+
+            } catch(err) {
+                console.error('Invalid media processing for product', p && p.id, err);
+                mediaHTML = `<img src="assets/placeholder.png" width="220" alt="">`;
+            }
+
+            // only render the media (no name/description/price)
+            container.innerHTML += `
+                <div class="product">
+                    <div class="media">${mediaHTML}</div>
+                </div>
+            `;
+        });
+    } catch(err) {
+        console.error('Error loading products:', err);
+        renderError('Erreur de chargement (voir console)');
+    }
+}
+
+loadProducts();
+</script>
+
+<script>
+const menuToggle = document.querySelector('.menu-toggle');
+const navList = document.querySelector('.nav-list');
+
+menuToggle.addEventListener('click', () => {
+    navList.classList.toggle('show');
+});
+</script>
+
+
+
+</body>
+</html>

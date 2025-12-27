@@ -1,0 +1,606 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Shop – ICONIC</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/product.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+
+<!-- ================= HEADER ================= -->
+<header>
+
+  <div class="container header-container">
+  <div class="logo-text">ICONIC</div>
+
+  <nav>
+    <ul class="nav-list">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="products.html">Products</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li class="contact-item">
+
+    <input type="checkbox" id="contact-toggle">
+
+    <label for="contact-toggle" class="contact-label">
+        Contact
+    </label>
+
+    <div class="contact-dropdown">
+        <a href="https://www.instagram.com/iconicbyyass?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank">
+            <i class="fab fa-instagram"></i>
+        </a>
+        <a href="https://www.facebook.com/iconicbyyass" target="_blank">
+            <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="https://tiktok.com/@iconic.ys" target="_blank">
+            <i class="fab fa-tiktok"></i>
+        </a>
+    </div>
+
+</li>
+    </ul>
+  </nav>
+  <div class="menu-toggle">☰</div>
+
+  <div class="icons">
+  </div>
+
+</div>
+
+
+</header>
+
+
+<!-- ================= PRODUCT PAGE ================= -->
+<section class="product-page">
+
+  <!-- TOP PRODUCT -->
+  <div class="product-main">
+
+    <!-- LEFT : IMAGES -->
+    <div class="product-gallery">
+      <div class="main-image" id="productMainImage"></div>
+      <div class="thumbnails" id="productThumbnails"></div>
+    </div>
+
+    <!-- RIGHT : INFO -->
+    <div class="product-info">
+      <h1 id="productName"></h1>
+      <span class="price" id="productPrice"></span>
+
+      <p id="productDescription"></p>
+
+      <!-- COLORS -->
+      <div class="product-colors" id="productColors"></div>
+
+      <!-- SIZES -->
+      <div class="product-sizes" id="productSizes"></div>
+
+      <!-- ORDER BUTTON -->
+      <button id="orderBtn" class="order-btn">Order Now</button>
+    </div>
+
+  </div>
+
+  <!-- ================= ORDER FORM ================= -->
+  <div class="order-form" id="orderForm" style="display:none;">
+    <h2>Order Information</h2>
+    <form id="orderFormElement">
+      <input type="hidden" id="order_product_id" name="product_id" value="">
+      <input type="text" id="order_name" name="customer_name" placeholder="Full Name" required>
+      <input type="tel" id="order_phone" name="customer_phone" placeholder="Phone Number" required>
+
+      <!-- Wilaya & Commune selects (required IDs) -->
+      <div class="form-group">
+        <label for="wilayaSelect">Wilaya</label>
+        <select id="wilayaSelect" name="wilaya_id">
+          <option value="">Loading...</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="communeSelect">Commune</label>
+        <select id="communeSelect" name="commune_id">
+          <option value="">Select Wilaya first</option>
+        </select>
+      </div>
+
+      <input type="text" id="order_address" name="address" placeholder="Delivery Address" required>
+
+      <select id="orderSize" name="size" required>
+        <option value="">Select Size</option>
+      </select>
+
+      <select id="orderColor" name="color" required>
+        <option value="">Select Color</option>
+      </select>
+
+      <button type="submit" class="order-submit" id="orderSubmitBtn">
+        <span class="btn-icon">✓</span>
+        <span class="btn-text">Confirm order</span>
+        <span class="btn-spinner" aria-hidden="true"></span>
+      </button>
+    </form>
+  </div>
+
+  <!-- ================= DELIVERY INFO BAR ================= -->
+  <div class="delivery-info">
+
+    <div>
+      <button><a href="delevery.html"><img src="https://dhd-dz.com/assets/img/logo.png" alt="Delivery"></a></button>
+    </div>
+
+    <div>
+      <i class="fa-solid fa-money-bill"></i>
+      <p>Cash on Delivery</p><br>
+      <p>الدفع عند الاستلام</p>
+    </div>
+
+    <div>
+      <i class="fa-solid fa-truck"></i>
+      <p>Home or Office Delivery</p><br>
+      <p>توصيل إلى المنزل أو المكتب</p>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" aria-hidden="true" style="display:none;">
+  <button class="lb-close" id="lbClose" aria-label="Close">&times;</button>
+  <button class="lb-prev" id="lbPrev" aria-label="Previous">&#10094;</button>
+  <div class="lb-content" id="lbContent"></div>
+  <button class="lb-next" id="lbNext" aria-label="Next">&#10095;</button>
+</div>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+
+  <div class="footer-top">
+
+    <div>
+      <h4>Brand</h4>
+      <ul>
+        <li>Online store </li>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#about">About Us</a></li>
+        <li><a href="https://www.instagram.com/lionnetteee">Owner</a></li>
+      </ul>
+    </div>
+
+     <div>
+      <h4>Developer</h4>
+      <p>Developed by <strong>Lameche.I</strong></p>
+      <a href="https://github.com/ghezlan-dev" class="footer-link">Developer Profile</a><br>
+      <a href="lamghezlandev@yahoo.com" class="footer-link">Email</a><br>
+      <a href="https://www.instagram.com/leonn_ette" class="footer-link">Instagram</a><br>
+      <a href="https://tiktok.com/@leonette.ima" class="footer-link">TikTok</a>
+    </div>
+
+    <div>
+      <h4>Follow us</h4>
+      <ul>
+        <li><a href="https://www.instagram.com/iconicbyyass?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">Instagram</a></li>
+        <li><a href="https://www.facebook.com/iconicbyyass">Facebook</a></li>
+        <li><a href="https://tiktok.com/@iconic.ys">Tiktok</a></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    <span>ICONIC © 2026 January. All rights reserved</span>
+    <span>EN | DZ</span>
+  </div>
+
+</footer>
+
+
+<script>
+const API_URL = 'http://localhost:5003/products';
+const UPLOADS_BASE = 'http://localhost:5003/uploads';
+const LOC_API = 'http://localhost:5003';
+const ORDERS_API = 'http://localhost:5003/orders';
+
+
+const params = new URLSearchParams(window.location.search);
+const productId = params.get('id');
+
+function safeParseArray(value){
+  if (Array.isArray(value)) return value;
+  if (typeof value === 'string') {
+    try { return JSON.parse(value); } catch(e){
+      return value.split(',').map(s => s.trim()).filter(Boolean);
+    }
+  }
+  return [];
+}
+
+let galleryMedia = [];
+let currentIndex = 0;
+
+function setMainImage(idx){
+  const main = document.getElementById('productMainImage');
+  main.innerHTML = '';
+  if(!galleryMedia[idx]) return;
+  const file = galleryMedia[idx];
+  const safe = encodeURIComponent(String(file).trim());
+  const ext = String(file).split('.').pop().toLowerCase();
+  const el = (['mp4','webm'].includes(ext))
+    ? document.createElement('video')
+    : document.createElement('img');
+
+  if(el.tagName === 'VIDEO'){
+    el.controls = true;
+    el.src = `${UPLOADS_BASE}/${safe}`;
+  } else {
+    el.src = `${UPLOADS_BASE}/${safe}`;
+    el.alt = document.getElementById('productName').textContent || '';
+  }
+  el.className = 'main-img-el';
+  el.addEventListener('click', ()=> openLightbox(idx));
+  main.appendChild(el);
+
+  // update active thumb
+  document.querySelectorAll('#productThumbnails .thumb').forEach((t, i)=>{
+    t.classList.toggle('active', i === idx);
+  });
+
+  currentIndex = idx;
+}
+
+function buildThumbnails(){
+  const thumbs = document.getElementById('productThumbnails');
+  thumbs.innerHTML = '';
+  galleryMedia.forEach((file, i) => {
+    const safe = encodeURIComponent(String(file).trim());
+    const t = document.createElement('div');
+    t.className = 'thumb';
+    const img = document.createElement('img');
+    img.src = `${UPLOADS_BASE}/${safe}`;
+    img.alt = '';
+    img.loading = 'lazy';
+    t.appendChild(img);
+    t.addEventListener('click', ()=> setMainImage(i));
+    thumbs.appendChild(t);
+  });
+}
+
+// centralized rendering to reuse after fallback
+function renderProduct(p){
+  document.getElementById('productName').textContent = p.name || '';
+  document.getElementById('productPrice').textContent = (p.price || '') + ' DA';
+  document.getElementById('productDescription').textContent = p.description || '';
+
+  // media/colors/sizes normalization
+  galleryMedia = safeParseArray(p.media);
+  buildThumbnails();
+  if(galleryMedia.length) setMainImage(0);
+  else {
+    // fallback: if no media, show placeholder
+    const main = document.getElementById('productMainImage');
+    main.innerHTML = '<img src="assets/hero.png" alt="no image" style="max-width:100%;">';
+  }
+
+  // colors
+  const colorsBox = document.getElementById('productColors');
+  colorsBox.innerHTML = '';
+  const colors = safeParseArray(p.colors);
+  (colors || []).forEach(c=>{
+    const span = document.createElement('span');
+    span.className = 'color-dot';
+    span.style.background = c;
+    span.title = c;
+    colorsBox.appendChild(span);
+  });
+
+  // sizes
+  const sizesBox = document.getElementById('productSizes');
+  sizesBox.innerHTML = '';
+  const sizes = safeParseArray(p.sizes);
+  (sizes || []).forEach(s=>{
+    const sb = document.createElement('span');
+    sb.className = 'size-box';
+    sb.textContent = s;
+    sizesBox.appendChild(sb);
+  });
+
+  // set hidden product id and populate order options
+  document.getElementById('order_product_id').value = productId;
+  populateOrderOptions();
+}
+
+async function loadProduct(){
+  if(!productId){
+    console.warn('Product ID missing in URL');
+    return;
+  }
+  
+  const fetchUrl = `${API_URL}/${productId}`;
+  console.log('Fetching product from:', fetchUrl);
+  try {
+    const res = await fetch(fetchUrl);
+    if(!res.ok){
+      console.error('Product fetch failed', res.status);
+      // print response body if available for debugging
+      try {
+        const bodyText = await res.text();
+        console.error('Response body:', bodyText);
+      } catch(e){}
+      // fallback attempt to public route if present in backend
+const alt = `${LOC_API}/productspub/${productId}`;
+
+      console.log('Attempting fallback fetch:', alt);
+      try {
+        const r2 = await fetch(alt);
+        if(r2.ok){
+          const p2 = await r2.json();
+          renderProduct(p2);
+          return;
+        } else {
+          console.error('Fallback fetch failed', r2.status);
+          try { const b2 = await r2.text(); console.error('Fallback body:', b2); } catch(e){}
+        }
+      } catch(fe){
+        console.error('Fallback fetch error', fe);
+      }
+      return;
+    }
+    const p = await res.json();
+    renderProduct(p);
+  } catch(err){
+    console.error('Failed to load product', err);
+  }
+}
+
+// populate size & color selects in the order form from rendered DOM
+function populateOrderOptions(){
+  const orderSize = document.getElementById('orderSize');
+  const orderColor = document.getElementById('orderColor');
+  const sizes = Array.from(document.querySelectorAll('.size-box')).map(el => el.textContent.trim()).filter(Boolean);
+  const colors = Array.from(document.querySelectorAll('.color-dot')).map(el => el.title || el.style.background).filter(Boolean);
+
+  orderSize.innerHTML = '<option value="">Select Size</option>';
+  sizes.forEach(s => {
+    const o = document.createElement('option');
+    o.value = s; o.textContent = s;
+    orderSize.appendChild(o);
+  });
+
+  orderColor.innerHTML = '<option value="">Select Color</option>';
+  colors.forEach(c => {
+    const o = document.createElement('option');
+    o.value = c; o.textContent = c;
+    orderColor.appendChild(o);
+  });
+}
+
+// LIGHTBOX
+function openLightbox(idx){
+  const lb = document.getElementById('lightbox');
+  lb.style.display = 'flex';
+  lb.setAttribute('aria-hidden','false');
+  renderLightbox(idx);
+  document.body.style.overflow = 'hidden';
+}
+function renderLightbox(idx){
+  const content = document.getElementById('lbContent');
+  content.innerHTML = '';
+  const file = galleryMedia[idx];
+  if(!file) return;
+  const safe = encodeURIComponent(String(file).trim());
+  const ext = String(file).split('.').pop().toLowerCase();
+  if(['mp4','webm'].includes(ext)){
+    const v = document.createElement('video');
+    v.controls = true;
+    v.src = `${UPLOADS_BASE}/${safe}`;
+    v.style.maxWidth = '90vw';
+    v.style.maxHeight = '80vh';
+    content.appendChild(v);
+  } else {
+    const img = document.createElement('img');
+    img.src = `${UPLOADS_BASE}/${safe}`;
+    img.style.maxWidth = '90vw';
+    img.style.maxHeight = '80vh';
+    content.appendChild(img);
+  }
+  currentIndex = idx;
+}
+function closeLightbox(){
+  const lb = document.getElementById('lightbox');
+  lb.style.display = 'none';
+  lb.setAttribute('aria-hidden','true');
+  document.body.style.overflow = '';
+}
+function prevLightbox(){
+  if(!galleryMedia.length) return;
+  currentIndex = (currentIndex - 1 + galleryMedia.length) % galleryMedia.length;
+  renderLightbox(currentIndex);
+}
+function nextLightbox(){
+  if(!galleryMedia.length) return;
+  currentIndex = (currentIndex + 1) % galleryMedia.length;
+  renderLightbox(currentIndex);
+}
+
+document.getElementById('lbClose')?.addEventListener('click', closeLightbox);
+document.getElementById('lbPrev')?.addEventListener('click', prevLightbox);
+document.getElementById('lbNext')?.addEventListener('click', nextLightbox);
+document.addEventListener('keydown', (e)=>{
+  const lb = document.getElementById('lightbox');
+  if(lb && lb.style.display === 'flex'){
+    if(e.key === 'Escape') closeLightbox();
+    if(e.key === 'ArrowLeft') prevLightbox();
+    if(e.key === 'ArrowRight') nextLightbox();
+  }
+});
+
+
+const wilayaSelect = document.getElementById('wilayaSelect');
+const communeSelect = document.getElementById('communeSelect');
+// جلب الولايات من قاعدة البيانات
+async function loadWilayas(){
+  if(!wilayaSelect) return; // nothing to do if form not present
+  try {
+    wilayaSelect.innerHTML = '<option value="">Loading...</option>';
+    const res = await fetch(`${LOC_API}/api/wilayas`);
+    if(!res.ok){
+      console.error('Failed to load wilayas', res.status);
+      wilayaSelect.innerHTML = '<option value="">Unable to load</option>';
+      return;
+    }
+    const data = await res.json();
+    wilayaSelect.innerHTML = '<option value="">Select Wilaya</option>';
+    if(Array.isArray(data)){
+      data.forEach(w => {
+        const opt = document.createElement('option');
+        opt.value = w.id;
+        opt.textContent = w.name || w.wilaya_name_ascii || w.name_ascii || String(w.id);
+        wilayaSelect.appendChild(opt);
+      });
+    }
+  } catch(err){
+    console.error('Error loading wilayas:', err);
+    wilayaSelect.innerHTML = '<option value="">Error</option>';
+  }
+}
+
+// جلب البلديات عند اختيار ولاية
+if(wilayaSelect){
+ wilayaSelect.addEventListener('change', async function(){
+    const wid = this.value;
+    if(!communeSelect) return;
+    communeSelect.innerHTML = '<option value="">Loading...</option>';
+    if(!wid){
+      communeSelect.innerHTML = '<option value="">Select Wilaya first</option>';
+      return;
+    }
+    try {
+      const res = await fetch(`${LOC_API}/api/communes/${encodeURIComponent(wid)}`);
+      if(!res.ok){
+        console.error('Failed to load communes', res.status);
+        communeSelect.innerHTML = '<option value="">Unable to load</option>';
+        return;
+      }
+      const rows = await res.json();
+      communeSelect.innerHTML = '<option value="">Select Commune</option>';
+      if(Array.isArray(rows)){
+        rows.forEach(c => {
+          const opt = document.createElement('option');
+          opt.value = c.id;
+          opt.textContent = c.name || c.commune_name_ascii || String(c.id);
+          communeSelect.appendChild(opt);
+        });
+      }
+    } catch(err){
+      console.error('Error loading communes:', err);
+      communeSelect.innerHTML = '<option value="">Error</option>';
+    }
+  });
+}
+
+// استدعاء عند تحميل الصفحة
+loadWilayas();
+loadProduct();
+
+// إظهار الفورمول مع تمرير سلس وتركيز على الحقل الأول
+const orderBtn = document.getElementById('orderBtn');
+if(orderBtn){
+  orderBtn.addEventListener('click', (ev) => {
+    ev.preventDefault();
+    const form = document.getElementById('orderForm');
+    if(form){
+      form.style.display = 'block';
+      form.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      const first = form.querySelector('input, select, textarea, button');
+      if(first) first.focus({ preventScroll: true });
+    } else {
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    }
+  });
+}
+
+// order form submit -> POST /orders
+document.getElementById('orderFormElement')?.addEventListener('submit', async function(e){
+  e.preventDefault();
+  const btn = document.getElementById('orderSubmitBtn');
+  const payload = {
+    product_id: document.getElementById('order_product_id').value || productId || '',
+    product_name: document.getElementById('productName').textContent || '',
+    product_price: (document.getElementById('productPrice').textContent || '').replace(' DA','').trim(),
+    customer_name: document.getElementById('order_name').value.trim(),
+    customer_phone: document.getElementById('order_phone').value.trim(),
+    wilaya: document.getElementById('wilayaSelect').value || '',
+    commune: document.getElementById('communeSelect').value || '',
+    address: document.getElementById('order_address').value.trim(),
+    size: document.getElementById('orderSize').value || '',
+    color: document.getElementById('orderColor').value || '',
+    created_at: new Date().toISOString(),
+    status: 'pending'
+  };
+
+  // visual loading
+  btn.classList.add('loading');
+  btn.disabled = true;
+
+  try {
+    const res = await fetch(ORDERS_API, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify(payload)
+    });
+    if(!res.ok) throw new Error('Server error');
+    // success
+    btn.classList.remove('loading');
+    btn.classList.add('success');
+    setTimeout(()=>{
+      document.getElementById('orderForm').style.display = 'none';
+      document.getElementById('orderFormElement').reset();
+      btn.classList.remove('success');
+      btn.disabled = false;
+    }, 900);
+
+
+
+     alert(
+"Order Placed Successfully ✅\n" +
+"We will contact you shortly to confirm your order. 📞\n" +
+"Thank you for shopping with us. 🎀\n\n" +
+"⸻\n\n" +
+"تم تأكيد استلام طلبك ✅\n" +
+"سوف نتصل بك قريبًا من أجل تأكيد الطلب. 📞\n" +
+"شكرًا لتسوقك معنا. 🎀"
+);
+
+
+
+
+
+  } catch(err){
+    console.error('Order submit error', err);
+    alert('خطأ في إرسال الطلب. حاول لاحقاً.');
+    btn.classList.remove('loading');
+    btn.disabled = false;
+  }
+});
+</script>
+
+<script>
+  const menuToggle = document.querySelector('.menu-toggle');
+  const navList = document.querySelector('.nav-list');
+
+  menuToggle.addEventListener('click', () => {
+    navList.classList.toggle('show');
+  });
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Admin — Orders</title>
+
+</head>
+<body>
+  <header class="topbar">
+    <h1>Orders</h1>
+    <div class="actions">
+      <button id="refreshBtn">Refresh</button>
+      <button id="logoutBtn">Logout</button>
+      <button onclick="window.location.href='dashboard.html'">
+             ← Retour Dashboard
+      </button>
+
+    </div>
+  </header>
+
+  <main>
+    <section id="ordersSection">
+      <table id="ordersTable">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Product</th>
+            <th>Customer</th>
+            <th>Phone</th>
+            <th>Wilaya</th>
+            <th>Commune</th>
+            <th>Address</th>
+            <th>Size</th>
+            <th>Color</th>
+            <th>Status</th>
+            <th>Created</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- orders injected here -->
+        </tbody>
+      </table>
+      <div id="empty" style="display:none;">No orders found</div>
+    </section>
+  </main>
+
+  <script>
+    // protect admin
+    if(localStorage.getItem('loggedIn') !== 'true'){
+      window.location.href = 'login.html';
+    }
+
+    const ORDERS_API = 'http://localhost:5003/orders';
+    const tbody = document.querySelector('#ordersTable tbody');
+    const emptyEl = document.getElementById('empty');
+
+    async function loadOrders(){
+      tbody.innerHTML = '';
+      emptyEl.style.display = 'none';
+      try {
+        const res = await fetch(ORDERS_API);
+        if(!res.ok) throw new Error('Failed to fetch orders: ' + res.status);
+        const data = await res.json();
+        if(!Array.isArray(data) || data.length === 0){
+          emptyEl.style.display = 'block';
+          return;
+        }
+        data.forEach(o => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${o.id ?? ''}</td>
+            <td>${(o.product_name ?? '')}</td>
+            <td>${(o.customer_name ?? '')}</td>
+            <td>${(o.customer_phone ?? '')}</td>
+            <td>${(o.wilaya ?? '')}</td>
+            <td>${(o.commune ?? '')}</td>
+            <td>${(o.address ?? '')}</td>
+            <td>${(o.size ?? '')}</td>
+            <td>${(o.color ?? '')}</td>
+            <td class="status">${(o.status ?? '')}</td>
+            <td>${o.created_at ? new Date(o.created_at).toLocaleString() : ''}</td>
+            <td>
+              <button class="btn-confirm" data-id="${o.id}">Mark Done</button>
+              <button class="btn-delete" data-id="${o.id}">Delete</button>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+      } catch(err){
+        console.error('Orders load error', err);
+        emptyEl.textContent = 'Error loading orders — see console';
+        emptyEl.style.display = 'block';
+      }
+    }
+
+    // action handlers (Mark Done -> PATCH/PUT if backend supports)
+    tbody.addEventListener('click', async (e) => {
+      const btn = e.target.closest('button');
+      if(!btn) return;
+      const id = btn.dataset.id;
+      if(btn.classList.contains('btn-confirm')){
+        try {
+          // try PATCH then fallback to PUT; server may accept POST/PUT depending on implementation
+          const res = await fetch(`${ORDERS_API}/${encodeURIComponent(id)}`, {
+            method: 'PATCH',
+            headers: {'Content-Type':'application/json'},
+            body: JSON.stringify({ status: 'done' })
+          });
+          if(!res.ok){
+            // try PUT if PATCH not supported
+            await fetch(`${ORDERS_API}/${encodeURIComponent(id)}`, {
+              method: 'PUT',
+              headers: {'Content-Type':'application/json'},
+              body: JSON.stringify({ status: 'done' })
+            });
+          }
+          await loadOrders();
+        } catch(err){
+          console.error('Update order error', err);
+          alert('Failed to update order. See console.');
+        }
+      } else if(btn.classList.contains('btn-delete')){
+        if(!confirm('Delete order #' + id + ' ?')) return;
+        try {
+          await fetch(`${ORDERS_API}/${encodeURIComponent(id)}`, { method: 'DELETE' });
+          await loadOrders();
+        } catch(err){
+          console.error('Delete order error', err);
+          alert('Failed to delete order. See console.');
+        }
+      }
+    });
+
+    document.getElementById('refreshBtn').addEventListener('click', loadOrders);
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+      localStorage.removeItem('loggedIn');
+      window.location.href = 'login.html';
+    });
+
+    loadOrders();
+  </script>
+</body>
+
+<style>
+    *{box-sizing:border-box;margin:0;padding:0;font-family:Arial, Helvetica, sans-serif}
+body{background:#f6f6f6;color:#222;padding:20px}
+.topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.topbar h1{font-size:22px}
+.topbar .actions button{margin-left:8px;padding:8px 12px;border-radius:6px;border:1px solid #ccc;background:#fff;cursor:pointer}
+main{background:#fff;padding:14px;border-radius:8px;box-shadow:0 6px 20px rgba(0,0,0,0.04)}
+#ordersTable{width:100%;border-collapse:collapse}
+#ordersTable th, #ordersTable td{padding:8px 10px;border-bottom:1px solid #eee;text-align:left;font-size:13px}
+#ordersTable th{background:#fafafa;position:sticky;top:0}
+#ordersTable tbody tr:hover{background:#fcf8f3}
+button.btn-confirm{background:#2ecc71;color:#fff;border:none;padding:6px 8px;border-radius:6px;cursor:pointer}
+button.btn-delete{background:#e74c3c;color:#fff;border:none;padding:6px 8px;border-radius:6px;cursor:pointer;margin-left:6px}
+#empty{padding:20px;text-align:center;color:#666}
+</style>
+
+
+</html>
