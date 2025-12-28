@@ -50,7 +50,7 @@ router.get('/sizes', (req, res) => {
 
 router.get('/:id', (req, res) => {
   const id = req.params.id;
-  db.query('SELECT * FROM products WHERE id = ?', [id], (err, result) => {
+  db.query('SELECT * FROM products WHERE id = $1', [id], (err, result) => {
     if (err) {
       console.log('ERROR GET PRODUCT:', err);
       return res.status(500).json(err);
@@ -74,7 +74,7 @@ router.post('/', upload, (req, res) => {
 
   db.query(
     `INSERT INTO products (name, price, description, category_id, media, colors, sizes)
-     VALUES (?, ?, ?, ?, ?, ?, ?)`,
+     VALUES ($1, $2, $3, $4, $5, $6, $7)`,
     [name, price, description, category_id, media, colors, sizes],
     (err, result) => {
       if (err) {
@@ -95,7 +95,7 @@ router.put('/:id', upload, (req, res) => {
   let params = [name, price, description, category_id, colors, sizes];
 
   if (req.files && req.files.length) {
-    mediaSQL = ', media = ?';
+    mediaSQL = ', media = $7';
     params.push(JSON.stringify(req.files.map(f => f.filename)));
   }
 
@@ -103,9 +103,9 @@ router.put('/:id', upload, (req, res) => {
 
   const sql = `
     UPDATE products
-    SET name = ?, price = ?, description = ?, category_id = ?, colors = ?, sizes = ?
+    SET name = $1, price = $2, description = $3, category_id = $4, colors = $5, sizes = $6
     ${mediaSQL}
-    WHERE id = ?
+    WHERE id = $1
   `;
 
   db.query(sql, params, err => {
@@ -120,7 +120,7 @@ router.put('/:id', upload, (req, res) => {
 // ================== DELETE ==================
 router.delete('/:id', (req, res) => {
   const id = req.params.id;
-  db.query('DELETE FROM products WHERE id = ?', [id], err => {
+  db.query('DELETE FROM products WHERE id = $1', [id], err => {
     if (err) {
       console.log('ERROR DELETE PRODUCT:', err);
       return res.status(500).json(err);

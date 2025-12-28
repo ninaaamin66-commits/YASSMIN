@@ -9,9 +9,16 @@ const pool = new Pool({
     ssl: { rejectUnauthorized: false } 
 });
 
-pool.connect(err => {
-    if (err) throw err;
-    console.log('Connexion PostgreSQL DB réussie');
-});
 
-module.exports = pool;
+function query(sql, params, cb) {
+  
+    if (typeof params === 'function') {
+        cb = params;
+        params = [];
+    }
+    pool.query(sql, params)
+        .then(res => cb(null, res.rows))
+        .catch(err => cb(err));
+}
+
+module.exports = { query };

@@ -50,12 +50,12 @@ router.patch('/:id', (req, res) => {
   const updates = [];
   const params = [];
   for (const k in fields) {
-    updates.push(`${k} = ?`);
+    updates.push(`${k} = $1`);
     params.push(fields[k]);
   }
   if (!updates.length) return res.status(400).json({ error: 'No fields' });
   params.push(id);
-  db.query(`UPDATE orders SET ${updates.join(', ')} WHERE id = ?`, params, (err) => {
+  db.query(`UPDATE orders SET ${updates.join(', ')} WHERE id = $1`, params, (err) => {
     if (err) {
       console.error('PATCH /orders/:id error', err);
       return res.status(500).json({ error: 'Server error' });
@@ -67,7 +67,7 @@ router.patch('/:id', (req, res) => {
 // DELETE /orders/:id
 router.delete('/:id', (req, res) => {
   const id = req.params.id;
-  db.query('DELETE FROM orders WHERE id = ?', [id], (err) => {
+  db.query('DELETE FROM orders WHERE id = $1', [id], (err) => {
     if (err) {
       console.error('DELETE /orders/:id error', err);
       return res.status(500).json({ error: 'Server error' });

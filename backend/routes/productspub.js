@@ -31,7 +31,7 @@ router.get('/:id', (req, res) => {
   const id = req.params.id;
   const q = `SELECT id, name, price, description, media, colors, sizes, category_id
              FROM products
-             WHERE id = ?`;
+             WHERE id = $1`;
   db.query(q, [id], (err, rows) => {
     if (err) {
       console.error('GET /products/:id error', err);
