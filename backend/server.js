@@ -1,3 +1,4 @@
+// server.js
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -34,6 +35,7 @@ app.get('/api/wilayas', (req, res) => {
      COALESCE(NULLIF(wilaya_name_ascii, ''), wilaya_name) AS name
      FROM algeria_cities
      ORDER BY name ASC`,
+    [],
     (err, rows) => {
       if (err) {
         console.error(err);
@@ -51,7 +53,7 @@ app.get('/api/communes/:wilayaId', (req, res) => {
     `SELECT id,
      COALESCE(NULLIF(commune_name_ascii, ''), commune_name) AS name
      FROM algeria_cities
-     WHERE wilaya_code = ?
+     WHERE wilaya_code = $1
      ORDER BY name ASC`,
     [wid],
     (err, rows) => {
@@ -70,6 +72,6 @@ app.get('*', (req, res) => {
 });
 
 // start server
-app.listen(PORT, '0.0.0.0', () => {
+app.listen(PORT, () => {
   console.log('Server running on port', PORT);
 });
