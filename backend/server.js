@@ -67,8 +67,7 @@ app.get('/api/communes/:wilayaId', (req, res) => {
 });
 
 // default route → frontend
-app.use(express.static(path.join(__dirname, 'frontend')));
-app.all('*', (req, res) => {
+app.use((req, res) => {
   res.sendFile(path.join(__dirname, 'frontend', 'index.html'));
 });
 
