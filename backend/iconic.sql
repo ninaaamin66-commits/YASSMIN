@@ -1,11 +1,5 @@
-DROP TABLE IF EXISTS orders;
-DROP TABLE IF EXISTS communes;
-DROP TABLE IF EXISTS wilayas;
-DROP TABLE IF EXISTS products;
-DROP TABLE IF EXISTS categories;
-DROP TABLE IF EXISTS colors;
-DROP TABLE IF EXISTS sizes;
-DROP TABLE IF EXISTS algeria_cities;
+DROP TABLE IF EXISTS orders, communes, wilayas, products, categories, colors, sizes, algeria_cities CASCADE;
+
 
 -- Categories table
 CREATE TABLE IF NOT EXISTS categories (
@@ -1672,3 +1666,8 @@ ADD COLUMN IF NOT EXISTS media TEXT,
 ADD COLUMN IF NOT EXISTS colors TEXT,
 ADD COLUMN IF NOT EXISTS sizes TEXT,
 ADD COLUMN IF NOT EXISTS category_id INTEGER;
+
+SELECT * FROM products;
+SELECT * FROM colors;
+SELECT * FROM sizes;
+
