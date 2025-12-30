@@ -1,5 +1,3 @@
-
-
 DROP TABLE IF EXISTS orders;
 DROP TABLE IF EXISTS communes;
 DROP TABLE IF EXISTS wilayas;
@@ -9,12 +7,13 @@ DROP TABLE IF EXISTS colors;
 DROP TABLE IF EXISTS sizes;
 DROP TABLE IF EXISTS algeria_cities;
 
-
+-- Categories table
 CREATE TABLE IF NOT EXISTS categories (
     id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL
 );
 
+-- Products table
 CREATE TABLE IF NOT EXISTS products (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
@@ -26,22 +25,29 @@ CREATE TABLE IF NOT EXISTS products (
     category_id INT REFERENCES categories(id)
 );
 
+-- Colors table
 CREATE TABLE IF NOT EXISTS colors (
     id SERIAL PRIMARY KEY,
     name VARCHAR(50) NOT NULL
 );
 
+-- Sizes table
 CREATE TABLE IF NOT EXISTS sizes (
     id SERIAL PRIMARY KEY,
     name VARCHAR(10) NOT NULL
 );
 
+-- Insert initial colors
 INSERT INTO colors (name) VALUES 
-('red'), ('blue'), ('green'), ('black'), ('pink'), ('yellow'), ('peach'), ('white'), ('Lavender'), ('grey'), ('orange');
+('red'), ('blue'), ('green'), ('black'), ('pink'), ('yellow'), ('peach'), ('white'), ('Lavender'), ('grey'), ('orange')
+ON CONFLICT DO NOTHING;
 
+-- Insert initial sizes
 INSERT INTO sizes (name) VALUES 
-('S'), ('M'), ('L'), ('XL');
+('S'), ('M'), ('L'), ('XL')
+ON CONFLICT DO NOTHING;
 
+-- Algeria cities table
 CREATE TABLE IF NOT EXISTS algeria_cities (
     id SERIAL PRIMARY KEY,
     commune_name VARCHAR(255) NOT NULL,
@@ -52,7 +58,6 @@ CREATE TABLE IF NOT EXISTS algeria_cities (
     wilaya_name VARCHAR(255) NOT NULL,
     wilaya_name_ascii VARCHAR(255) NOT NULL
 );
-
 
 
 
@@ -1614,7 +1619,7 @@ INSERT INTO algeria_cities (
 
 
 
-
+-- Wilayas table
 CREATE TABLE IF NOT EXISTS wilayas (
     id INT PRIMARY KEY,
     name VARCHAR(255) NOT NULL
@@ -1625,6 +1630,7 @@ SELECT DISTINCT CAST(wilaya_code AS INTEGER), wilaya_name
 FROM algeria_cities
 ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name;
 
+-- Communes table
 CREATE TABLE IF NOT EXISTS communes (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
@@ -1635,6 +1641,7 @@ INSERT INTO communes (name, wilaya_id)
 SELECT commune_name, CAST(wilaya_code AS INTEGER)
 FROM algeria_cities;
 
+-- Orders table
 CREATE TABLE IF NOT EXISTS orders (
     id SERIAL PRIMARY KEY,
     product_id VARCHAR(100),
@@ -1651,10 +1658,17 @@ CREATE TABLE IF NOT EXISTS orders (
     status VARCHAR(50) DEFAULT 'pending'
 );
 
+-- Insert initial categories
 INSERT INTO categories (name) VALUES 
-('dresses'),('tops'),('outerwear'),('accessories');
+('dresses'),('tops'),('outerwear'),('accessories')
+ON CONFLICT DO NOTHING;
 
-SELECT COUNT(*) FROM algeria_cities;
-SELECT COUNT(*) FROM wilayas;
-SELECT COUNT(*) FROM communes;
-
+-- Ensure all columns exist in products (for safety)
+ALTER TABLE products
+ADD COLUMN IF NOT EXISTS name VARCHAR(100),
+ADD COLUMN IF NOT EXISTS price NUMERIC,
+ADD COLUMN IF NOT EXISTS description TEXT,
+ADD COLUMN IF NOT EXISTS media TEXT,
+ADD COLUMN IF NOT EXISTS colors TEXT,
+ADD COLUMN IF NOT EXISTS sizes TEXT,
+ADD COLUMN IF NOT EXISTS category_id INTEGER;
