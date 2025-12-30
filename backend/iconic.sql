@@ -1,1608 +1,1617 @@
-CREATE DATABASE IF NOT EXISTS iconic_db;
-USE iconic_db;
 
-SET NAMES utf8mb4;
+
+DROP TABLE IF EXISTS orders;
+DROP TABLE IF EXISTS communes;
+DROP TABLE IF EXISTS wilayas;
+DROP TABLE IF EXISTS products;
+DROP TABLE IF EXISTS categories;
+DROP TABLE IF EXISTS colors;
+DROP TABLE IF EXISTS sizes;
+DROP TABLE IF EXISTS algeria_cities;
 
 
 CREATE TABLE IF NOT EXISTS categories (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL
 );
 
-
-
-
-
 CREATE TABLE IF NOT EXISTS products (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     price DECIMAL(10,2) NOT NULL,
     description TEXT,
     media TEXT,
-    colors VARCHAR(255),
-    sizes VARCHAR(255),
-    category_id INT,
-    FOREIGN KEY (category_id) REFERENCES categories(id)
+    colors TEXT,
+    sizes TEXT,
+    category_id INT REFERENCES categories(id)
 );
 
-
 CREATE TABLE IF NOT EXISTS colors (
-    id_colors INT AUTO_INCREMENT PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     name VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS sizes (
-    id_sizes INT AUTO_INCREMENT PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     name VARCHAR(10) NOT NULL
 );
 
 INSERT INTO colors (name) VALUES 
-('red'), ('blue'), ('green'), ('black'), ('pink'), ('yellow'), ('peach'), ('white') , ('Lavender'), ('grey'),('orenge');
+('red'), ('blue'), ('green'), ('black'), ('pink'), ('yellow'), ('peach'), ('white'), ('Lavender'), ('grey'), ('orange');
 
 INSERT INTO sizes (name) VALUES 
 ('S'), ('M'), ('L'), ('XL');
 
-
-
-
-
-
-CREATE TABLE IF NOT EXISTS algeria_cities(
-   id INT AUTO_INCREMENT PRIMARY KEY         
-  ,commune_name       VARCHAR(255) NOT NULL COMMENT 'Name of commune in arabic'
-  ,commune_name_ascii VARCHAR(255) NOT NULL COMMENT 'Name of commune in ASCII characters (french)'
-  ,daira_name         VARCHAR(255) NOT NULL COMMENT 'Name of daira in arabic'
-  ,daira_name_ascii   VARCHAR(255) NOT NULL COMMENT 'Name of daira in ASCII characters (french)'
-  ,wilaya_code        VARCHAR(4) NOT NULL
-  ,wilaya_name        VARCHAR(255) NOT NULL COMMENT 'Name of wilaya in arabic'
-  ,wilaya_name_ascii  VARCHAR(255) NOT NULL COMMENT 'Name of wilaya in ASCII characters (french)'
+CREATE TABLE IF NOT EXISTS algeria_cities (
+    id SERIAL PRIMARY KEY,
+    commune_name VARCHAR(255) NOT NULL,
+    commune_name_ascii VARCHAR(255) NOT NULL,
+    daira_name VARCHAR(255) NOT NULL,
+    daira_name_ascii VARCHAR(255) NOT NULL,
+    wilaya_code VARCHAR(4) NOT NULL,
+    wilaya_name VARCHAR(255) NOT NULL,
+    wilaya_name_ascii VARCHAR(255) NOT NULL
 );
 
 
 
 
 
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تيمقتن','Timekten','أولف','Aoulef','01','أدرار','Adrar');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بودة','Bouda','أدرار','Adrar','01','أدرار','Adrar');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أولاد أحمد تيمي','Ouled Ahmed Timmi','أدرار','Adrar','01','أدرار','Adrar');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أدرار','Adrar','أدرار','Adrar','01','أدرار','Adrar');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('فنوغيل','Fenoughil','فنوغيل','Fenoughil','01','أدرار','Adrar');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('إن زغمير','In Zghmir','زاوية كنتة','Zaouiat Kounta','01','أدرار','Adrar');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('رقان','Reggane','رقان','Reggane','01','أدرار','Adrar');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سالي','Sali','رقان','Reggane','01','أدرار','Adrar');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('السبع','Sebaa','تسابيت','Tsabit','01','أدرار','Adrar');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تسابيت','Tsabit','تسابيت','Tsabit','01','أدرار','Adrar');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تامست','Tamest','فنوغيل','Fenoughil','01','أدرار','Adrar');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تامنطيط','Tamantit','فنوغيل','Fenoughil','01','أدرار','Adrar');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تيت','Tit','أولف','Aoulef','01','أدرار','Adrar');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('زاوية كنتة','Zaouiet Kounta','زاوية كنتة','Zaouiat Kounta','01','أدرار','Adrar');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('اقبلي','Akabli','أولف','Aoulef','01','أدرار','Adrar');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أولف','Aoulef','أولف','Aoulef','01','أدرار','Adrar');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تلعصة','Talassa','أبو الحسن','Abou El Hassane','02',' الشلف','Chlef');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الزبوجة','Zeboudja','الزبوجة','Zeboudja','02',' الشلف','Chlef');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الحجاج','El Hadjadj','أولاد بن عبد القادر','Ouled Ben Abdelkader','02',' الشلف','Chlef');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أولاد بن عبد القادر','Ouled Ben Abdelkader','أولاد بن عبد القادر','Ouled Ben Abdelkader','02',' الشلف','Chlef');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين مران','Ain Merane','عين مران','Ain Merane','02',' الشلف','Chlef');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بريرة','Breira','بني حواء','Beni Haoua','02',' الشلف','Chlef');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أولاد عباس','Ouled Abbes','وادي الفضة','Oued Fodda','02',' الشلف','Chlef');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('وادي الفضة','Oued Fodda','وادي الفضة','Oued Fodda','02',' الشلف','Chlef');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بني راشد','Beni Rached','وادي الفضة','Oued Fodda','02',' الشلف','Chlef');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الهرانفة','Herenfa','عين مران','Ain Merane','02',' الشلف','Chlef');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تاجنة','Tadjena','أبو الحسن','Abou El Hassane','02',' الشلف','Chlef');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('المرسى','El Marsa','المرسى','El Marsa','02',' الشلف','Chlef');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الشلف','Chlef','الشلف','Chlef','02',' الشلف','Chlef');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أم الدروع','Oum Drou','الشلف','Chlef','02',' الشلف','Chlef');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سنجاس','Sendjas','الشلف','Chlef','02',' الشلف','Chlef');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي عبد الرحمن','Si Abderrahmane','تنس','Tenes','02',' الشلف','Chlef');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي عكاشة','Si Akkacha','تنس','Tenes','02',' الشلف','Chlef');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تنس','Tenes','تنس','Tenes','02',' الشلف','Chlef');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بني بوعتاب','Beni  Bouattab','الكريمية','El Karimia','02',' الشلف','Chlef');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الكريمية','El Karimia','الكريمية','El Karimia','02',' الشلف','Chlef');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('حرشون','Harchoun','الكريمية','El Karimia','02',' الشلف','Chlef');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بوزغاية','Bouzeghaia','الزبوجة','Zeboudja','02',' الشلف','Chlef');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تاوقريت','Taougrit','تاوقريت','Taougrit','02',' الشلف','Chlef');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بني حواء','Beni Haoua','بني حواء','Beni Haoua','02',' الشلف','Chlef');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أبو الحسن','Abou El Hassane','أبو الحسن','Abou El Hassane','02',' الشلف','Chlef');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('وادي قوسين','Oued Goussine','بني حواء','Beni Haoua','02',' الشلف','Chlef');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الشطية','Chettia','أولاد فارس','Ouled Fares','02',' الشلف','Chlef');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('مصدق','Moussadek','المرسى','El Marsa','02',' الشلف','Chlef');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أولاد فارس','Ouled Fares','أولاد فارس','Ouled Fares','02',' الشلف','Chlef');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بوقادير','Boukadir','بوقادير','Boukadir','02',' الشلف','Chlef');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('وادي سلي','Oued Sly','بوقادير','Boukadir','02',' الشلف','Chlef');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الصبحة','Sobha','بوقادير','Boukadir','02',' الشلف','Chlef');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بنايرية','Benairia','الزبوجة','Zeboudja','02',' الشلف','Chlef');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الأبيض مجاجة','Labiod Medjadja','أولاد فارس','Ouled Fares','02',' الشلف','Chlef');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الظهرة','Dahra','تاوقريت','Taougrit','02',' الشلف','Chlef');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('البيضاء','El Beha','قتلة سيدي سعيد','Gueltat Si Saad','03','الأغواط','Laghouat');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('قلتة سيدي سعد','Gueltat Si Saad','قتلة سيدي سعيد','Gueltat Si Saad','03','الأغواط','Laghouat');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بريدة','Bra','بريدة','Bra','03','الأغواط','Laghouat');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين سيدي علي','Ain Si Ali','قتلة سيدي سعيد','Gueltat Si Saad','03','الأغواط','Laghouat');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تاجموت','Tadjemout','عين ماضي','Ain Madhi','03','الأغواط','Laghouat');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الحاج مشري','Hadj Mechri','بريدة','Bra','03','الأغواط','Laghouat');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تاويالة','Taouiala','بريدة','Bra','03','الأغواط','Laghouat');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الغيشة','El Ghicha','الغيشة','El Ghicha','03','الأغواط','Laghouat');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تاجرونة','Tadjrouna','عين ماضي','Ain Madhi','03','الأغواط','Laghouat');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سبقاق','Sebgag','أفلو','Aflou','03','الأغواط','Laghouat');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي بوزيد','Si Bouz','أفلو','Aflou','03','الأغواط','Laghouat');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('وادي مرة','Oued Morra','وادي مرة','Oued Morra','03','الأغواط','Laghouat');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الأغواط','Laghouat','الأغواط','Laghouat','03','الأغواط','Laghouat');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('وادي مزي','Oued M''''zi','وادي مرة','Oued Morra','03','الأغواط','Laghouat');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('قصر الحيران','Ksar El Hirane','قصر الحيران','Ksar El Hirane','03','الأغواط','Laghouat');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('العسافية','El Assafia','سيدي مخلوف','Si Makhlouf','03','الأغواط','Laghouat');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي مخلوف','Si Makhlouf','سيدي مخلوف','Si Makhlouf','03','الأغواط','Laghouat');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('حاسي الدلاعة','Hassi Delaa','حاسي الرمل','Hassi R''mel','03','الأغواط','Laghouat');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('حاسي الرمل','Hassi R\'mel','حاسي الرمل','Hassi R\'mel','03','الأغواط','Laghouat');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين ماضي','Ain Madhi','عين ماضي','Ain Madhi','03','الأغواط','Laghouat');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الحويطة','El Haouaita','عين ماضي','Ain Madhi','03','الأغواط','Laghouat');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الخنق','Kheneg','عين ماضي','Ain Madhi','03','الأغواط','Laghouat');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بن ناصر بن شهرة','Benacer Benchohra','قصر الحيران','Ksar El Hirane','03','الأغواط','Laghouat');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أفلو','Aflou','أفلو','Aflou','03','الأغواط','Laghouat');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('فكيرينة','Fkirina','فكيرينة','F''kirina','04','أم البواقي','Oum El Bouaghi');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الفجوج بوغرارة سعودي','El Fedjoudj Boughrara Sa','عين فكرون','Ain Fekroun','04','أم البواقي','Oum El Bouaghi');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين فكرون','Ain Fekroun','عين فكرون','Ain Fekroun','04','أم البواقي','Oum El Bouaghi');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الرحية','Rahia','مسكيانة','Meskiana','04','أم البواقي','Oum El Bouaghi');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('مسكيانة','Meskiana','مسكيانة','Meskiana','04','أم البواقي','Oum El Bouaghi');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('البلالة','El Belala','مسكيانة','Meskiana','04','أم البواقي','Oum El Bouaghi');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بحير الشرقي','Behir Chergui','مسكيانة','Meskiana','04','أم البواقي','Oum El Bouaghi');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('قصر الصباحي','Ksar Sbahi','قصر الصباحي','Ksar Sbahi','04','أم البواقي','Oum El Bouaghi');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سوق نعمان','Souk Naamane','سوق نعمان','Souk Naamane','04','أم البواقي','Oum El Bouaghi');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أولاد زواي','Ouled Zouai','سوق نعمان','Souk Naamane','04','أم البواقي','Oum El Bouaghi');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أم البواقي','Oum El Bouaghi','أم البواقي','Oum El Bouaghi','04','أم البواقي','Oum El Bouaghi');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين ببوش','Ain Babouche','عين ببوش','Ain Babouche','04','أم البواقي','Oum El Bouaghi');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين الزيتون','Ain Zitoun','أم البواقي','Oum El Bouaghi','04','أم البواقي','Oum El Bouaghi');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بئر الشهداء','Bir Chouhada','سوق نعمان','Souk Naamane','04','أم البواقي','Oum El Bouaghi');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين البيضاء','Ain Bea','عين البيضاء','Ain Bea','04','أم البواقي','Oum El Bouaghi');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بريش','Berriche','عين البيضاء','Ain Bea','04','أم البواقي','Oum El Bouaghi');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الزرق','Zorg','عين البيضاء','Ain Bea','04','أم البواقي','Oum El Bouaghi');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين مليلة','Ain M\'lila','عين مليلة','Ain M\'lila','04','أم البواقي','Oum El Bouaghi');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أولاد قاسم','Ouled Gacem','عين مليلة','Ain M\'lila','04','أم البواقي','Oum El Bouaghi');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أولاد حملة','Ouled Hamla','عين مليلة','Ain M\'lila','04','أم البواقي','Oum El Bouaghi');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('العامرية','El Amiria','سيقوس','Sigus','04','أم البواقي','Oum El Bouaghi');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيقوس','Sigus','سيقوس','Sigus','04','أم البواقي','Oum El Bouaghi');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('وادي نيني','Oued Nini','فكيرينة','F\'kirina','04','أم البواقي','Oum El Bouaghi');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين الديس','Ain Diss','عين ببوش','Ain Babouche','04','أم البواقي','Oum El Bouaghi');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الضلعة','Dhalaa','الضلعة','Dhalaa','04','أم البواقي','Oum El Bouaghi');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الجازية','El Djazia','الضلعة','Dhalaa','04','أم البواقي','Oum El Bouaghi');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين كرشة','Ain Kercha','عين كرشة','Ain Kercha','04','أم البواقي','Oum El Bouaghi');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الحرملية','El Harmilia','عين كرشة','Ain Kercha','04','أم البواقي','Oum El Bouaghi');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('هنشير تومغني','Hanchir Toumghani','عين كرشة','Ain Kercha','04','أم البواقي','Oum El Bouaghi');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('معافة','Maafa','عين التوتة','Ain Touta','05','باتنة','Batna');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('القصبات','Gosbat','رأس العيون','Ras El Aioun','05','باتنة','Batna');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تيمقاد','Timgad','تيمقاد','Timgad','05','باتنة','Batna');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تاكسلانت','Taxlent','أولاد سي سليمان','Ouled Si Slimane','05','باتنة','Batna');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أولاد سي سليمان','Ouled Si Slimane','أولاد سي سليمان','Ouled Si Slimane','05','باتنة','Batna');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('لمسان','Lemcene','أولاد سي سليمان','Ouled Si Slimane','05','باتنة','Batna');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تالخمت','Talkhamt','رأس العيون','Ras El Aioun','05','باتنة','Batna');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('رأس العيون','Ras El Aioun','رأس العيون','Ras El Aioun','05','باتنة','Batna');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الرحبات','Rahbat','رأس العيون','Ras El Aioun','05','باتنة','Batna');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أولاد سلام','Ouled Sellem','رأس العيون','Ras El Aioun','05','باتنة','Batna');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('القيقبة','Guigba','رأس العيون','Ras El Aioun','05','باتنة','Batna');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('ثنية العابد','Teniet El Abed','ثنية العابد','Theniet El Abed','05','باتنة','Batna');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('باتنة','Batna','باتنة','Batna','05','باتنة','Batna');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('فسديس','Fesdis','باتنة','Batna','05','باتنة','Batna');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('وادي الشعبة','Oued Chaaba','باتنة','Batna','05','باتنة','Batna');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('حيدوسة','Houssa','مروانة','Merouana','05','باتنة','Batna');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('قصر بلزمة','Ksar Bellezma','مروانة','Merouana','05','باتنة','Batna');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('مروانة','Merouana','مروانة','Merouana','05','باتنة','Batna');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('وادي الماء','Oued El Ma','مروانة','Merouana','05','باتنة','Batna');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('لازرو','Lazrou','سريانة','Seriana','05','باتنة','Batna');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سريانة','Seriana','سريانة','Seriana','05','باتنة','Batna');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('زانة البيضاء','Zanet El Bea','سريانة','Seriana','05','باتنة','Batna');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('منعة','Menaa','منعة','Menaa','05','باتنة','Batna');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تغرغار','Tigharghar','منعة','Menaa','05','باتنة','Batna');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين ياقوت','Ain Yagout','المعذر','El Madher','05','باتنة','Batna');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بومية','Boumia','المعذر','El Madher','05','باتنة','Batna');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('جرمة','Djerma','المعذر','El Madher','05','باتنة','Batna');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('المعذر','El Madher','المعذر','El Madher','05','باتنة','Batna');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عيون العصافير','Ouyoun El Assafir','تازولت','Tazoult','05','باتنة','Batna');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تازولت','Tazoult','تازولت','Tazoult','05','باتنة','Batna');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بومقر','Boumagueur','نقاوس','N\'gaous','05','باتنة','Batna');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('نقاوس','N Gaous','نقاوس','N\'gaous','05','باتنة','Batna');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سفيان','Sefiane','نقاوس','N\'gaous','05','باتنة','Batna');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أريس','Arris','أريس','Arris','05','باتنة','Batna');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تيغانمين','Tighanimine','أريس','Arris','05','باتنة','Batna');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين جاسر','Ain Djasser','عين جاسر','Ain Djasser','05','باتنة','Batna');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الحاسي','El Hassi','عين جاسر','Ain Djasser','05','باتنة','Batna');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سقانة','Seggana','سقانة','Seggana','05','باتنة','Batna');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تيلاطو','Tilatou','سقانة','Seggana','05','باتنة','Batna');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('فم الطوب','Foum Toub','إشمول','Ichemoul','05','باتنة','Batna');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('إشمول','Ichemoul','إشمول','Ichemoul','05','باتنة','Batna');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('إينوغيسن','Inoughissen','إشمول','Ichemoul','05','باتنة','Batna');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بوزينة','Bouzina','بوزينة','Bouzina','05','باتنة','Batna');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('لارباع','Larbaa','بوزينة','Bouzina','05','باتنة','Batna');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بولهيلات','Boulhilat','الشمرة','Chemora','05','باتنة','Batna');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الشمرة','Chemora','الشمرة','Chemora','05','باتنة','Batna');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بريكة','Barika','بريكة','Barika','05','باتنة','Batna');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بيطام','Bitam','بريكة','Barika','05','باتنة','Batna');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('إمدوكل','M Doukal','بريكة','Barika','05','باتنة','Batna');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عزيل عبد القادر','Azil Abedelkader','الجزار','Djezzar','05','باتنة','Batna');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الجزار','Djezzar','الجزار','Djezzar','05','باتنة','Batna');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أولاد عمار','Ouled Ammar','الجزار','Djezzar','05','باتنة','Batna');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('غسيرة','Ghassira','تكوت','Tkout','05','باتنة','Batna');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('كيمل','Kimmel','تكوت','Tkout','05','باتنة','Batna');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تكوت','T Kout','تكوت','Tkout','05','باتنة','Batna');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين التوتة','Ain Touta','عين التوتة','Ain Touta','05','باتنة','Batna');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بني فضالة الحقانية','Beni Foudhala El Hakania','عين التوتة','Ain Touta','05','باتنة','Batna');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أولاد فاضل','Ouled Fadel','تيمقاد','Timgad','05','باتنة','Batna');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أولاد عوف','Ouled Aouf','عين التوتة','Ain Touta','05','باتنة','Batna');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('شير','Chir','ثنية العابد','Theniet El Abed','05','باتنة','Batna');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('وادي الطاقة','Oued Taga','ثنية العابد','Theniet El Abed','05','باتنة','Batna');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي عياد','Si Ayad','سيدي عيش','Si Aich','06',' بجاية','Béjaïa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('برباشة','Barbacha','برباشة','Barbacha','06',' بجاية','Béjaïa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الفلاي','Leflaye','سيدي عيش','Si Aich','06',' بجاية','Béjaïa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('كنديرة','Kendira','برباشة','Barbacha','06',' بجاية','Béjaïa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي عيش','Si-Aich','سيدي عيش','Si Aich','06',' بجاية','Béjaïa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تيفرة','Tifra','سيدي عيش','Si Aich','06',' بجاية','Béjaïa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تينبدار','Tinebdar','سيدي عيش','Si Aich','06',' بجاية','Béjaïa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('القصر','El Kseur','القصر','El Kseur','06',' بجاية','Béjaïa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('فناية الماثن','Fenaia Il Maten','القصر','El Kseur','06',' بجاية','Béjaïa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('توجة','Toudja','القصر','El Kseur','06',' بجاية','Béjaïa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('ذراع القايد','Dra El Ca','خراطة','Kherrata','06',' بجاية','Béjaïa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('خراطة','Kherrata','خراطة','Kherrata','06',' بجاية','Béjaïa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بجاية','Bejaia','بجاية','Bejaia','06',' بجاية','Béjaïa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('وادي غير','Oued Ghir','بجاية','Bejaia','06',' بجاية','Béjaïa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بني معوش','Benimaouche','بني معوش','Beni Maouche','06',' بجاية','Béjaïa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بني جليل','Beni Djellil','أميزور','Amizour','06',' بجاية','Béjaïa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('فرعون','Feraoun','أميزور','Amizour','06',' بجاية','Béjaïa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سمعون','Smaoun','أميزور','Amizour','06',' بجاية','Béjaïa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تيمزريت','Timezrit','تيمزريت','Timezrit','06',' بجاية','Béjaïa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('مالبو','Melbou','سوق الإثنين','Souk El Tenine','06',' بجاية','Béjaïa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سوق لإثنين','Souk El Tenine','سوق الإثنين','Souk El Tenine','06',' بجاية','Béjaïa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تامريجت','Tamrjet','سوق الإثنين','Souk El Tenine','06',' بجاية','Béjaïa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بوخليفة','Boukhelifa','تيشي','Tichy','06',' بجاية','Béjaïa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تالة حمزة','Tala Hamza','تيشي','Tichy','06',' بجاية','Béjaïa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تيشي','Tichy','تيشي','Tichy','06',' بجاية','Béjaïa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أيت رزين','Ait R\'zine','إغيل علي','Ighil Ali','06',' بجاية','Béjaïa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('إغيل علي','Ighil-Ali','إغيل علي','Ighil Ali','06',' بجاية','Béjaïa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أيت إسماعيل','Ait-Smail','درقينة','Darguina','06',' بجاية','Béjaïa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('درقينة','Darguina','درقينة','Darguina','06',' بجاية','Béjaïa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تاسكريوت','Taskriout','درقينة','Darguina','06',' بجاية','Béjaïa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أوقاس','Aokas','أوقاس','Aokas','06',' بجاية','Béjaïa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تيزي نبربر','Tizi-N\'berber','أوقاس','Aokas','06',' بجاية','Béjaïa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أدكار','Adekar','أدكار','Adekar','06',' بجاية','Béjaïa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بني كسيلة','Beni K\'sila','أدكار','Adekar','06',' بجاية','Béjaïa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تاوريرت إغيل','Taourit Ighil','أدكار','Adekar','06',' بجاية','Béjaïa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أقبو','Akbou','أقبو','Akbou','06',' بجاية','Béjaïa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('شلاطة','Chellata','أقبو','Akbou','06',' بجاية','Béjaïa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('اغرم','Ighram','أقبو','Akbou','06',' بجاية','Béjaïa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تامقرة','Tamokra','أقبو','Akbou','06',' بجاية','Béjaïa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أمالو','Amalou','صدوق','Seddouk','06',' بجاية','Béjaïa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بوحمزة','Bouhamza','صدوق','Seddouk','06',' بجاية','Béjaïa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('مسيسنة','M\'cisna','صدوق','Seddouk','06',' بجاية','Béjaïa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('صدوق','Seddouk','صدوق','Seddouk','06',' بجاية','Béjaïa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بني مليكش','Beni-Mallikeche','تازملت','Tazmalt','06',' بجاية','Béjaïa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بو جليل','Boudjellil','تازملت','Tazmalt','06',' بجاية','Béjaïa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تازمالت','Tazmalt','تازملت','Tazmalt','06',' بجاية','Béjaïa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أكفادو','Akfadou','شميني','Chemini','06',' بجاية','Béjaïa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('شميني','Chemini','شميني','Chemini','06',' بجاية','Béjaïa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سوق اوفلا','Souk Oufella','شميني','Chemini','06',' بجاية','Béjaïa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('طيبان','Tibane','شميني','Chemini','06',' بجاية','Béjaïa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أوزلاقن','Ouzellaguen','إفري أوزلاقن','Ifri Ouzellaguene','06',' بجاية','Béjaïa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أميزور','Amizour','أميزور','Amizour','06',' بجاية','Béjaïa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الفيض','El Feh','زريبة الوادي','Zeribet El Oued','07','بسكرة','Biskra');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('ليشانة','Lichana','طولقة','Tolga','07','بسكرة','Biskra');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بوشقرون','Bouchakroun','طولقة','Tolga','07','بسكرة','Biskra');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('مخادمة','Mekhadma','أورلال','Ourlal','07','بسكرة','Biskra');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('جمورة','Djemorah','جمورة','Djemorah','07','بسكرة','Biskra');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('برانيس','Branis','جمورة','Djemorah','07','بسكرة','Biskra');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الوطاية','El Outaya','الوطاية','El Outaya','07','بسكرة','Biskra');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('القنطرة','El Kantara','القنطرة','El Kantara','07','بسكرة','Biskra');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('خنقة سيدي ناجي','Khenguet Si Nadji','زريبة الوادي','Zeribet El Oued','07','بسكرة','Biskra');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين زعطوط','Ain Zaatout','القنطرة','El Kantara','07','بسكرة','Biskra');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('زريبة الوادي','Zeribet El Oued','زريبة الوادي','Zeribet El Oued','07','بسكرة','Biskra');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('المزيرعة','Meziraa','زريبة الوادي','Zeribet El Oued','07','بسكرة','Biskra');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بسكرة','Biskra','بسكرة','Biskra','07','بسكرة','Biskra');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الحاجب','El Hadjab','بسكرة','Biskra','07','بسكرة','Biskra');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('مليلي','M\'lili','أورلال','Ourlal','07','بسكرة','Biskra');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('فوغالة','Foughala','فوغالة','Foughala','07','بسكرة','Biskra');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الغروس','El Ghrous','فوغالة','Foughala','07','بسكرة','Biskra');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('برج بن عزوز','Bordj Ben Azzouz','طولقة','Tolga','07','بسكرة','Biskra');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أورلال','Ourlal','أورلال','Ourlal','07','بسكرة','Biskra');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أوماش','Oumache','أورلال','Ourlal','07','بسكرة','Biskra');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين الناقة','Ain Naga','سيدي عقبة','Si Okba','07','بسكرة','Biskra');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('شتمة','Chetma','سيدي عقبة','Si Okba','07','بسكرة','Biskra');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الحوش','El Haouch','سيدي عقبة','Si Okba','07','بسكرة','Biskra');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي عقبة','Si Okba','سيدي عقبة','Si Okba','07','بسكرة','Biskra');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('مشونش','M\'chouneche','مشونش','Mechouneche','07','بسكرة','Biskra');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('ليوة','Lioua','أورلال','Ourlal','07','بسكرة','Biskra');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('طولقة','Tolga','طولقة','Tolga','07','بسكرة','Biskra');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بشار','Bechar','بشار','Bechar','08','بشار','Béchar');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بوكايس','Boukais','لحمر','Lahmar','08','بشار','Béchar');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('لحمر','Lahmar','لحمر','Lahmar','08','بشار','Béchar');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('موغل','Mogheul','لحمر','Lahmar','08','بشار','Béchar');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('المريجة','Merja','القنادسة','Kenadsa','08','بشار','Béchar');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تاغيت','Taghit','تاغيت','Taghit','08','بشار','Béchar');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('العبادلة','Abadla','العبادلة','Abadla','08','بشار','Béchar');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عرق فراج','Erg-Ferradj','العبادلة','Abadla','08','بشار','Béchar');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('مشرع هواري بومدين','Machraa-Houari-Boumediene','العبادلة','Abadla','08','بشار','Béchar');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بني ونيف','Beni-Ounif','بني ونيف','Beni Ounif','08','بشار','Béchar');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تبلبالة','Tabelbala','تبلبالة','Tabelbala','08','بشار','Béchar');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('القنادسة','Kenadsa','القنادسة','Kenadsa','08','بشار','Béchar');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بني مراد','Beni Mered','أولاد يعيش','Ouled Yaich','09','البليدة','Bla');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('اولاد سلامة','Ouled Slama','بوقرة','Bougara','09','البليدة','Bla');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('موزاية','Mouzaia','موزاية','Mouzaia','09','البليدة','Bla');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('حمام ملوان','Hammam Elouane','بوقرة','Bougara','09','البليدة','Bla');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بوقرة','Bougara','بوقرة','Bougara','09','البليدة','Bla');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('صوحان','Souhane','الأربعاء','Larbaa','09','البليدة','Bla');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الأربعاء','Larbaa','الأربعاء','Larbaa','09','البليدة','Bla');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الصومعة','Soumaa','بوفاريك','Boufarik','09','البليدة','Bla');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('قرواو','Guerrouaou','بوفاريك','Boufarik','09','البليدة','Bla');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بوفاريك','Boufarik','بوفاريك','Boufarik','09','البليدة','Bla');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('مفتاح','Meftah','مفتاح','Meftah','09','البليدة','Bla');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الشفة','Chiffa','موزاية','Mouzaia','09','البليدة','Bla');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين الرمانة','Ain Romana','موزاية','Mouzaia','09','البليدة','Bla');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('وادي جر','Oued  Djer','العفرون','El Affroun','09','البليدة','Bla');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('العفرون','El-Affroun','العفرون','El Affroun','09','البليدة','Bla');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أولاد يعيش','Ouled Yaich','أولاد يعيش','Ouled Yaich','09','البليدة','Bla');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الشريعة','Chrea','أولاد يعيش','Ouled Yaich','09','البليدة','Bla');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('جبابرة','Djebabra','مفتاح','Meftah','09','البليدة','Bla');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('وادي العلايق','Oued El Alleug','وادي العلايق','Oued El Alleug','09','البليدة','Bla');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بن خليل','Benkhelil','وادي العلايق','Oued El Alleug','09','البليدة','Bla');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بني تامو','Beni-Tamou','وادي العلايق','Oued El Alleug','09','البليدة','Bla');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الشبلي','Chebli','بوعينان','Bouinan','09','البليدة','Bla');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بوعينان','Bouinan','بوعينان','Bouinan','09','البليدة','Bla');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بوعرفة','Bouarfa','البليدة','Bla','09','البليدة','Bla');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('البليدة','Bla','البليدة','Bla','09','البليدة','Bla');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين العلوي','Ain Laloui','عين بسام','Ain Bessem','10','البويرة','Bouira');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الحجرة الزرقاء','Hadjera Zerga','برج أوخريص','Bordj Okhriss','10','البويرة','Bouira');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('مزدور','Mezdour','برج أوخريص','Bordj Okhriss','10','البويرة','Bouira');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تاقديت','Taguedite','برج أوخريص','Bordj Okhriss','10','البويرة','Bouira');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('ريدان','Rane','سور الغزلان','Sour El Ghozlane','10','البويرة','Bouira');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('المعمورة','Maamora','سور الغزلان','Sour El Ghozlane','10','البويرة','Bouira');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الحاكمية','El-Hakimia','سور الغزلان','Sour El Ghozlane','10','البويرة','Bouira');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أهل القصر','Ahl El Ksar','بشلول','Bechloul','10','البويرة','Bouira');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('ديرة','Dirah','سور الغزلان','Sour El Ghozlane','10','البويرة','Bouira');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الدشمية','Dechmia','سور الغزلان','Sour El Ghozlane','10','البويرة','Bouira');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بشلول','Bechloul','بشلول','Bechloul','10','البويرة','Bouira');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('آث  منصور','Ath Mansour','مشد الله','M\'chedallah','10','البويرة','Bouira');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سحاريج','Saharj','مشد الله','M\'chedallah','10','البويرة','Bouira');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('العجيبة','El Adjiba','بشلول','Bechloul','10','البويرة','Bouira');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الأسنام','El Asnam','بشلول','Bechloul','10','البويرة','Bouira');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أمشدالة','M Chedallah','مشد الله','M\'chedallah','10','البويرة','Bouira');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('برج أوخريص','Bordj Okhriss','برج أوخريص','Bordj Okhriss','10','البويرة','Bouira');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سور الغزلان','Sour El Ghozlane','سور الغزلان','Sour El Ghozlane','10','البويرة','Bouira');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('حنيف','Hanif','مشد الله','M\'chedallah','10','البويرة','Bouira');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('شرفة','Chorfa','مشد الله','M\'chedallah','10','البويرة','Bouira');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أولاد راشد','Ouled Rached','بشلول','Bechloul','10','البويرة','Bouira');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين الحجر','Ain El Hadjar','عين بسام','Ain Bessem','10','البويرة','Bouira');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أغبالو','Aghbalou','مشد الله','M\'chedallah','10','البويرة','Bouira');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('روراوة','Raouraoua','بئر غبالو','Bir Ghbalou','10','البويرة','Bouira');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الخبوزية','El Khabouzia','بئر غبالو','Bir Ghbalou','10','البويرة','Bouira');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بئر غبالو','Bir Ghbalou','بئر غبالو','Bir Ghbalou','10','البويرة','Bouira');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('البويرة','Bouira','البويرة','Bouira','10','البويرة','Bouira');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين الترك','Ain Turk','البويرة','Bouira','10','البويرة','Bouira');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أيت لعزيز','Ait Laaziz','البويرة','Bouira','10','البويرة','Bouira');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين بسام','Ain-Bessem','عين بسام','Ain Bessem','10','البويرة','Bouira');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('المقراني','El-Mokrani','سوق الخميس','Souk El Khemis','10','البويرة','Bouira');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سوق الخميس','Souk El Khemis','سوق الخميس','Souk El Khemis','10','البويرة','Bouira');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أعمر','Aomar','القادرية','Kadiria','10','البويرة','Bouira');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('جباحية','Djebahia','القادرية','Kadiria','10','البويرة','Bouira');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الهاشمية','El Hachimia','الهاشمية','El Hachimia','10','البويرة','Bouira');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('حيزر','Haizer','الحيزر','Haizer','10','البويرة','Bouira');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تاغزوت','Taghzout','الحيزر','Haizer','10','البويرة','Bouira');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بودربالة','Bouderbala','الأخضرية','Lakhdaria','10','البويرة','Bouira');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بوكرم','Boukram','الأخضرية','Lakhdaria','10','البويرة','Bouira');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('قرومة','Guerrouma','الأخضرية','Lakhdaria','10','البويرة','Bouira');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الأخضرية','Lakhdaria','الأخضرية','Lakhdaria','10','البويرة','Bouira');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('معلة','Maala','الأخضرية','Lakhdaria','10','البويرة','Bouira');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('قادرية','Kadiria','القادرية','Kadiria','10','البويرة','Bouira');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('زبربر','Z\'barbar (El Isseri )','الأخضرية','Lakhdaria','10','البويرة','Bouira');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('وادي البردي','Oued El Berdi','الهاشمية','El Hachimia','10','البويرة','Bouira');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تاظروك','Tazrouk','تاظروك','Tazrouk','11','تمنراست','Tamanrasset');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('ابلسة','Abelsa','سيلت','Silet','11','تمنراست','Tamanrasset');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تمنراست','Tamanrasset','تمنراست','Tamanrasset','11','تمنراست','Tamanrasset');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين امقل','Ain Amguel','تمنراست','Tamanrasset','11','تمنراست','Tamanrasset');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أدلس','les','تاظروك','Tazrouk','11','تمنراست','Tamanrasset');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الحويجبات','El-Houjbet','الماء الابيض','El Malabiod','12','تبسة','Tébessa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('العوينات','El-Aouinet','العوينات','El Aouinet','12','تبسة','Tébessa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('فركان','Ferkane','نقرين','Negrine','12','تبسة','Tébessa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('نقرين','Negrine','نقرين','Negrine','12','تبسة','Tébessa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بئر مقدم','Bir Mokkadem','بئر مقدم','Bir Mokadem','12','تبسة','Tébessa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بئر الذهب','Bir Dheheb','مرسط','Morsott','12','تبسة','Tébessa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('صفصاف الوسرى','Saf Saf El Ouesra','أم علي','Oum Ali','12','تبسة','Tébessa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('قريقر','Guorriguer','بئر مقدم','Bir Mokadem','12','تبسة','Tébessa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بكارية','Bekkaria','الكويف','El Kouif','12','تبسة','Tébessa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بولحاف الدير','Boulhaf Dyr','الكويف','El Kouif','12','تبسة','Tébessa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أم علي','Oum Ali','أم علي','Oum Ali','12','تبسة','Tébessa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بوخضرة','Boukhadra','العوينات','El Aouinet','12','تبسة','Tébessa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الماء الابيض','El Malabiod','الماء الابيض','El Malabiod','12','تبسة','Tébessa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الونزة','Ouenza','الونزة','Ouenza','12','تبسة','Tébessa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('المريج','El Merj','الونزة','Ouenza','12','تبسة','Tébessa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين الزرقاء','Ain Zerga','الونزة','Ouenza','12','تبسة','Tébessa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سطح قنطيس','Stah Guentis','العقلة','El Ogla','12','تبسة','Tébessa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('العقلة','El Ogla','العقلة','El Ogla','12','تبسة','Tébessa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('المزرعة','El Mezeraa','العقلة','El Ogla','12','تبسة','Tébessa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بجن','Bedjene','العقلة','El Ogla','12','تبسة','Tébessa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('مرسط','Morsott','مرسط','Morsott','12','تبسة','Tébessa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('ثليجان','Teljen','الشريعة','Cheria','12','تبسة','Tébessa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الشريعة','Cheria','الشريعة','Cheria','12','تبسة','Tébessa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('العقلة المالحة','El Ogla El Malha','بئر العاتر','Bir El Ater','12','تبسة','Tébessa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بئر العاتر','Bir-El-Ater','بئر العاتر','Bir El Ater','12','تبسة','Tébessa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تبسة','Tebessa','تبسة','Tebessa','12','تبسة','Tébessa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الحمامات','Hammamet','بئر مقدم','Bir Mokadem','12','تبسة','Tébessa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الكويف','El Kouif','الكويف','El Kouif','12','تبسة','Tébessa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('باب العسة','Bab El Assa','باب العسة','Bab El Assa','13','تلمسان','Tlemcen');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تيرني بني هديل','Terny Beni Hediel','منصورة','Mansourah','13','تلمسان','Tlemcen');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('منصورة','Mansourah','منصورة','Mansourah','13','تلمسان','Tlemcen');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بني مستر','Beni Mester','منصورة','Mansourah','13','تلمسان','Tlemcen');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين غرابة','Ain Ghoraba','منصورة','Mansourah','13','تلمسان','Tlemcen');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('شتوان','Chetouane','شتوان','Chetouane','13','تلمسان','Tlemcen');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عمير','Amieur','شتوان','Chetouane','13','تلمسان','Tlemcen');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين فزة','Ain Fezza','شتوان','Chetouane','13','تلمسان','Tlemcen');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('هنين','Honnaine','هنين','Honnaine','13','تلمسان','Tlemcen');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بني خلاد','Beni Khellad','هنين','Honnaine','13','تلمسان','Tlemcen');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي الجيلالي','Si Djillali','سيدي الجيلالي','Si Djillali','13','تلمسان','Tlemcen');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('البويهي','Bouihi','سيدي الجيلالي','Si Djillali','13','تلمسان','Tlemcen');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('ندرومة','Nedroma','ندرومة','Nedroma','13','تلمسان','Tlemcen');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('مسيردة الفواقة','M\'sirda Fouaga','مرسى بن مهيدي','Marsa Ben Mehdi','13','تلمسان','Tlemcen');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('مرسى بن مهيدي','Marsa Ben M\'hi','مرسى بن مهيدي','Marsa Ben Mehdi','13','تلمسان','Tlemcen');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي مجاهد','Si Medjahed','بني بوسعيد','Beni Boussa','13','تلمسان','Tlemcen');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بني بوسعيد','Beni Boussa','بني بوسعيد','Beni Boussa','13','تلمسان','Tlemcen');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سبدو','Sebdou','سبدو','Sebdou','13','تلمسان','Tlemcen');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('القور','El Gor','سبدو','Sebdou','13','تلمسان','Tlemcen');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('العريشة','El Aricha','سبدو','Sebdou','13','تلمسان','Tlemcen');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بوحلو','Bouhlou','صبرة','Sabra','13','تلمسان','Tlemcen');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('مغنية','Maghnia','مغنية','Maghnia','13','تلمسان','Tlemcen');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('حمام بوغرارة','Hammam Boughrara','مغنية','Maghnia','13','تلمسان','Tlemcen');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('زناتة','Zenata','الحناية','Hennaya','13','تلمسان','Tlemcen');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أولاد رياح','Ouled Riyah','الحناية','Hennaya','13','تلمسان','Tlemcen');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الحناية','Hennaya','الحناية','Hennaya','13','تلمسان','Tlemcen');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي العبدلي','Si Abdelli','بن سكران','Bensekrane','13','تلمسان','Tlemcen');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سوق الثلاثاء','Souk Tleta','باب العسة','Bab El Assa','13','تلمسان','Tlemcen');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بن سكران','Bensekrane','بن سكران','Bensekrane','13','تلمسان','Tlemcen');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('فلاوسن','Fellaoucene','فلاوسن','Fellaoucene','13','تلمسان','Tlemcen');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين الكبيرة','Ain Kebira','فلاوسن','Fellaoucene','13','تلمسان','Tlemcen');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين فتاح','Ain Fetah','فلاوسن','Fellaoucene','13','تلمسان','Tlemcen');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تلمسان','Tlemcen','تلمسان','Tlemcen','13','تلمسان','Tlemcen');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين النحالة','Ain Nehala','عين تالوت','Ain Tellout','13','تلمسان','Tlemcen');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين تالوت','Ain Tellout','عين تالوت','Ain Tellout','13','تلمسان','Tlemcen');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين يوسف','Ain Youcef','الرمشي','Remchi','13','تلمسان','Tlemcen');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بني وارسوس','Beni Ouarsous','الرمشي','Remchi','13','تلمسان','Tlemcen');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الفحول','El Fehoul','الرمشي','Remchi','13','تلمسان','Tlemcen');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الرمشي','Remchi','الرمشي','Remchi','13','تلمسان','Tlemcen');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سبعة شيوخ','Sebbaa Chioukh','الرمشي','Remchi','13','تلمسان','Tlemcen');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('السواني','Souani','باب العسة','Bab El Assa','13','تلمسان','Tlemcen');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('صبرة','Sabra','صبرة','Sabra','13','تلمسان','Tlemcen');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('دار يغمراسن','Dar Yaghmoracen','الغزوات','Ghazaouet','13','تلمسان','Tlemcen');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الغزوات','Ghazaouet','الغزوات','Ghazaouet','13','تلمسان','Tlemcen');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('السواحلية','Souahlia','الغزوات','Ghazaouet','13','تلمسان','Tlemcen');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تيانت','Tianet','الغزوات','Ghazaouet','13','تلمسان','Tlemcen');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بني صميل','Beni Smiel','أولاد ميمون','Ouled Mimoun','13','تلمسان','Tlemcen');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('وادي الخضر','Oued Lakhdar','أولاد ميمون','Ouled Mimoun','13','تلمسان','Tlemcen');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أولاد ميمون','Ouled Mimoun','أولاد ميمون','Ouled Mimoun','13','تلمسان','Tlemcen');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بني بهدل','Beni Bahdel','بني سنوس','Beni Snous','13','تلمسان','Tlemcen');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بني سنوس','Beni Snous','بني سنوس','Beni Snous','13','تلمسان','Tlemcen');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('العزايل','Azail','بني سنوس','Beni Snous','13','تلمسان','Tlemcen');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('جبالة','Djebala','ندرومة','Nedroma','13','تلمسان','Tlemcen');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('مهدية','Mahdia','مهدية','Mahdia','14','تيارت','Tiaret');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين دزاريت','Ain Dzarit','مهدية','Mahdia','14','تيارت','Tiaret');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('السبعين','Sebaine','مهدية','Mahdia','14','تيارت','Tiaret');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الفايجة','Faja','السوقر','Sougueur','14','تيارت','Tiaret');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سي عبد الغني','Si Abdelghani','السوقر','Sougueur','14','تيارت','Tiaret');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('السوقر','Sougueur','السوقر','Sougueur','14','تيارت','Tiaret');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('توسنينة','Tousnina','السوقر','Sougueur','14','تيارت','Tiaret');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('مغيلة','Meghila','مغيلة','Meghila','14','تيارت','Tiaret');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('السبت','Sebt','مغيلة','Meghila','14','تيارت','Tiaret');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي حسني','Si Hosni','مغيلة','Meghila','14','تيارت','Tiaret');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين الحديد','Ain El Had','فرندة','Frenda','14','تيارت','Tiaret');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('فرندة','Frenda','فرندة','Frenda','14','تيارت','Tiaret');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تخمرت','Takhemaret','فرندة','Frenda','14','تيارت','Tiaret');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين كرمس','Ain Kermes','عين كرمس','Ain Kermes','14','تيارت','Tiaret');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('جبيلات الرصفاء','Djebilet Rosfa','عين كرمس','Ain Kermes','14','تيارت','Tiaret');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('مادنة','Madna','عين كرمس','Ain Kermes','14','تيارت','Tiaret');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('مدريسة','Medrissa','عين كرمس','Ain Kermes','14','تيارت','Tiaret');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي عبد الرحمن','Si Abderrahmane','عين كرمس','Ain Kermes','14','تيارت','Tiaret');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('قصر الشلالة','Ksar Chellala','قصر الشلالة','Ksar Chellala','14','تيارت','Tiaret');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('قرطوفة','Guertoufa','رحوية','Rahouia','14','تيارت','Tiaret');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سرغين','Serghine','قصر الشلالة','Ksar Chellala','14','تيارت','Tiaret');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('زمالة  الأمير عبد القادر','Zmalet El Emir Abdelkade','قصر الشلالة','Ksar Chellala','14','تيارت','Tiaret');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('وادي ليلي','Oued Lilli','وادي ليلي','Oued Lili','14','تيارت','Tiaret');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي علي ملال','Si Ali Mellal','وادي ليلي','Oued Lili','14','تيارت','Tiaret');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('جيلالي بن عمار','Djillali Ben Amar','مشرع الصفا','Mechraa Sfa','14','تيارت','Tiaret');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('مشرع الصفا','Mechraa Safa','مشرع الصفا','Mechraa Sfa','14','تيارت','Tiaret');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تاقدمت','Tagdempt','مشرع الصفا','Mechraa Sfa','14','تيارت','Tiaret');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بوقرة','Bougara','حمادية','Hamadia','14','تيارت','Tiaret');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('حمادية','Hamadia','حمادية','Hamadia','14','تيارت','Tiaret');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الرشايقة','Rechaiga','حمادية','Hamadia','14','تيارت','Tiaret');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تيدة','Tda','وادي ليلي','Oued Lili','14','تيارت','Tiaret');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الناظورة','Nadorah','مهدية','Mahdia','14','تيارت','Tiaret');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تيارت','Tiaret','تيارت','Tiaret','14','تيارت','Tiaret');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('مدروسة','Medroussa','مدروسة','Medroussa','14','تيارت','Tiaret');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('ملاكو','Mellakou','مدروسة','Medroussa','14','تيارت','Tiaret');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي بختي','Si Bakhti','مدروسة','Medroussa','14','تيارت','Tiaret');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين الذهب','Ain Deheb','عين الذهب','Ain Deheb','14','تيارت','Tiaret');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('شحيمة','Chehaima','عين الذهب','Ain Deheb','14','تيارت','Tiaret');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('النعيمة','Naima','عين الذهب','Ain Deheb','14','تيارت','Tiaret');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين بوشقيف','Ain Bouchekif','دحموني','Dahmouni','14','تيارت','Tiaret');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('دحموني','Dahmouni','دحموني','Dahmouni','14','تيارت','Tiaret');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الرحوية','Rahouia','رحوية','Rahouia','14','تيارت','Tiaret');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('ميزرانـــة','Mizrana','تيقزيرت','Tigzirt','15','تيزي وزو','Tizi Ouzou');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('إيجــار','jeur','بوزقن','Bouzeguene','15','تيزي وزو','Tizi Ouzou');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بني دوالة','Beni-Douala','بني دوالة','Beni Douala','15','تيزي وزو','Tizi Ouzou');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بني زيكــي','Beni-Zikki','بوزقن','Bouzeguene','15','تيزي وزو','Tizi Ouzou');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('إيلولة أومـــالو','Illoula Oumalou','بوزقن','Bouzeguene','15','تيزي وزو','Tizi Ouzou');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أقني قغران','Agouni-Gueghrane','واضية','Ouadhias','15','تيزي وزو','Tizi Ouzou');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أيت بــوادو','Ait Bouaddou','واضية','Ouadhias','15','تيزي وزو','Tizi Ouzou');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('واضية','Ouadhias','واضية','Ouadhias','15','تيزي وزو','Tizi Ouzou');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تيزي نثلاثة','Tizi N\'tleta','واضية','Ouadhias','15','تيزي وزو','Tizi Ouzou');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أغريب','Aghribs','أزفون','Azeffoun','15','تيزي وزو','Tizi Ouzou');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أيت شافع','Ait-Chafaa','أزفون','Azeffoun','15','تيزي وزو','Tizi Ouzou');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أقرو','Akerrou','أزفون','Azeffoun','15','تيزي وزو','Tizi Ouzou');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أزفون','Azeffoun','أزفون','Azeffoun','15','تيزي وزو','Tizi Ouzou');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('إفليـــسن','Iflissen','تيقزيرت','Tigzirt','15','تيزي وزو','Tizi Ouzou');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تيقـزيرت','Tigzirt','تيقزيرت','Tigzirt','15','تيزي وزو','Tizi Ouzou');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أسي يوسف','Assi-Youcef','بوغني','Boghni','15','تيزي وزو','Tizi Ouzou');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بوغني','Boghni','بوغني','Boghni','15','تيزي وزو','Tizi Ouzou');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بونوح','Bounouh','بوغني','Boghni','15','تيزي وزو','Tizi Ouzou');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('مشطراس','Mechtras','بوغني','Boghni','15','تيزي وزو','Tizi Ouzou');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('ذراع بن خدة','Draa-Ben-Khedda','ذراع بن خدة','Draa Ben Khedda','15','تيزي وزو','Tizi Ouzou');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي نعمان','Si Namane','ذراع بن خدة','Draa Ben Khedda','15','تيزي وزو','Tizi Ouzou');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تادمايت','Tadmait','ذراع بن خدة','Draa Ben Khedda','15','تيزي وزو','Tizi Ouzou');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تيرمتين','Tirmitine','ذراع بن خدة','Draa Ben Khedda','15','تيزي وزو','Tizi Ouzou');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أيت بومهدي','Ait Boumahdi','واسيف','Ouacif','15','تيزي وزو','Tizi Ouzou');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أيت تودرت','Ait-Toudert','واسيف','Ouacif','15','تيزي وزو','Tizi Ouzou');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بني عيسي','Beni-Aissi','بني دوالة','Beni Douala','15','تيزي وزو','Tizi Ouzou');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('واسيف','Ouacif','واسيف','Ouacif','15','تيزي وزو','Tizi Ouzou');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أيت خليلي','Ait Khellili','مقلع','Mekla','15','تيزي وزو','Tizi Ouzou');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('مقــلع','Mekla','مقلع','Mekla','15','تيزي وزو','Tizi Ouzou');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('صوامـــع','Souama','مقلع','Mekla','15','تيزي وزو','Tizi Ouzou');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بني يني','Beni-Yenni','بني يني','Benni Yenni','15','تيزي وزو','Tizi Ouzou');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('إبودرارن','Iboudrarene','بني يني','Benni Yenni','15','تيزي وزو','Tizi Ouzou');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تيزي وزو','Tizi-Ouzou','تيزي وزو','Tizi Ouzou','15','تيزي وزو','Tizi Ouzou');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أبي يوسف','Abi-Youcef','عين الحمام','Ain El Hammam','15','تيزي وزو','Tizi Ouzou');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين الحمام','Ain-El-Hammam','عين الحمام','Ain El Hammam','15','تيزي وزو','Tizi Ouzou');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أيت يحيى','Ait-Yahia','عين الحمام','Ain El Hammam','15','تيزي وزو','Tizi Ouzou');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('اقبيل','Akbil','عين الحمام','Ain El Hammam','15','تيزي وزو','Tizi Ouzou');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بوجيمة','Boudjima','ماكودة','Makouda','15','تيزي وزو','Tizi Ouzou');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('ماكودة','Makouda','ماكودة','Makouda','15','تيزي وزو','Tizi Ouzou');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين الزاوية','Ain-Zaouia','ذراع الميزان','Draa El Mizan','15','تيزي وزو','Tizi Ouzou');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أيت يحي موسى','Ait Yahia Moussa','ذراع الميزان','Draa El Mizan','15','تيزي وزو','Tizi Ouzou');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('ذراع الميزان','Draa-El-Mizan','ذراع الميزان','Draa El Mizan','15','تيزي وزو','Tizi Ouzou');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('فريقات','Frikat','ذراع الميزان','Draa El Mizan','15','تيزي وزو','Tizi Ouzou');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('مكيرة','M\'kira','تيزي غنيف','Tizi-Ghenif','15','تيزي وزو','Tizi Ouzou');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تيزي غنيف','Tizi-Gheniff','تيزي غنيف','Tizi-Ghenif','15','تيزي وزو','Tizi Ouzou');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('يطــافن','Yatafene','بني يني','Benni Yenni','15','تيزي وزو','Tizi Ouzou');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('إيلـيــلتـن','Illilten','إفرحونان','Iferhounene','15','تيزي وزو','Tizi Ouzou');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('إمســوحال','Imsouhal','إفرحونان','Iferhounene','15','تيزي وزو','Tizi Ouzou');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عزازقة','Azazga','عزازقة','Azazga','15','تيزي وزو','Tizi Ouzou');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('فريحة','Freha','عزازقة','Azazga','15','تيزي وزو','Tizi Ouzou');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('إيفيغاء','Ifigha','عزازقة','Azazga','15','تيزي وزو','Tizi Ouzou');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('إعــكورن','Yakourene','عزازقة','Azazga','15','تيزي وزو','Tizi Ouzou');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('زكري','Zekri','عزازقة','Azazga','15','تيزي وزو','Tizi Ouzou');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أيت عقـواشة','Ait Aggouacha','الأربعاء ناث إيراثن','Larbaa Nath Iraten','15','تيزي وزو','Tizi Ouzou');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('إيرجـــن','Irdjen','الأربعاء ناث إيراثن','Larbaa Nath Iraten','15','تيزي وزو','Tizi Ouzou');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الأربعــاء ناث إيراثن','Larbaa Nath Irathen','الأربعاء ناث إيراثن','Larbaa Nath Iraten','15','تيزي وزو','Tizi Ouzou');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أيت  أومالو','Ait-Oumalou','تيزي راشد','Tizi Rached','15','تيزي وزو','Tizi Ouzou');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تيزي راشد','Tizi-Rached','تيزي راشد','Tizi Rached','15','تيزي وزو','Tizi Ouzou');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أيت عيسى ميمون','Ait-Aissa-Mimoun','واقنون','Ouaguenoun','15','تيزي وزو','Tizi Ouzou');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('واقنون','Ouaguenoun','واقنون','Ouaguenoun','15','تيزي وزو','Tizi Ouzou');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تيمـيزار','Timizart','واقنون','Ouaguenoun','15','تيزي وزو','Tizi Ouzou');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('معـــاتقة','Maatkas','معاتقة','Maatkas','15','تيزي وزو','Tizi Ouzou');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سوق الإثنين','Souk-El-Tenine','معاتقة','Maatkas','15','تيزي وزو','Tizi Ouzou');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أيت محمود','Ait-Mahmoud','بني دوالة','Beni Douala','15','تيزي وزو','Tizi Ouzou');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بنــــي زمنزار','Beni Zmenzer','بني دوالة','Beni Douala','15','تيزي وزو','Tizi Ouzou');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('إفــرحــونان','Iferhounene','إفرحونان','Iferhounene','15','تيزي وزو','Tizi Ouzou');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بوزقــن','Bouzeguene','بوزقن','Bouzeguene','15','تيزي وزو','Tizi Ouzou');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('حسين داي','Hussein Dey','حسين داي','Hussein Dey','16','الجزائر','Alger');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الكاليتوس','Les Eucalyptus','براقي','Baraki','16','الجزائر','Alger');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي موسى','Si Moussa','براقي','Baraki','16','الجزائر','Alger');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('القبة','Kouba','حسين داي','Hussein Dey','16','الجزائر','Alger');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('محمد بلوزداد','Mohamed Belouzdad','حسين داي','Hussein Dey','16','الجزائر','Alger');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين طاية','Ain Taya','الدار البيضاء','Dar El Bea','16','الجزائر','Alger');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('باب الزوار','Bab Ezzouar','الدار البيضاء','Dar El Bea','16','الجزائر','Alger');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('برج الكيفان','Bordj El Kiffan','الدار البيضاء','Dar El Bea','16','الجزائر','Alger');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الدار البيضاء','Dar El Bea','الدار البيضاء','Dar El Bea','16','الجزائر','Alger');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('المرسى','El Marsa','الدار البيضاء','Dar El Bea','16','الجزائر','Alger');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('المحمدية','Mohammadia','الدار البيضاء','Dar El Bea','16','الجزائر','Alger');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بئر توتة','Bir Touta','بئر توتة','Birtouta','16','الجزائر','Alger');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('اولاد شبل','Ouled Chebel','بئر توتة','Birtouta','16','الجزائر','Alger');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تسالة المرجة','Tessala El Merdja','بئر توتة','Birtouta','16','الجزائر','Alger');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('هراوة','Herraoua','الرويبة','Rouiba','16','الجزائر','Alger');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('رغاية','Reghaia','الرويبة','Rouiba','16','الجزائر','Alger');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الرويبة','Rouiba','الرويبة','Rouiba','16','الجزائر','Alger');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('المعالمة','Maalma','زرالدة','Zeralda','16','الجزائر','Alger');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الرحمانية','Rahmania','زرالدة','Zeralda','16','الجزائر','Alger');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سويدانية','Souania','زرالدة','Zeralda','16','الجزائر','Alger');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سطاوالي','Staoueli','زرالدة','Zeralda','16','الجزائر','Alger');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('زرالدة','Zeralda','زرالدة','Zeralda','16','الجزائر','Alger');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بابا حسن','Baba Hassen','الدرارية','Draria','16','الجزائر','Alger');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الدويرة','Douira','الدرارية','Draria','16','الجزائر','Alger');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الدرارية','Draria','الدرارية','Draria','16','الجزائر','Alger');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('العاشور','El Achour','الدرارية','Draria','16','الجزائر','Alger');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الخرايسية','Khraissia','الدرارية','Draria','16','الجزائر','Alger');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين بنيان','Ain Benian','الشراقة','Cheraga','16','الجزائر','Alger');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الشراقة','Cheraga','الشراقة','Cheraga','16','الجزائر','Alger');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('دالي ابراهيم','Dely Ibrahim','الشراقة','Cheraga','16','الجزائر','Alger');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الحمامات','Hammamet','الشراقة','Cheraga','16','الجزائر','Alger');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('اولاد فايت','Ouled Fayet','الشراقة','Cheraga','16','الجزائر','Alger');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الجزائر الوسطى','Alger Centre','سيدي امحمد','Si M\'hamed','16','الجزائر','Alger');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('المدنية','El Madania','سيدي امحمد','Si M\'hamed','16','الجزائر','Alger');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('المرادية','El Mouradia','سيدي امحمد','Si M\'hamed','16','الجزائر','Alger');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي امحمد','Si M\'hamed','سيدي امحمد','Si M\'hamed','16','الجزائر','Alger');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('السحاولة','Sehaoula','بئر مراد رايس','Bir Mourad Rais','16','الجزائر','Alger');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بولوغين بن زيري','Bologhine Ibnou Ziri','باب الوادي','Bab El Oued','16','الجزائر','Alger');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('القصبة','Casbah','باب الوادي','Bab El Oued','16','الجزائر','Alger');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('وادي قريش','Oued Koriche','باب الوادي','Bab El Oued','16','الجزائر','Alger');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الرايس حميدو','Rais Hamou','باب الوادي','Bab El Oued','16','الجزائر','Alger');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بئر مراد رايس','Bir Mourad Rais','بئر مراد رايس','Bir Mourad Rais','16','الجزائر','Alger');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بئر خادم','Birkhadem','بئر مراد رايس','Bir Mourad Rais','16','الجزائر','Alger');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('جسر قسنطينة','Djasr Kasentina','بئر مراد رايس','Bir Mourad Rais','16','الجزائر','Alger');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('حيدرة','Hydra','بئر مراد رايس','Bir Mourad Rais','16','الجزائر','Alger');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('المغارية','El Magharia','حسين داي','Hussein Dey','16','الجزائر','Alger');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('ابن عكنون','Ben Aknoun','بوزريعة','Bouzareah','16','الجزائر','Alger');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بني مسوس','Beni Messous','بوزريعة','Bouzareah','16','الجزائر','Alger');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بوزريعة','Bouzareah','بوزريعة','Bouzareah','16','الجزائر','Alger');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الابيار','El Biar','بوزريعة','Bouzareah','16','الجزائر','Alger');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('باش جراح','Bachedjerah','الحراش','El Harrach','16','الجزائر','Alger');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بوروبة','Bourouba','الحراش','El Harrach','16','الجزائر','Alger');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الحراش','El Harrach','الحراش','El Harrach','16','الجزائر','Alger');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('وادي السمار','Oued Smar','الحراش','El Harrach','16','الجزائر','Alger');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('براقي','Baraki','براقي','Baraki','16','الجزائر','Alger');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('برج البحري','Bordj El Bahri','الدار البيضاء','Dar El Bea','16','الجزائر','Alger');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('باب الوادي','Bab El Oued','باب الوادي','Bab El Oued','16','الجزائر','Alger');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('حاسي العش','Hassi El Euch','حاسي بحبح','Hassi Bahbah','17','الجلفة','Djelfa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين الإبل','Ain El Ibel','عين الإبل','Ain El Ibel','17','الجلفة','Djelfa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('القديد','El Gued','الشارف','Charef','17','الجلفة','Djelfa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الشارف','Charef','الشارف','Charef','17','الجلفة','Djelfa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بن يعقوب','Benyagoub','الشارف','Charef','17','الجلفة','Djelfa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي بايزيد','Si Baiz','دار الشيوخ','Dar Chioukh','17','الجلفة','Djelfa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('مليليحة','M\'liliha','دار الشيوخ','Dar Chioukh','17','الجلفة','Djelfa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('دار الشيوخ','Dar Chioukh','دار الشيوخ','Dar Chioukh','17','الجلفة','Djelfa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تعظميت','Taadmit','عين الإبل','Ain El Ibel','17','الجلفة','Djelfa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('حد الصحاري','Had Sahary','حد الصحاري','Had Sahary','17','الجلفة','Djelfa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بويرة الأحداب','Bouira Lahdab','حد الصحاري','Had Sahary','17','الجلفة','Djelfa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين فقه','Ain Fekka','حد الصحاري','Had Sahary','17','الجلفة','Djelfa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي لعجال','Si Laadjel','سيدي لعجال','Si Laadjel','17','الجلفة','Djelfa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('حاسي فدول','Hassi Fedoul','سيدي لعجال','Si Laadjel','17','الجلفة','Djelfa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الخميس','El Khemis','سيدي لعجال','Si Laadjel','17','الجلفة','Djelfa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سلمانة','Selmana','مسعد','Messaad','17','الجلفة','Djelfa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سد الرحال','Sed Rahal','مسعد','Messaad','17','الجلفة','Djelfa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('مسعد','Messaad','مسعد','Messaad','17','الجلفة','Djelfa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('قطارة','Guettara','مسعد','Messaad','17','الجلفة','Djelfa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('دلدول','Deldoul','مسعد','Messaad','17','الجلفة','Djelfa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('زكار','Zaccar','عين الإبل','Ain El Ibel','17','الجلفة','Djelfa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('دويس','Douis','الادريسية','El rissia','17','الجلفة','Djelfa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الادريسية','El rissia','الادريسية','El rissia','17','الجلفة','Djelfa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين الشهداء','Ain Chouhada','الادريسية','El rissia','17','الجلفة','Djelfa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الجلفة','Djelfa','الجلفة','Djelfa','17','الجلفة','Djelfa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بيرين','Birine','بيرين','Birine','17','الجلفة','Djelfa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أم العظام','Oum Laadham','فيض البطمة','Fah El Botma','17','الجلفة','Djelfa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('فيض البطمة','Fah El Botma','فيض البطمة','Fah El Botma','17','الجلفة','Djelfa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عمورة','Amourah','فيض البطمة','Fah El Botma','17','الجلفة','Djelfa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('زعفران','Zaafrane','حاسي بحبح','Hassi Bahbah','17','الجلفة','Djelfa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('قرنيني','Guernini','عين وسارة','Ain Oussera','17','الجلفة','Djelfa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين وسارة','Ain Oussera','عين وسارة','Ain Oussera','17','الجلفة','Djelfa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بنهار','Benhar','بيرين','Birine','17','الجلفة','Djelfa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين معبد','Ain Maabed','حاسي بحبح','Hassi Bahbah','17','الجلفة','Djelfa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('حاسي بحبح','Hassi Bahbah','حاسي بحبح','Hassi Bahbah','17','الجلفة','Djelfa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('مجبارة','Moudjebara','عين الإبل','Ain El Ibel','17','الجلفة','Djelfa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('جيجل','Jijel','جيجل','Jijel','18','جيجل','Jijel');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('العوانة','El Aouana','العوانة','El Aouana','18','جيجل','Jijel');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سلمى بن زيادة','Selma Benziada','العوانة','El Aouana','18','جيجل','Jijel');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أراقن سويسي','Erraguene Souissi','زيامة منصورية','Ziamah Mansouriah','18','جيجل','Jijel');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بوسيف أولاد عسكر','Boussif Ouled Askeur','الطاهير','Taher','18','جيجل','Jijel');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('زيامة منصورية','Ziama Mansouriah','زيامة منصورية','Ziamah Mansouriah','18','جيجل','Jijel');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الشحنة','Chahna','الطاهير','Taher','18','جيجل','Jijel');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الامير عبد القادر','Emir Abdelkader','الطاهير','Taher','18','جيجل','Jijel');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('وجانة','Oudjana','الطاهير','Taher','18','جيجل','Jijel');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الطاهير','Taher','الطاهير','Taher','18','جيجل','Jijel');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الشقفة','Chekfa','الشقفة','Chekfa','18','جيجل','Jijel');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('القنار نشفي','El Kennar Nouchfi','الشقفة','Chekfa','18','جيجل','Jijel');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي عبد العزيز','Si Abdelaziz','الشقفة','Chekfa','18','جيجل','Jijel');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الميلية','El Milia','الميلية','El Milia','18','جيجل','Jijel');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أولاد يحيى خدروش','Ouled Yahia Khadrouch','الميلية','El Milia','18','جيجل','Jijel');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أولاد رابح','Ouled Rabah','سيدي معروف','Si Marouf','18','جيجل','Jijel');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي معروف','Si Marouf','سيدي معروف','Si Marouf','18','جيجل','Jijel');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('غبالة','Ghebala','السطارة','Settara','18','جيجل','Jijel');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('السطارة','Settara','السطارة','Settara','18','جيجل','Jijel');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بوراوي بلهادف','Bouraoui Belhadef','العنصر','El Ancer','18','جيجل','Jijel');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('العنصر','El Ancer','العنصر','El Ancer','18','جيجل','Jijel');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('خيري واد عجول','Khiri Oued Adjoul','العنصر','El Ancer','18','جيجل','Jijel');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('جيملة','Djimla','جيملة','Djimla','18','جيجل','Jijel');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('قاوس','Kaous','تاكسنة','Texenna','18','جيجل','Jijel');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تاكسنة','Texenna','تاكسنة','Texenna','18','جيجل','Jijel');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('برج الطهر','Bordj T\'har','الشقفة','Chekfa','18','جيجل','Jijel');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بودريعة بني  ياجيس','Boudria Beniyadjis','جيملة','Djimla','18','جيجل','Jijel');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الجمعة بني حبيبي','Djemaa Beni Habibi','العنصر','El Ancer','18','جيجل','Jijel');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الرصفة','Rosfa','صالح باي','Salah Bey','19','سطيف','Sétif');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('واد البارد','Oued El Bared','عموشة','Amoucha','19','سطيف','Sétif');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تيزي نبشار','Tizi N\'bechar','عموشة','Amoucha','19','سطيف','Sétif');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('مزلوق','Mezloug','عين أرنات','Ain Arnat','19','سطيف','Sétif');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('قلال','Guellal','عين ولمان','Ain Oulmene','19','سطيف','Sétif');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('قصر الابطال','Kasr El Abtal','عين ولمان','Ain Oulmene','19','سطيف','Sétif');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أولاد سي أحمد','Ouled Si Ahmed','عين ولمان','Ain Oulmene','19','سطيف','Sétif');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أيت نوال مزادة','Ait Naoual Mezada','بوعنداس','Bouandas','19','سطيف','Sétif');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('ايت تيزي','Ait-Tizi','بوعنداس','Bouandas','19','سطيف','Sétif');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بوعنداس','Bouandas','بوعنداس','Bouandas','19','سطيف','Sétif');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بوسلام','Bousselam','بوعنداس','Bouandas','19','سطيف','Sétif');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('حمام السخنة','Hamam Soukhna','حمام السخنة','Hammam Sokhna','19','سطيف','Sétif');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الطاية','Taya','حمام السخنة','Hammam Sokhna','19','سطيف','Sétif');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('التلة','Tella','حمام السخنة','Hammam Sokhna','19','سطيف','Sétif');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين ولمان','Ain Oulmene','عين ولمان','Ain Oulmene','19','سطيف','Sétif');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بوطالب','Boutaleb','صالح باي','Salah Bey','19','سطيف','Sétif');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الحامة','Hamma','صالح باي','Salah Bey','19','سطيف','Sétif');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أولاد تبان','Ouled Tebben','صالح باي','Salah Bey','19','سطيف','Sétif');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عموشة','Amoucha','عموشة','Amoucha','19','سطيف','Sétif');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('صالح باي','Salah Bey','صالح باي','Salah Bey','19','سطيف','Sétif');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين أزال','Ain Azel','عين أزال','Ain Azel','19','سطيف','Sétif');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين الحجر','Ain Lahdjar','عين أزال','Ain Azel','19','سطيف','Sétif');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بيضاء برج','Beha Bordj','عين أزال','Ain Azel','19','سطيف','Sétif');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بئر حدادة','Bir Haddada','عين أزال','Ain Azel','19','سطيف','Sétif');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('قنزات','Guenzet','قنزات','Guenzet','19','سطيف','Sétif');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('حربيل','Harbil','قنزات','Guenzet','19','سطيف','Sétif');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين الروى','Ain-Roua','بوقاعة','Bougaa','19','سطيف','Sétif');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بني وسين','Beni Oussine','بوقاعة','Bougaa','19','سطيف','Sétif');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أوريسيا','El Ouricia','عين أرنات','Ain Arnat','19','سطيف','Sétif');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بوقاعة','Bougaa','بوقاعة','Bougaa','19','سطيف','Sétif');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('ذراع قبيلة','Draa-Kebila','حمام قرقور','Hammam Guergour','19','سطيف','Sétif');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('حمام قرقور','Hammam Guergour','حمام قرقور','Hammam Guergour','19','سطيف','Sétif');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سطيف','Setif','سطيف','Setif','19','سطيف','Sétif');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين الكبيرة','Ain El Kebira','عين الكبيرة','Ain El Kebira','19','سطيف','Sétif');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الدهامشة','Dehamcha','عين الكبيرة','Ain El Kebira','19','سطيف','Sétif');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أولاد عدوان','Ouled Addouane','عين الكبيرة','Ain El Kebira','19','سطيف','Sétif');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين السبت','Ain-Sebt','بني عزيز','Beni Aziz','19','سطيف','Sétif');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بني عزيز','Beni-Aziz','بني عزيز','Beni Aziz','19','سطيف','Sétif');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('معاوية','Maaouia','بني عزيز','Beni Aziz','19','سطيف','Sétif');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بلاعة','Bellaa','بئر العرش','Bir El Arch','19','سطيف','Sétif');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بئر العرش','Bir-El-Arch','بئر العرش','Bir El Arch','19','سطيف','Sétif');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الولجة','El-Ouldja','بئر العرش','Bir El Arch','19','سطيف','Sétif');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تاشودة','Tachouda','بئر العرش','Bir El Arch','19','سطيف','Sétif');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تالة إيفاسن','Tala-Ifacene','ماوكلان','Maoklane','19','سطيف','Sétif');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سرج الغول','Serdj-El-Ghoul','بابور','Babor','19','سطيف','Sétif');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('قجال','Gujel','قجال','Gujel','19','سطيف','Sétif');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أولاد صابر','Ouled Sabor','قجال','Gujel','19','سطيف','Sétif');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بازر سكرة','Bazer-Sakra','العلمة','El Eulma','19','سطيف','Sétif');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('العلمة','El Eulma','العلمة','El Eulma','19','سطيف','Sétif');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('قلتة زرقاء','Guelta Zerka','العلمة','El Eulma','19','سطيف','Sétif');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بني فودة','Beni Fouda','جميلة','Djemila','19','سطيف','Sétif');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('جميلة','Djemila','جميلة','Djemila','19','سطيف','Sétif');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين لقراج','Ain-Legradj','بني ورتيلان','Beni Ourtilane','19','سطيف','Sétif');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بني شبانة','Beni Chebana','بني ورتيلان','Beni Ourtilane','19','سطيف','Sétif');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بني ورتيلان','Beni Ourtilane','بني ورتيلان','Beni Ourtilane','19','سطيف','Sétif');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بني موحلي','Beni-Mouhli','بني ورتيلان','Beni Ourtilane','19','سطيف','Sétif');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين عباسة','Ain Abessa','عين أرنات','Ain Arnat','19','سطيف','Sétif');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين أرنات','Ain Arnat','عين أرنات','Ain Arnat','19','سطيف','Sétif');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بابور','Babor','بابور','Babor','19','سطيف','Sétif');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('ماوكلان','Maouaklane','ماوكلان','Maoklane','19','سطيف','Sétif');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سعيدة','Saa','سعيدة','Saa','20','سعيدة','Saïda');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تيرسين','Tircine','أولاد ابراهيم','Ouled Brahim','20','سعيدة','Saïda');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أولاد إبراهيم','Ouled Brahim','أولاد ابراهيم','Ouled Brahim','20','سعيدة','Saïda');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين السلطان','Ain Soltane','أولاد ابراهيم','Ouled Brahim','20','سعيدة','Saïda');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('المعمورة','Maamora','الحساسنة','El Hassasna','20','سعيدة','Saïda');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الحساسنة','El Hassasna','الحساسنة','El Hassasna','20','سعيدة','Saïda');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين السخونة','Ain Sekhouna','الحساسنة','El Hassasna','20','سعيدة','Saïda');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي بوبكر','Si Boubekeur','سيدي بوبكر','Si Boubekeur','20','سعيدة','Saïda');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أولاد خالد','Ouled Khaled','سيدي بوبكر','Si Boubekeur','20','سعيدة','Saïda');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('هونت','Hounet','سيدي بوبكر','Si Boubekeur','20','سعيدة','Saïda');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('يوب','Youb','يوب','Youb','20','سعيدة','Saïda');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('دوي ثابت','Doui Thabet','يوب','Youb','20','سعيدة','Saïda');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي احمد','Si Ahmed','عين الحجر','Ain El Hadjar','20','سعيدة','Saïda');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('مولاي العربي','Moulay Larbi','عين الحجر','Ain El Hadjar','20','سعيدة','Saïda');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين الحجر','Ain El Hadjar','عين الحجر','Ain El Hadjar','20','سعيدة','Saïda');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي عمر','Si Amar','سيدي بوبكر','Si Boubekeur','20','سعيدة','Saïda');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين بوزيان','Ain Bouziane','سيدي مزغيش','Si Mezghiche','21','سكيكدة','Skikda');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('صالح بو الشعور','Salah Bouchaour','الحروش','El Harrouch','21','سكيكدة','Skikda');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الحدائق','El Hadaiek','الحدائق','El Hadaiek','21','سكيكدة','Skikda');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('زردازة','Zerdezas','الحروش','El Harrouch','21','سكيكدة','Skikda');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أولاد حبابة','Ouled Habbaba','الحروش','El Harrouch','21','سكيكدة','Skikda');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بني ولبان','Beni Oulbane','سيدي مزغيش','Si Mezghiche','21','سكيكدة','Skikda');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي مزغيش','Si Mezghiche','سيدي مزغيش','Si Mezghiche','21','سكيكدة','Skikda');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بني بشير','Beni Bechir','رمضان جمال','Ramdane Djamel','21','سكيكدة','Skikda');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('رمضان جمال','Ramdane Djamel','رمضان جمال','Ramdane Djamel','21','سكيكدة','Skikda');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بين الويدان','Bin El Ouen','تمالوس','Tamalous','21','سكيكدة','Skikda');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('مجاز الدشيش','Emjez Edchich','الحروش','El Harrouch','21','سكيكدة','Skikda');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تمالوس','Tamalous','تمالوس','Tamalous','21','سكيكدة','Skikda');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين قشرة','Ain Kechra','عين قشرة','Ain Kechra','21','سكيكدة','Skikda');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الولجة بولبلوط','Ouldja Boulbalout','عين قشرة','Ain Kechra','21','سكيكدة','Skikda');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أم الطوب','Oum Toub','أم الطوب','Oum Toub','21','سكيكدة','Skikda');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الغدير','El Ghedir','عزابة','Azzaba','21','سكيكدة','Skikda');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الكركرة','Kerkara','تمالوس','Tamalous','21','سكيكدة','Skikda');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الحروش','El Arrouch','الحروش','El Harrouch','21','سكيكدة','Skikda');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الزيتونة','Zitouna','الزيتونة','Zitouna','21','سكيكدة','Skikda');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أولاد عطية','Ouled Attia','أولاد عطية','Ouled Attia','21','سكيكدة','Skikda');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('وادي الزهور','Oued Zhour','أولاد عطية','Ouled Attia','21','سكيكدة','Skikda');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('القل','Collo','القل','Collo','21','سكيكدة','Skikda');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الشرايع','Cheraia','القل','Collo','21','سكيكدة','Skikda');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بني زيد','Beni Z','القل','Collo','21','سكيكدة','Skikda');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('خناق مايو','Khenag Maoune','أولاد عطية','Ouled Attia','21','سكيكدة','Skikda');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('المرسى','El Marsa','بن عزوز','Ben Azzouz','21','سكيكدة','Skikda');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بن عزوز','Ben Azzouz','بن عزوز','Ben Azzouz','21','سكيكدة','Skikda');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بكوش لخضر','Bekkouche Lakhdar','بن عزوز','Ben Azzouz','21','سكيكدة','Skikda');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('السبت','Es Sebt','عزابة','Azzaba','21','سكيكدة','Skikda');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين شرشار','Ain Charchar','عزابة','Azzaba','21','سكيكدة','Skikda');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عزابة','Azzaba','عزابة','Azzaba','21','سكيكدة','Skikda');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بوشطاطة','Bouchetata','الحدائق','El Hadaiek','21','سكيكدة','Skikda');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('فلفلة','Filfila','سكيكدة','Skikda','21','سكيكدة','Skikda');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('حمادي كرومة','Hammadi Krouma','سكيكدة','Skikda','21','سكيكدة','Skikda');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سكيكدة','Skikda','سكيكدة','Skikda','21','سكيكدة','Skikda');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين زويت','Ain Zouit','الحدائق','El Hadaiek','21','سكيكدة','Skikda');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('جندل سعدي محمد','Djendel Saadi Mohamed','عزابة','Azzaba','21','سكيكدة','Skikda');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('قنواع','Kanoua','الزيتونة','Zitouna','21','سكيكدة','Skikda');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي علي بن يوب','Si Ali Benyoub','سيدي علي بن يوب','Si Ali Ben Youb','22','سيدي بلعباس','Si Bel Abbès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('مولاي سليسن','Moulay Slissen','مولاي سليسن','Moulay Slissen','22','سيدي بلعباس','Si Bel Abbès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الحصيبة','El Hacaiba','مولاي سليسن','Moulay Slissen','22','سيدي بلعباس','Si Bel Abbès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين تندمين','Ain Tindamine','مولاي سليسن','Moulay Slissen','22','سيدي بلعباس','Si Bel Abbès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تنيرة','Tenira','تنيرة','Tenira','22','سيدي بلعباس','Si Bel Abbès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('وادي سفيون','Oued Sefioun','تنيرة','Tenira','22','سيدي بلعباس','Si Bel Abbès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('حاسي دحو','Hassi Dahou','تنيرة','Tenira','22','سيدي بلعباس','Si Bel Abbès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('وادي تاوريرة','Oued Taourira','مرين','Merine','22','سيدي بلعباس','Si Bel Abbès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بن عشيبة شلية','Benachiba Chelia','تنيرة','Tenira','22','سيدي بلعباس','Si Bel Abbès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي يعقوب','Si Yacoub','سيدي لحسن','Si Lahcene','22','سيدي بلعباس','Si Bel Abbès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي لحسن','Si Lahcene','سيدي لحسن','Si Lahcene','22','سيدي بلعباس','Si Bel Abbès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي خالد','Si Khaled','سيدي لحسن','Si Lahcene','22','سيدي بلعباس','Si Bel Abbès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('طابية','Tabia','سيدي علي بن يوب','Si Ali Ben Youb','22','سيدي بلعباس','Si Bel Abbès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي ابراهيم','Si Brahim','عين البرد','Ain El Berd','22','سيدي بلعباس','Si Bel Abbès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('العمارنة','Amarnas','سيدي لحسن','Si Lahcene','22','سيدي بلعباس','Si Bel Abbès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بوخنفيس','Boukhanefis','سيدي علي بن يوب','Si Ali Ben Youb','22','سيدي بلعباس','Si Bel Abbès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('حاسي زهانة','Hassi Zahana','بن باديس','Ben Badis','22','سيدي بلعباس','Si Bel Abbès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('شيطوان البلايلة','Chetouane Belaila','بن باديس','Ben Badis','22','سيدي بلعباس','Si Bel Abbès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بن باديس','Ben Badis','بن باديس','Ben Badis','22','سيدي بلعباس','Si Bel Abbès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بضرابين المقراني','Bedrabine El Mokrani','بن باديس','Ben Badis','22','سيدي بلعباس','Si Bel Abbès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سفيزف','Sfisef','سفيزف','Sfisef','22','سيدي بلعباس','Si Bel Abbès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('مسيد','M\'c','سفيزف','Sfisef','22','سيدي بلعباس','Si Bel Abbès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بوجبهة البرج','Boudjebaa El Bordj','سفيزف','Sfisef','22','سيدي بلعباس','Si Bel Abbès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين أدن','Ain- Adden','سفيزف','Sfisef','22','سيدي بلعباس','Si Bel Abbès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي حمادوش','Si Hamadouche','عين البرد','Ain El Berd','22','سيدي بلعباس','Si Bel Abbès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي شعيب','Si Chaib','مرحوم','Marhoum','22','سيدي بلعباس','Si Bel Abbès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('مكدرة','Makedra','عين البرد','Ain El Berd','22','سيدي بلعباس','Si Bel Abbès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين البرد','Ain El Berd','عين البرد','Ain El Berd','22','سيدي بلعباس','Si Bel Abbès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('رجم دموش','Redjem Demouche','راس الماء','Ras El Ma','22','سيدي بلعباس','Si Bel Abbès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('راس الماء','Ras El Ma','راس الماء','Ras El Ma','22','سيدي بلعباس','Si Bel Abbès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('وادي السبع','Oued Sebaa','راس الماء','Ras El Ma','22','سيدي بلعباس','Si Bel Abbès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('مرحوم','Marhoum','مرحوم','Marhoum','22','سيدي بلعباس','Si Bel Abbès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي بلعباس','Si Bel-Abbes','سيدي بلعباس','Si Bel Abbes','22','سيدي بلعباس','Si Bel Abbès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين الثريد','Ain Thr','تسالة','Tessala','22','سيدي بلعباس','Si Bel Abbès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('السهالة الثورة','Sehala Thaoura','تسالة','Tessala','22','سيدي بلعباس','Si Bel Abbès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تسالة','Tessala','تسالة','Tessala','22','سيدي بلعباس','Si Bel Abbès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بلعربي','Belarbi','مصطفى بن ابراهيم','Mostefa  Ben Brahim','22','سيدي بلعباس','Si Bel Abbès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('مصطفى بن ابراهيم','Mostefa  Ben Brahim','مصطفى بن ابراهيم','Mostefa  Ben Brahim','22','سيدي بلعباس','Si Bel Abbès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تلموني','Tilmouni','مصطفى بن ابراهيم','Mostefa  Ben Brahim','22','سيدي بلعباس','Si Bel Abbès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('زروالة','Zerouala','مصطفى بن ابراهيم','Mostefa  Ben Brahim','22','سيدي بلعباس','Si Bel Abbès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الضاية','Dhaya','تلاغ','Telagh','22','سيدي بلعباس','Si Bel Abbès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('مزاورو','Mezaourou','تلاغ','Telagh','22','سيدي بلعباس','Si Bel Abbès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تغاليمت','Teghalimet','تلاغ','Telagh','22','سيدي بلعباس','Si Bel Abbès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تلاغ','Telagh','تلاغ','Telagh','22','سيدي بلعباس','Si Bel Abbès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين قادة','Ain Kada','سيدي علي بوسيدي','Si Ali Boussi','22','سيدي بلعباس','Si Bel Abbès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('لمطار','Lamtar','سيدي علي بوسيدي','Si Ali Boussi','22','سيدي بلعباس','Si Bel Abbès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي علي بوسيدي','Si Ali Boussi','سيدي علي بوسيدي','Si Ali Boussi','22','سيدي بلعباس','Si Bel Abbès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي دحو الزاير','Si Dahou Zairs','سيدي علي بوسيدي','Si Ali Boussi','22','سيدي بلعباس','Si Bel Abbès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بئر الحمام','Bir El Hammam','مرحوم','Marhoum','22','سيدي بلعباس','Si Bel Abbès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('مرين','Merine','مرين','Merine','22','سيدي بلعباس','Si Bel Abbès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تفسور','Tefessour','مرين','Merine','22','سيدي بلعباس','Si Bel Abbès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تاودموت','Taoudmout','مرين','Merine','22','سيدي بلعباس','Si Bel Abbès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عنابة','Annaba','عنابة','Annaba','23','عنابة','Annaba');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سرايدي','Serai','عنابة','Annaba','23','عنابة','Annaba');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('برحال','Berrahal','برحال','Berrahal','23','عنابة','Annaba');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('واد العنب','Oued El Aneb','برحال','Berrahal','23','عنابة','Annaba');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الحجار','El Hadjar','الحجار','El Hadjar','23','عنابة','Annaba');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي عمار','Si Amar','الحجار','El Hadjar','23','عنابة','Annaba');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('البوني','El Bouni','البوني','El Bouni','23','عنابة','Annaba');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين الباردة','Ain El Berda','عين الباردة','Ain El Berda','23','عنابة','Annaba');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الشرفة','Cheurfa','عين الباردة','Ain El Berda','23','عنابة','Annaba');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('العلمة','El Eulma','عين الباردة','Ain El Berda','23','عنابة','Annaba');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('التريعات','Treat','برحال','Berrahal','23','عنابة','Annaba');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('شطايبي','Chetaibi','شطايبي','Chetaibi','23','عنابة','Annaba');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('نشماية','Nechmaya','قلعة بوصبع','Guelaat Bousbaa','24','قالمة','Guelma');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بوحمدان','Bou Hamdane','حمام دباغ','Hammam Debagh','24','قالمة','Guelma');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('حمام دباغ','Hammam Debagh','حمام دباغ','Hammam Debagh','24','قالمة','Guelma');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الركنية','Roknia','حمام دباغ','Hammam Debagh','24','قالمة','Guelma');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الدهوارة','Dahouara','حمام النبايل','Hammam N\'bails','24','قالمة','Guelma');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('حمام النبايل','Hammam N\'bail','حمام النبايل','Hammam N\'bails','24','قالمة','Guelma');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('قالمة','Guelma','قالمة','Guelma','24','قالمة','Guelma');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بومهرة أحمد','Boumahra Ahmed','قلعة بوصبع','Guelaat Bousbaa','24','قالمة','Guelma');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين بن بيضاء','Ain Ben Bea','بوشقوف','Bouchegouf','24','قالمة','Guelma');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بوشقوف','Bouchegouf','بوشقوف','Bouchegouf','24','قالمة','Guelma');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('مجاز الصفاء','Medjez Sfa','بوشقوف','Bouchegouf','24','قالمة','Guelma');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('وادي فراغة','Oued Ferragha','بوشقوف','Bouchegouf','24','قالمة','Guelma');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بوعاتي محمود','Bouati Mahmoud','هيليوبوليس','Heliopolis','24','قالمة','Guelma');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الفجوج','El Fedjoudj','هيليوبوليس','Heliopolis','24','قالمة','Guelma');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('هيليوبوليس','Heliopolis','هيليوبوليس','Heliopolis','24','قالمة','Guelma');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('مجاز عمار','Medjez Amar','عين حساينية','Ain Hessainia','24','قالمة','Guelma');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('هواري بومدين','Houari Boumedienne','عين حساينية','Ain Hessainia','24','قالمة','Guelma');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('رأس العقبة','Ras El Agba','عين حساينية','Ain Hessainia','24','قالمة','Guelma');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سلاوة عنونة','Sellaoua Announa','عين حساينية','Ain Hessainia','24','قالمة','Guelma');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('جبالة الخميسي','Djeballah Khemissi','قلعة بوصبع','Guelaat Bousbaa','24','قالمة','Guelma');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('برج صباط','Bordj Sabath','وادي الزناتي','Oued Zenati','24','قالمة','Guelma');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('وادي الزناتي','Oued Zenati','وادي الزناتي','Oued Zenati','24','قالمة','Guelma');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين رقادة','Ain Regada','وادي الزناتي','Oued Zenati','24','قالمة','Guelma');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين العربي','Ain Larbi','عين مخلوف','Ain Makhlouf','24','قالمة','Guelma');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين مخلوف','Ain Makhlouf','عين مخلوف','Ain Makhlouf','24','قالمة','Guelma');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تاملوكة','Tamlouka','عين مخلوف','Ain Makhlouf','24','قالمة','Guelma');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين صندل','Ain Sandel','خزارة','Khezaras','24','قالمة','Guelma');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بوحشانة','Bou Hachana','خزارة','Khezaras','24','قالمة','Guelma');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('لخزارة','Khezaras','خزارة','Khezaras','24','قالمة','Guelma');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بلخير','Belkheir','قلعة بوصبع','Guelaat Bousbaa','24','قالمة','Guelma');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بني مزلين','Beni Mezline','قلعة بوصبع','Guelaat Bousbaa','24','قالمة','Guelma');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('قلعة بوصبع','Guelaat Bou Sbaa','قلعة بوصبع','Guelaat Bousbaa','24','قالمة','Guelma');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('وادي الشحم','Oued Cheham','حمام النبايل','Hammam N\'bails','24','قالمة','Guelma');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بن جراح','Bendjarah','قالمة','Guelma','24','قالمة','Guelma');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('ديدوش مراد','Douche Mourad','حامة بوزيان','Hamma Bouziane','25','قسنطينة','Constantine');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('حامة بوزيان','Hamma Bouziane','حامة بوزيان','Hamma Bouziane','25','قسنطينة','Constantine');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بني حميدان','Beni Hamane','زيغود يوسف','Zighoud Youcef','25','قسنطينة','Constantine');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('زيغود يوسف','Zighoud Youcef','زيغود يوسف','Zighoud Youcef','25','قسنطينة','Constantine');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين السمارة','Ain Smara','الخروب','El Khroub','25','قسنطينة','Constantine');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الخروب','El Khroub','الخروب','El Khroub','25','قسنطينة','Constantine');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أولاد رحمون','Ouled Rahmoun','الخروب','El Khroub','25','قسنطينة','Constantine');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين عبيد','Ain Ab','عين عبيد','Ain Ab','25','قسنطينة','Constantine');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أبن باديس الهرية','Ben Badis','عين عبيد','Ain Ab','25','قسنطينة','Constantine');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('ابن زياد','Ibn Ziad','ابن زياد','Ibn Ziad','25','قسنطينة','Constantine');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بوجريو مسعود','Messaoud Boudjeriou','ابن زياد','Ibn Ziad','25','قسنطينة','Constantine');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('قسنطينة','Constantine','قسنطينة','Constantine','25','قسنطينة','Constantine');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أولاد هلال','Ouled Hellal','أولاد عنتر','Ouled Antar','26','المدية','Médéa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('السواقي','Souagui','السواقي','Souaghi','26','المدية','Médéa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('قصر البخاري','Ksar El Boukhari','قصر البخاري','Ksar El Boukhari','26','المدية','Médéa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('مفاتحة','M\'fatha','قصر البخاري','Ksar El Boukhari','26','المدية','Médéa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('السانق','Saneg','قصر البخاري','Ksar El Boukhari','26','المدية','Médéa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('العزيزية','El Azizia','العزيزية','El Azizia','26','المدية','Médéa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('مغراوة','Maghraoua','العزيزية','El Azizia','26','المدية','Médéa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('ميهوب','Mihoub','العزيزية','El Azizia','26','المدية','Médéa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بوعيش','Bouaiche','الشهبونية','Chahbounia','26','المدية','Médéa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بوغزول','Boughzoul','الشهبونية','Chahbounia','26','المدية','Médéa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الشهبونية','Chabounia','الشهبونية','Chahbounia','26','المدية','Médéa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('حناشة','Hannacha','عوامري','Ouamri','26','المدية','Médéa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عوامري','Ouamri','عوامري','Ouamri','26','المدية','Médéa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('وادي حربيل','Oued Harbil','عوامري','Ouamri','26','المدية','Médéa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بني سليمان','Beni Slimane','بني سليمان','Beni Slimane','26','المدية','Médéa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بوعيشون','Bouaichoune','سي المحجوب','Si Mahdjoub','26','المدية','Médéa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أولاد بوعشرة','Ouled Bouachra','سي المحجوب','Si Mahdjoub','26','المدية','Médéa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سي المحجوب','Si Mahdjoub','سي المحجوب','Si Mahdjoub','26','المدية','Médéa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بوسكن','Bouskene','بني سليمان','Beni Slimane','26','المدية','Médéa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي الربيع','Si Rabie','بني سليمان','Beni Slimane','26','المدية','Médéa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('البرواقية','Berrouaghia','البرواقية','Berrouaghia','26','المدية','Médéa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أولاد دايد','Ouled De','البرواقية','Berrouaghia','26','المدية','Médéa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الربعية','Rebaia','البرواقية','Berrouaghia','26','المدية','Médéa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('مجبر','Medjebar','سغوان','Seghouane','26','المدية','Médéa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('ثلاث دوائر','Tletat Ed Douair','سغوان','Seghouane','26','المدية','Médéa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الزبيرية','Zoubiria','سغوان','Seghouane','26','المدية','Médéa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('العيساوية','Aissaouia','تابلاط','Tablat','26','المدية','Médéa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الحوضان','El Haoudane','تابلاط','Tablat','26','المدية','Médéa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('مزغنة','Mezerana','تابلاط','Tablat','26','المدية','Médéa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تابلاط','Tablat','تابلاط','Tablat','26','المدية','Médéa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بوغار','Boghar','أولاد عنتر','Ouled Antar','26','المدية','Médéa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سغوان','Seghouane','سغوان','Seghouane','26','المدية','Médéa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('ذراع السمار','Draa Esmar','المدية','Medea','26','المدية','Médéa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('المدية','Medea','المدية','Medea','26','المدية','Médéa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تمسقيدة','Tamesgua','المدية','Medea','26','المدية','Médéa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بن شكاو','Ben Chicao','وزرة','Ouzera','26','المدية','Médéa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الحمدانية','El Hamdania','وزرة','Ouzera','26','المدية','Médéa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('وزرة','Ouzera','وزرة','Ouzera','26','المدية','Médéa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تيزي مهدي','Tizi Mahdi','وزرة','Ouzera','26','المدية','Médéa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين بوسيف','Ain Boucif','عين بوسيف','Ain Boucif','26','المدية','Médéa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('العوينات','El Ouinet','عين بوسيف','Ain Boucif','26','المدية','Médéa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الكاف الاخضر','Kef Lakhdar','عين بوسيف','Ain Boucif','26','المدية','Médéa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أولاد امعرف','Ouled Emaaraf','عين بوسيف','Ain Boucif','26','المدية','Médéa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي دامد','Si Demed','عين بوسيف','Ain Boucif','26','المدية','Médéa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بعطة','Baata','العمارية','El Omaria','26','المدية','Médéa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('العمارية','El Omaria','العمارية','El Omaria','26','المدية','Médéa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أولاد إبراهيم','Ouled Brahim','العمارية','El Omaria','26','المدية','Médéa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بئر بن عابد','Bir Ben Laabed','القلب الكبير','Guelb El Kebir','26','المدية','Médéa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('القلب الكبير','El Guelbelkebir','القلب الكبير','Guelb El Kebir','26','المدية','Médéa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سدراية','Sedraya','القلب الكبير','Guelb El Kebir','26','المدية','Médéa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين اقصير','Ain Ouksir','شلالة العذاورة','Chellalat El Adhaoura','26','المدية','Médéa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('شلالة العذاورة','Chelalet El Adhaoura','شلالة العذاورة','Chellalat El Adhaoura','26','المدية','Médéa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('شنيقل','Cheniguel','شلالة العذاورة','Chellalat El Adhaoura','26','المدية','Médéa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تفراوت','Tafraout','شلالة العذاورة','Chellalat El Adhaoura','26','المدية','Médéa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بوشراحيل','Bouchrahil','سيدي نعمان','Si Naamane','26','المدية','Médéa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('خمس جوامع','Khams Djouamaa','سيدي نعمان','Si Naamane','26','المدية','Médéa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي نعمان','Si Naamane','سيدي نعمان','Si Naamane','26','المدية','Médéa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عزيز','Aziz','عزيز','Aziz','26','المدية','Médéa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('دراق','Derrag','عزيز','Aziz','26','المدية','Médéa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أم الجليل','Oum El Djellil','عزيز','Aziz','26','المدية','Médéa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('جواب','Djouab','السواقي','Souaghi','26','المدية','Médéa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي زهار','Si Zahar','السواقي','Souaghi','26','المدية','Médéa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي زيان','Si Ziane','السواقي','Souaghi','26','المدية','Médéa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أولاد عنتر','Ouled Antar','أولاد عنتر','Ouled Antar','26','المدية','Médéa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('فرناقة','Fornaka','عين نويسي','Ain Nouicy','27','مستغانم','Mostaganem');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('وادي الخير','Oued El Kheir','عين تادلس','Ain Tedeles','27','مستغانم','Mostaganem');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الحسيان (بني ياحي','Hassiane','عين نويسي','Ain Nouicy','27','مستغانم','Mostaganem');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('حاسي ماماش','Hassi Mameche','حاسي ماماش','Hassi Mameche','27','مستغانم','Mostaganem');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('مزغران','Mazagran','حاسي ماماش','Hassi Mameche','27','مستغانم','Mostaganem');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('ستيدية','Stia','حاسي ماماش','Hassi Mameche','27','مستغانم','Mostaganem');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين تادلس','Ain-Tedles','عين تادلس','Ain Tedeles','27','مستغانم','Mostaganem');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي بلعطار','Si Belaattar','عين تادلس','Ain Tedeles','27','مستغانم','Mostaganem');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سور','Sour','عين تادلس','Ain Tedeles','27','مستغانم','Mostaganem');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين بودينار','Ain-Boudinar','خير الدين','Kheir Eddine','27','مستغانم','Mostaganem');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('خير الدين','Kheir-Eddine','خير الدين','Kheir Eddine','27','مستغانم','Mostaganem');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('صيادة','Sayada','خير الدين','Kheir Eddine','27','مستغانم','Mostaganem');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي علي','Si Ali','سيدي علي','Si Ali','27','مستغانم','Mostaganem');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تزقايت','Tazgait','سيدي علي','Si Ali','27','مستغانم','Mostaganem');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بن عبد المالك رمضان','Benabdelmalek Ramdane','سيدي لخضر','Si Lakhdar','27','مستغانم','Mostaganem');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('مستغانم','Mostaganem','مستغانم','Mostaganem','27','مستغانم','Mostaganem');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('حجاج','Hadjadj','سيدي لخضر','Si Lakhdar','27','مستغانم','Mostaganem');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي لخضر','Si-Lakhdar','سيدي لخضر','Si Lakhdar','27','مستغانم','Mostaganem');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عشعاشة','Achaacha','عشعاشة','Achaacha','27','مستغانم','Mostaganem');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('خضرة','Khadra','عشعاشة','Achaacha','27','مستغانم','Mostaganem');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('نكمارية','Nekmaria','عشعاشة','Achaacha','27','مستغانم','Mostaganem');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أولاد بوغالم','Ouled Boughalem','عشعاشة','Achaacha','27','مستغانم','Mostaganem');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بوقيراط','Bouguirat','بوقيراط','Bouguirat','27','مستغانم','Mostaganem');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('صفصاف','Safsaf','بوقيراط','Bouguirat','27','مستغانم','Mostaganem');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيرات','Sirat','بوقيراط','Bouguirat','27','مستغانم','Mostaganem');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('السوافلية','Souaflia','بوقيراط','Bouguirat','27','مستغانم','Mostaganem');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين سيدي الشريف','Ain-Si Cherif','ماسرة','Mesra','27','مستغانم','Mostaganem');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('منصورة','Mansourah','ماسرة','Mesra','27','مستغانم','Mostaganem');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('ماسرة','Mesra','ماسرة','Mesra','27','مستغانم','Mostaganem');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الطواهرية','Touahria','ماسرة','Mesra','27','مستغانم','Mostaganem');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين نويسي','Ain-Nouissy','عين نويسي','Ain Nouicy','27','مستغانم','Mostaganem');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أولاد مع الله','Ouled-Maalah','سيدي علي','Si Ali','27','مستغانم','Mostaganem');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('شلال','Chellal','شلال','Chellal','28','المسيلة','M\'Sila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أولاد ماضي','Ouled Madhi','شلال','Chellal','28','المسيلة','M\'Sila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('خطوطي سد الجير','Khettouti Sed-El-Jir','شلال','Chellal','28','المسيلة','M\'Sila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بلعايبة','Belaiba','مقرة','Magra','28','المسيلة','M\'Sila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('برهوم','Berhoum','مقرة','Magra','28','المسيلة','M\'Sila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('دهاهنة','Dehahna','مقرة','Magra','28','المسيلة','M\'Sila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('مقرة','Magra','مقرة','Magra','28','المسيلة','M\'Sila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بني يلمان','Beni Ilmane','سيدي عيسى','Si Aissa','28','المسيلة','M\'Sila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بوطي السايح','Bouti Sayeh','سيدي عيسى','Si Aissa','28','المسيلة','M\'Sila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي عيسى','Si Aissa','سيدي عيسى','Si Aissa','28','المسيلة','M\'Sila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين الحجل','Ain El Hadjel','عين الحجل','Ain El Hadjel','28','المسيلة','M\'Sila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي هجرس','Si Hadjeres','عين الحجل','Ain El Hadjel','28','المسيلة','M\'Sila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بوسعادة','Bou Saada','بوسعادة','Bousaada','28','المسيلة','M\'Sila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الهامل','El Hamel','بوسعادة','Bousaada','28','المسيلة','M\'Sila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('ولتام','Oulteme','بوسعادة','Bousaada','28','المسيلة','M\'Sila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بن زوه','Benzouh','أولاد سيدي ابراهيم','Ouled Si Brahim','28','المسيلة','M\'Sila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أولاد سيدي ابراهيم','Ouled Si Brahim','أولاد سيدي ابراهيم','Ouled Si Brahim','28','المسيلة','M\'Sila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي عامر','Si Ameur','سيدي عامر','Si Ameur','28','المسيلة','M\'Sila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تامسة','Tamsa','سيدي عامر','Si Ameur','28','المسيلة','M\'Sila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بن سرور','Ben Srour','بن سرور','Ben Srour','28','المسيلة','M\'Sila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('محمد بوضياف','Mohamed Boudiaf','بن سرور','Ben Srour','28','المسيلة','M\'Sila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أولاد سليمان','Ouled Slimane','بن سرور','Ben Srour','28','المسيلة','M\'Sila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('زرزور','Zarzour','بن سرور','Ben Srour','28','المسيلة','M\'Sila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين الملح','Ain El Melh','عين الملح','Ain El Melh','28','المسيلة','M\'Sila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين فارس','Ain Fares','عين الملح','Ain El Melh','28','المسيلة','M\'Sila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين الريش','Ain Rich','عين الملح','Ain El Melh','28','المسيلة','M\'Sila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بئر فضة','Bir Foda','عين الملح','Ain El Melh','28','المسيلة','M\'Sila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي امحمد','Si M\'hamed','عين الملح','Ain El Melh','28','المسيلة','M\'Sila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('امجدل','Medjedel','امجدل','Medjedel','28','المسيلة','M\'Sila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('مناعة','Menaa','امجدل','Medjedel','28','المسيلة','M\'Sila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('جبل مساعد','Djebel Messaad','جبل مساعد','Djebel Messaad','28','المسيلة','M\'Sila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سليم','Slim','جبل مساعد','Djebel Messaad','28','المسيلة','M\'Sila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('المسيلة','M\'sila','المسيلة','M\'sila','28','المسيلة','M\'Sila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('حمام الضلعة','Hammam Dalaa','حمام الضلعة','Hammam Dalaa','28','المسيلة','M\'Sila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('ونوغة','Ouanougha','حمام الضلعة','Hammam Dalaa','28','المسيلة','M\'Sila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أولاد منصور','Ouled Mansour','حمام الضلعة','Hammam Dalaa','28','المسيلة','M\'Sila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تارمونت','Tarmount','حمام الضلعة','Hammam Dalaa','28','المسيلة','M\'Sila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('المعاضيد','Maad','أولاد دراج','Ouled Derradj','28','المسيلة','M\'Sila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('المطارفة','M\'tarfa','أولاد دراج','Ouled Derradj','28','المسيلة','M\'Sila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('معاريف','Maarif','شلال','Chellal','28','المسيلة','M\'Sila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أولاد دراج','Ouled Derradj','أولاد دراج','Ouled Derradj','28','المسيلة','M\'Sila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('السوامع','Souamaa','أولاد دراج','Ouled Derradj','28','المسيلة','M\'Sila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الحوامد','El Houamed','خبانة','Khoubana','28','المسيلة','M\'Sila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('خبانة','Khoubana','خبانة','Khoubana','28','المسيلة','M\'Sila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('مسيف','M\'cif','خبانة','Khoubana','28','المسيلة','M\'Sila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين الخضراء','Ain Khadra','مقرة','Magra','28','المسيلة','M\'Sila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أولاد عدي لقبالة','Ouled Addi Guebala','أولاد دراج','Ouled Derradj','28','المسيلة','M\'Sila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('وادي الأبطال','Oued El Abtal','وادي الأبطال','Oued El Abtal','29','معسكر','Mascara');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي عبد المومن','Si Abdelmoumene','المحمدية','Mohammadia','29','معسكر','Mascara');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سجرارة','Sedjerara','المحمدية','Mohammadia','29','معسكر','Mascara');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('المحمدية','Mohammadia','المحمدية','Mohammadia','29','معسكر','Mascara');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تيغنيف','Tighennif','تيغنيف','Tighennif','29','معسكر','Mascara');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('مقطع الدوز','Mocta-Douz','المحمدية','Mohammadia','29','معسكر','Mascara');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('فراقيق','Ferraguig','المحمدية','Mohammadia','29','معسكر','Mascara');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الغمري','El Ghomri','المحمدية','Mohammadia','29','معسكر','Mascara');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('زهانة','Zahana','زهانة','Zahana','29','معسكر','Mascara');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('القعدة','El Gaada','زهانة','Zahana','29','معسكر','Mascara');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('رأس عين عميروش','Ras El Ain Amirouche','عقاز','Oggaz','29','معسكر','Mascara');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عقاز','Oggaz','عقاز','Oggaz','29','معسكر','Mascara');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('العلايمية','Alaimia','عقاز','Oggaz','29','معسكر','Mascara');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيق','Sig','سيق','Sig','29','معسكر','Mascara');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الشرفاء','Chorfa','سيق','Sig','29','معسكر','Mascara');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بوهني','Bou Henni','سيق','Sig','29','معسكر','Mascara');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('المأمونية','El Mamounia','عين فارس','Ain Fares','29','معسكر','Mascara');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('القطنة','El Gueitena','بوحنيفية','Bouhanifia','29','معسكر','Mascara');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين فارس','Ain Fares','عين فارس','Ain Fares','29','معسكر','Mascara');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('غروس','Gharrous','عوف','Aouf','29','معسكر','Mascara');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بنيان','Benian','عوف','Aouf','29','معسكر','Mascara');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عوف','Aouf','عوف','Aouf','29','معسكر','Mascara');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('قرجوم','Guerdjoum','وادي التاغية','Oued Taria','29','معسكر','Mascara');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين أفرص','Ain Frass','عين فكان','Ain Fekan','29','معسكر','Mascara');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين فكان','Ain Fekan','عين فكان','Ain Fekan','29','معسكر','Mascara');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('خلوية','Khalouia','البرج','El Bordj','29','معسكر','Mascara');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('المنور','El Menaouer','البرج','El Bordj','29','معسكر','Mascara');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('البرج','El Bordj','البرج','El Bordj','29','معسكر','Mascara');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي بوسعيد','Si Boussa','غريس','Ghriss','29','معسكر','Mascara');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('المطمور','Matemore','غريس','Ghriss','29','معسكر','Mascara');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي قادة','Si Kada','تيغنيف','Tighennif','29','معسكر','Mascara');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('ماقضة','Makhda','غريس','Ghriss','29','معسكر','Mascara');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('معسكر','Mascara','معسكر','Mascara','29','معسكر','Mascara');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بوحنيفية','Bouhanifia','بوحنيفية','Bouhanifia','29','معسكر','Mascara');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('غريس','Ghriss','غريس','Ghriss','29','معسكر','Mascara');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('حسين','Hacine','بوحنيفية','Bouhanifia','29','معسكر','Mascara');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('القرط','El Keurt','تيزي','Tizi','29','معسكر','Mascara');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('فروحة','Froha','تيزي','Tizi','29','معسكر','Mascara');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تيزي','Tizi','تيزي','Tizi','29','معسكر','Mascara');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('السهايلية','Sehailia','تيغنيف','Tighennif','29','معسكر','Mascara');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('ماوسة','Maoussa','غريس','Ghriss','29','معسكر','Mascara');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي عبد الجبار','Si Abdeldjebar','وادي الأبطال','Oued El Abtal','29','معسكر','Mascara');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الحشم','El Hachem','الحشم','Hachem','29','معسكر','Mascara');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('نسمط','Nesmot','الحشم','Hachem','29','معسكر','Mascara');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('زلامطة','Zelamta','الحشم','Hachem','29','معسكر','Mascara');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين فراح','Ain Ferah','وادي الأبطال','Oued El Abtal','29','معسكر','Mascara');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('وادي التاغية','Oued Taria','وادي التاغية','Oued Taria','29','معسكر','Mascara');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('ورقلة','Ouargla','ورقلة','Ouargla','30','ورقلة','Ouargla');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('حاسي مسعود','Hassi Messaoud','حاسي مسعود','Hassi Messaoud','30','ورقلة','Ouargla');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين البيضاء','Ain Bea','سيدي خويلد','Si Khouiled','30','ورقلة','Ouargla');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('حاسي بن عبد الله','Hassi Ben Abdellah','سيدي خويلد','Si Khouiled','30','ورقلة','Ouargla');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي خويلد','Si Khouiled','سيدي خويلد','Si Khouiled','30','ورقلة','Ouargla');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('البرمة','El Borma','البرمة','El Borma','30','ورقلة','Ouargla');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الرويسات','Rouissat','ورقلة','Ouargla','30','ورقلة','Ouargla');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('انقوسة','N\'goussa','انقوسة','N\'goussa','30','ورقلة','Ouargla');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي الشحمي','Si Chami','السانية','Es Senia','31','وهران','Oran');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('حاسي مفسوخ','Hassi Mefsoukh','قديل','Gdyel','31','وهران','Oran');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بئر الجير','Bir El Djir','بئر الجير','Bir El Djir','31','وهران','Oran');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('حاسي بن عقبة','Hassi Ben Okba','بئر الجير','Bir El Djir','31','وهران','Oran');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('قديل','Gdyel','قديل','Gdyel','31','وهران','Oran');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('حاسي بونيف','Hassi Bounif','بئر الجير','Bir El Djir','31','وهران','Oran');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الكرمة','El Kerma','السانية','Es Senia','31','وهران','Oran');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('السانية','Es Senia','السانية','Es Senia','31','وهران','Oran');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بن فريحة','Ben Freha','قديل','Gdyel','31','وهران','Oran');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أرزيو','Arzew','أرزيو','Arzew','31','وهران','Oran');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي بن يبقى','Si Ben Yebka','أرزيو','Arzew','31','وهران','Oran');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين البية','Ain Biya','بطيوة','Bethioua','31','وهران','Oran');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بطيوة','Bethioua','بطيوة','Bethioua','31','وهران','Oran');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('مرسى الحجاج','Marsat El Hadjadj','بطيوة','Bethioua','31','وهران','Oran');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين الترك','Ain Turk','عين الترك','Ain Turk','31','وهران','Oran');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('وهران','Oran','وهران','Oran','31','وهران','Oran');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('العنصر','El Ancor','عين الترك','Ain Turk','31','وهران','Oran');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('المرسى الكبير','Mers El Kebir','عين الترك','Ain Turk','31','وهران','Oran');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بوفاتيس','Boufatis','وادي تليلات','Oued Tlelat','31','وهران','Oran');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('البراية','El Braya','وادي تليلات','Oued Tlelat','31','وهران','Oran');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('وادي تليلات','Oued Tlelat','وادي تليلات','Oued Tlelat','31','وهران','Oran');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين الكرمة','Ain Kerma','بوتليليس','Boutlelis','31','وهران','Oran');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بوتليليس','Boutlelis','بوتليليس','Boutlelis','31','وهران','Oran');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('مسرغين','Messerghin','بوتليليس','Boutlelis','31','وهران','Oran');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بوسفر','Bousfer','عين الترك','Ain Turk','31','وهران','Oran');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('طفراوي','Tafraoui','وادي تليلات','Oued Tlelat','31','وهران','Oran');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين العراك','Ain El Orak','الأبيض سيدي الشيخ','Labiodh Si Cheikh','32','البيض','El Bayadh');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('كراكدة','Krakda','بريزينة','Brezina','32','البيض','El Bayadh');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي سليمان','Si Slimane','بوعلام','Boualem','32','البيض','El Bayadh');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي عامر','Si Ameur','بوعلام','Boualem','32','البيض','El Bayadh');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بوعلام','Boualem','بوعلام','Boualem','32','البيض','El Bayadh');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('البنود','El Bnoud','الأبيض سيدي الشيخ','Labiodh Si Cheikh','32','البيض','El Bayadh');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بوقطب','Bougtoub','بوقطب','Bougtoub','32','البيض','El Bayadh');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الخيثر','El Kheiter','بوقطب','Bougtoub','32','البيض','El Bayadh');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('توسمولين','Tousmouline','بوقطب','Bougtoub','32','البيض','El Bayadh');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي طيفور','Si Tiffour','بوعلام','Boualem','32','البيض','El Bayadh');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('ستيتن','Stitten','بوعلام','Boualem','32','البيض','El Bayadh');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('البيض','El Bayadh','البيض','El Bayadh','32','البيض','El Bayadh');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('رقاصة','Rogassa','رقاصة','Rogassa','32','البيض','El Bayadh');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('المحرة','El Mehara','شلالة','Chellala','32','البيض','El Bayadh');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الكاف الأحمر','Kef El Ahmar','رقاصة','Rogassa','32','البيض','El Bayadh');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بريزينة','Brezina','بريزينة','Brezina','32','البيض','El Bayadh');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الغاسول','Ghassoul','بريزينة','Brezina','32','البيض','El Bayadh');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الأبيض سيدي الشيخ','Labiodh Si Cheikh','الأبيض سيدي الشيخ','Labiodh Si Cheikh','32','البيض','El Bayadh');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بوسمغون','Boussemghoun','بوسمغون','Boussemghoun','32','البيض','El Bayadh');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الشقيق','Cheguig','رقاصة','Rogassa','32','البيض','El Bayadh');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('شلالة','Chellala','شلالة','Chellala','32','البيض','El Bayadh');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('اربوات','Arbaouat','الأبيض سيدي الشيخ','Labiodh Si Cheikh','32','البيض','El Bayadh');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('برج عمر إدريس','Bordj Omar Driss','إن أمناس','In Amenas','33','إليزي','Illizi');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('دبداب','Debdeb','إن أمناس','In Amenas','33','إليزي','Illizi');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('إن أمناس','In Amenas','إن أمناس','In Amenas','33','إليزي','Illizi');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('إيليزي','Illizi','إيليزي','Illizi','33','إليزي','Illizi');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الحمادية','Elhammadia','الحمادية','El Hamadia','34','برج بوعريريج','Bordj Bou Arrerj');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أولاد سيدي ابراهيم','Ouled Si-Brahim','المنصورة','Mansourah','34','برج بوعريريج','Bordj Bou Arrerj');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين تاغروت','Ain Taghrout','عين تاغروت','Ain Taghrout','34','برج بوعريريج','Bordj Bou Arrerj');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تيكستار','Tixter','عين تاغروت','Ain Taghrout','34','برج بوعريريج','Bordj Bou Arrerj');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بليمور','Belimour','برج الغدير','Bordj Ghedir','34','برج بوعريريج','Bordj Bou Arrerj');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('العناصر','El Annasseur','برج الغدير','Bordj Ghedir','34','برج بوعريريج','Bordj Bou Arrerj');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('غيلاسة','Ghailasa','برج الغدير','Bordj Ghedir','34','برج بوعريريج','Bordj Bou Arrerj');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تقلعيت','Taglait','برج الغدير','Bordj Ghedir','34','برج بوعريريج','Bordj Bou Arrerj');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('برج الغدير','Bordj Ghedir','برج الغدير','Bordj Ghedir','34','برج بوعريريج','Bordj Bou Arrerj');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('العش','El Euch','الحمادية','El Hamadia','34','برج بوعريريج','Bordj Bou Arrerj');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي أمبارك','Si-Embarek','بئر قاصد علي','Bir Kasdali','34','برج بوعريريج','Bordj Bou Arrerj');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('خليل','Khelil','بئر قاصد علي','Bir Kasdali','34','برج بوعريريج','Bordj Bou Arrerj');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بئر قاصد علي','Bir Kasdali','بئر قاصد علي','Bir Kasdali','34','برج بوعريريج','Bordj Bou Arrerj');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تفرق','Tefreg','جعافرة','Djaafra','34','برج بوعريريج','Bordj Bou Arrerj');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الماين','El Main','جعافرة','Djaafra','34','برج بوعريريج','Bordj Bou Arrerj');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('جعافرة','Djaafra','جعافرة','Djaafra','34','برج بوعريريج','Bordj Bou Arrerj');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('القلة','Colla','جعافرة','Djaafra','34','برج بوعريريج','Bordj Bou Arrerj');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('ثنية النصر','Teniet En Nasr','مجانة','Medjana','34','برج بوعريريج','Bordj Bou Arrerj');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('المهير','El M\'hir','المنصورة','Mansourah','34','برج بوعريريج','Bordj Bou Arrerj');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('القصور','Ksour','الحمادية','El Hamadia','34','برج بوعريريج','Bordj Bou Arrerj');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('المنصورة','Mansoura','المنصورة','Mansourah','34','برج بوعريريج','Bordj Bou Arrerj');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('حرازة','Haraza','المنصورة','Mansourah','34','برج بوعريريج','Bordj Bou Arrerj');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الرابطة','Rabta','الحمادية','El Hamadia','34','برج بوعريريج','Bordj Bou Arrerj');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الياشير','El Achir','مجانة','Medjana','34','برج بوعريريج','Bordj Bou Arrerj');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('حسناوة','Hasnaoua','مجانة','Medjana','34','برج بوعريريج','Bordj Bou Arrerj');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('مجانة','Medjana','مجانة','Medjana','34','برج بوعريريج','Bordj Bou Arrerj');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين تسرة','Ain Tesra','رأس الوادي','Ras El Oued','34','برج بوعريريج','Bordj Bou Arrerj');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أولاد أبراهم','Ouled Brahem','رأس الوادي','Ras El Oued','34','برج بوعريريج','Bordj Bou Arrerj');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('رأس الوادي','Ras El Oued','رأس الوادي','Ras El Oued','34','برج بوعريريج','Bordj Bou Arrerj');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('برج زمورة','Bordj Zemmoura','برج زمورة','Bordj Zemmoura','34','برج بوعريريج','Bordj Bou Arrerj');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أولاد دحمان','Ouled Dahmane','برج زمورة','Bordj Zemmoura','34','برج بوعريريج','Bordj Bou Arrerj');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تسامرت','Tassamert','برج زمورة','Bordj Zemmoura','34','برج بوعريريج','Bordj Bou Arrerj');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('برج بوعريرج','B. B. Arrerj','برج بوعريريج','Bordj Bou Arrerj','34','برج بوعريريج','Bordj Bou Arrerj');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بن داود','Ben Daoud','المنصورة','Mansourah','34','برج بوعريريج','Bordj Bou Arrerj');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الخروبة','El Kharrouba','بودواو','Boudouaou','35','بومرداس','Boumerdès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('دلس','Dellys','دلس','Dellys','35','بومرداس','Boumerdès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بن شود','Ben Choud','دلس','Dellys','35','بومرداس','Boumerdès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أعفير','Afir','دلس','Dellys','35','بومرداس','Boumerdès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الثنية','Thenia','الثنية','Thenia','35','بومرداس','Boumerdès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بني عمران','Beni Amrane','الثنية','Thenia','35','بومرداس','Boumerdès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('خميس الخشنة','Khemis El Khechna','خميس الخشنة','Khemis El Khechna','35','بومرداس','Boumerdès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عمال','Ammal','الثنية','Thenia','35','بومرداس','Boumerdès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تيمزريت','Timezrit','يسر','Isser','35','بومرداس','Boumerdès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('زموري','Zemmouri','برج منايل','Bordj Menaiel','35','بومرداس','Boumerdès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الاربعطاش','Larbatache','خميس الخشنة','Khemis El Khechna','35','بومرداس','Boumerdès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('يسر','Isser','يسر','Isser','35','بومرداس','Boumerdès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('شعبة العامر','Chabet El Ameur','يسر','Isser','35','بومرداس','Boumerdès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أولاد عيسى','Ouled Aissa','الناصرية','Naciria','35','بومرداس','Boumerdès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الناصرية','Naciria','الناصرية','Naciria','35','بومرداس','Boumerdès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بوزقزة قدارة','Bouzegza Keddara','بودواو','Boudouaou','35','بومرداس','Boumerdès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سوق الحد','Souk El Had','الثنية','Thenia','35','بومرداس','Boumerdès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي داود','Si Daoud','بغلية','Baghlia','35','بومرداس','Boumerdès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بغلية','Baghlia','بغلية','Baghlia','35','بومرداس','Boumerdès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('لقاطة','Leghata','برج منايل','Bordj Menaiel','35','بومرداس','Boumerdès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('جنات','Djinet','برج منايل','Bordj Menaiel','35','بومرداس','Boumerdès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تيجلابين','Tjelabine','بومرداس','Boumerdes','35','بومرداس','Boumerdès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سي مصطفى','Si Mustapha','يسر','Isser','35','بومرداس','Boumerdès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أولاد هداج','Ouled Hedadj','بودواو','Boudouaou','35','بومرداس','Boumerdès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أولاد موسى','Ouled Moussa','خميس الخشنة','Khemis El Khechna','35','بومرداس','Boumerdès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بومرداس','Boumerdes','بومرداس','Boumerdes','35','بومرداس','Boumerdès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('قورصو','Corso','بومرداس','Boumerdes','35','بومرداس','Boumerdès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('برج منايل','Bordj Menaiel','برج منايل','Bordj Menaiel','35','بومرداس','Boumerdès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بودواو','Boudouaou','بودواو','Boudouaou','35','بومرداس','Boumerdès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بودواو البحري','Boudouaou El Bahri','بودواو','Boudouaou','35','بومرداس','Boumerdès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تاورقة','Taourga','بغلية','Baghlia','35','بومرداس','Boumerdès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('حمادي','Hammedi','خميس الخشنة','Khemis El Khechna','35','بومرداس','Boumerdès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين العسل','Ain El Assel','الطارف','El Tarf','36','الطارف','El Tarf');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بوقوس','Bougous','الطارف','El Tarf','36','الطارف','El Tarf');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الطارف','El Tarf','الطارف','El Tarf','36','الطارف','El Tarf');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الزيتونة','Zitouna','الطارف','El Tarf','36','الطارف','El Tarf');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('البسباس','Besbes','البسباس','Besbes','36','الطارف','El Tarf');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين الكرمة','Ain Kerma','بوحجار','Bouhadjar','36','الطارف','El Tarf');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بوحجار','Bouhadjar','بوحجار','Bouhadjar','36','الطارف','El Tarf');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('حمام بني صالح','Hammam Beni Salah','بوحجار','Bouhadjar','36','الطارف','El Tarf');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('وادي الزيتون','Oued Zitoun','بوحجار','Bouhadjar','36','الطارف','El Tarf');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بن مهيدي','Ben M Hi','بن مهيدي','Ben M\'hi','36','الطارف','El Tarf');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بريحان','Berrihane','بن مهيدي','Ben M\'hi','36','الطارف','El Tarf');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('شبيطة مختار','Chebaita Mokhtar','الذرعان','Drean','36','الطارف','El Tarf');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الشط','Echatt','بن مهيدي','Ben M\'hi','36','الطارف','El Tarf');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('العيون','El Aioun','القالة','El Kala','36','الطارف','El Tarf');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('القالة','El Kala','القالة','El Kala','36','الطارف','El Tarf');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('السوارخ','Souarekh','القالة','El Kala','36','الطارف','El Tarf');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('زريزر','Zerizer','البسباس','Besbes','36','الطارف','El Tarf');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بوثلجة','Bouteldja','بوثلجة','Bouteldja','36','الطارف','El Tarf');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الشافية','Chefia','بوثلجة','Bouteldja','36','الطارف','El Tarf');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بحيرة الطيور','Lac Des Oiseaux','بوثلجة','Bouteldja','36','الطارف','El Tarf');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('شحاني','Chihani','الذرعان','Drean','36','الطارف','El Tarf');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('رمل السوق','Raml Souk','القالة','El Kala','36','الطارف','El Tarf');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عصفور','Asfour','البسباس','Besbes','36','الطارف','El Tarf');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الذرعـان','Drean','الذرعان','Drean','36','الطارف','El Tarf');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تندوف','Tindouf','تندوف','Tindouf','37','تندوف','Tindouf');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أم العسل','Oum El Assel','تندوف','Tindouf','37','تندوف','Tindouf');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('خميستي','Khemisti','خميستي','Khemisti','38','تيسمسيلت','Tissemsilt');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('ثنية الاحد','Theniet El Had','ثنية الاحد','Theniet El Had','38','تيسمسيلت','Tissemsilt');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أولاد بسام','Ouled Bessam','تيسمسيلت','Tissemsilt','38','تيسمسيلت','Tissemsilt');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي بوتوشنت','Si Boutouchent','ثنية الاحد','Theniet El Had','38','تيسمسيلت','Tissemsilt');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تيسمسيلت','Tissemsilt','تيسمسيلت','Tissemsilt','38','تيسمسيلت','Tissemsilt');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي العنتري','Si Lantri','لرجام','Lardjem','38','تيسمسيلت','Tissemsilt');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بني شعيب','Beni Chaib','برج بونعامة','Bordj Bounaama','38','تيسمسيلت','Tissemsilt');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بني لحسن','Beni Lahcene','برج بونعامة','Bordj Bounaama','38','تيسمسيلت','Tissemsilt');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي عابد','Si Abed','عماري','Ammari','38','تيسمسيلت','Tissemsilt');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي سليمان','Si Slimane','برج بونعامة','Bordj Bounaama','38','تيسمسيلت','Tissemsilt');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بوقائد','Bouca','الأزهرية','Lazharia','38','تيسمسيلت','Tissemsilt');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الأربعاء','Larbaa','الأزهرية','Lazharia','38','تيسمسيلت','Tissemsilt');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الأزهرية','Lazharia','الأزهرية','Lazharia','38','تيسمسيلت','Tissemsilt');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('لرجام','Lardjem','لرجام','Lardjem','38','تيسمسيلت','Tissemsilt');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الملعب','Melaab','لرجام','Lardjem','38','تيسمسيلت','Tissemsilt');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('العيون','Layoune','خميستي','Khemisti','38','تيسمسيلت','Tissemsilt');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تملاحت','Tamellahet','لرجام','Lardjem','38','تيسمسيلت','Tissemsilt');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('اليوسفية','Youssoufia','برج الأمير عبد القادر','Bordj Emir Abdelkader','38','تيسمسيلت','Tissemsilt');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('برج الأمير عبد القادر','Bordj El Emir Abdelkader','برج الأمير عبد القادر','Bordj Emir Abdelkader','38','تيسمسيلت','Tissemsilt');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عماري','Ammari','عماري','Ammari','38','تيسمسيلت','Tissemsilt');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('المعاصم','Maacem','عماري','Ammari','38','تيسمسيلت','Tissemsilt');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('برج بونعامة','Bordj Bounaama','برج بونعامة','Bordj Bounaama','38','تيسمسيلت','Tissemsilt');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('دوار الماء','Douar El Maa','الطالب العربي','Taleb Larbi','39','الوادي','El Oued');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('العقلة','El Ogla','الرباح','Robbah','39','الوادي','El Oued');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('المقرن','Magrane','المقرن','Magrane','39','الوادي','El Oued');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي عون','Si Aoun','المقرن','Magrane','39','الوادي','El Oued');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('اميه وانسة','Mih Ouansa','اميه وانسة','Mih Ouensa','39','الوادي','El Oued');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('كوينين','Kouinine','الوادي','El Oued','39','الوادي','El Oued');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('البياضة','Bayadha','البياضة','Bayadha','39','الوادي','El Oued');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('النخلة','Nakhla','الرباح','Robbah','39','الوادي','El Oued');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الرباح','Robbah','الرباح','Robbah','39','الوادي','El Oued');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('قمار','Guemar','قمار','Guemar','39','الوادي','El Oued');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بن  قشة','Ben Guecha','الطالب العربي','Taleb Larbi','39','الوادي','El Oued');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('ورماس','Ourmes','قمار','Guemar','39','الوادي','El Oued');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تغزوت','Taghzout','قمار','Guemar','39','الوادي','El Oued');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الحمراية','Hamraia','الرقيبة','Reguiba','39','الوادي','El Oued');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الرقيبة','Reguiba','الرقيبة','Reguiba','39','الوادي','El Oued');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الدبيلة','Debila','الدبيلة','Debila','39','الوادي','El Oued');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('حساني عبد الكريم','Hassani Abdelkrim','الدبيلة','Debila','39','الوادي','El Oued');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('حاسي خليفة','Hassi Khalifa','حاسي خليفة','Hassi Khalifa','39','الوادي','El Oued');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الطريفاوي','Trifaoui','حاسي خليفة','Hassi Khalifa','39','الوادي','El Oued');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الطالب العربي','Taleb Larbi','الطالب العربي','Taleb Larbi','39','الوادي','El Oued');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('وادي العلندة','Oued El Alenda','اميه وانسة','Mih Ouensa','39','الوادي','El Oued');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الوادي','El-Oued','الوادي','El Oued','39','الوادي','El Oued');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('خيران','Khirane','ششار','Chechar','40','خنشلة','Khenchela');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بابار','Babar','بابار','Babar','40','خنشلة','Khenchela');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('المحمل','El Mahmal','أولاد رشاش','Ouled Rechache','40','خنشلة','Khenchela');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أولاد رشاش','Ouled Rechache','أولاد رشاش','Ouled Rechache','40','خنشلة','Khenchela');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('جلال','Djellal','ششار','Chechar','40','خنشلة','Khenchela');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('يابوس','Yabous','بوحمامة','Bouhmama','40','خنشلة','Khenchela');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('خنشلة','Khenchela','خنشلة','Khenchela','40','خنشلة','Khenchela');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('قايس','Kais','قايس','Kais','40','خنشلة','Khenchela');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('شلية','Chelia','بوحمامة','Bouhmama','40','خنشلة','Khenchela');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الرميلة','Remila','قايس','Kais','40','خنشلة','Khenchela');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تاوزيانت','Taouzianat','قايس','Kais','40','خنشلة','Khenchela');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بغاي','Baghai','الحامة','El Hamma','40','خنشلة','Khenchela');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الحامة','El Hamma','الحامة','El Hamma','40','خنشلة','Khenchela');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('انسيغة','Ensigha','الحامة','El Hamma','40','خنشلة','Khenchela');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('طامزة','Tamza','الحامة','El Hamma','40','خنشلة','Khenchela');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين الطويلة','Ain Touila','عين الطويلة','Ain Touila','40','خنشلة','Khenchela');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('متوسة','M\'toussa','عين الطويلة','Ain Touila','40','خنشلة','Khenchela');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بوحمامة','Bouhmama','بوحمامة','Bouhmama','40','خنشلة','Khenchela');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الولجة','El Oueldja','ششار','Chechar','40','خنشلة','Khenchela');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('مصارة','M\'sara','بوحمامة','Bouhmama','40','خنشلة','Khenchela');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('ششار','Chechar','ششار','Chechar','40','خنشلة','Khenchela');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سوق أهراس','Souk Ahras','سوق أهراس','Souk Ahras','41','سوق أهراس','Souk Ahras');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين سلطان','Ain Soltane','سدراتة','Sedrata','41','سوق أهراس','Souk Ahras');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سدراتة','Sedrata','سدراتة','Sedrata','41','سوق أهراس','Souk Ahras');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الحنانشة','Hanencha','المشروحة','Mechroha','41','سوق أهراس','Souk Ahras');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('المشروحة','Machroha','المشروحة','Mechroha','41','سوق أهراس','Souk Ahras');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين الزانة','Ain Zana','أولاد إدريس','Ouled Driss','41','سوق أهراس','Souk Ahras');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أولاد إدريس','Ouled Driss','أولاد إدريس','Ouled Driss','41','سوق أهراس','Souk Ahras');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('ترقالت','Terraguelt','أم العظايم','Oum El Adhaim','41','سوق أهراس','Souk Ahras');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أم العظايم','Oum El Adhaim','أم العظايم','Oum El Adhaim','41','سوق أهراس','Souk Ahras');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('وادي الكبريت','Oued Kebrit','أم العظايم','Oum El Adhaim','41','سوق أهراس','Souk Ahras');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تيفاش','Tiffech','مداوروش','M\'daourouche','41','سوق أهراس','Souk Ahras');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الراقوبة','Ragouba','مداوروش','M\'daourouche','41','سوق أهراس','Souk Ahras');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الدريعة','Drea','تاورة','Taoura','41','سوق أهراس','Souk Ahras');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تاورة','Taoura','تاورة','Taoura','41','سوق أهراس','Souk Ahras');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الزعرورية','Zaarouria','تاورة','Taoura','41','سوق أهراس','Souk Ahras');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الحدادة','Haddada','الحدادة','Haddada','41','سوق أهراس','Souk Ahras');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الخضارة','Khedara','الحدادة','Haddada','41','سوق أهراس','Souk Ahras');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أولاد مومن','Ouled Moumen','الحدادة','Haddada','41','سوق أهراس','Souk Ahras');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('المراهنة','Merahna','المراهنة','Merahna','41','سوق أهراس','Souk Ahras');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('ويلان','Ouillen','المراهنة','Merahna','41','سوق أهراس','Souk Ahras');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي فرج','Si Fredj','المراهنة','Merahna','41','سوق أهراس','Souk Ahras');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بئر بوحوش','Bir Bouhouche','بئر بوحوش','Bir Bouhouche','41','سوق أهراس','Souk Ahras');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سافل الويدان','Safel El Ouen','بئر بوحوش','Bir Bouhouche','41','سوق أهراس','Souk Ahras');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('خميسة','Khemissa','سدراتة','Sedrata','41','سوق أهراس','Souk Ahras');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('مداوروش','M\'daourouche','مداوروش','M\'daourouche','41','سوق أهراس','Souk Ahras');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الزوابي','Zouabi','بئر بوحوش','Bir Bouhouche','41','سوق أهراس','Souk Ahras');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('حجوط','Hadjout','حجوط','Hadjout','42','تيبازة','Tipaza');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('مراد','Merad','حجوط','Hadjout','42','تيبازة','Tipaza');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('مناصر','Menaceur','سيدي أعمر','Si Amar','42','تيبازة','Tipaza');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أغبال','Aghbal','قوراية','Gouraya','42','تيبازة','Tipaza');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الناظور','Nador','سيدي أعمر','Si Amar','42','تيبازة','Tipaza');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي عامر','Si-Amar','سيدي أعمر','Si Amar','42','تيبازة','Tipaza');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('قوراية','Gouraya','قوراية','Gouraya','42','تيبازة','Tipaza');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('مسلمون','Messelmoun','قوراية','Gouraya','42','تيبازة','Tipaza');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('شرشال','Cherchell','شرشال','Cherchell','42','تيبازة','Tipaza');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('حجرة النص','Hadjret Ennous','شرشال','Cherchell','42','تيبازة','Tipaza');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي غيلاس','Si Ghiles','شرشال','Cherchell','42','تيبازة','Tipaza');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الداموس','Damous','الداموس','Damous','42','تيبازة','Tipaza');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الأرهاط','Larhat','الداموس','Damous','42','تيبازة','Tipaza');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('فوكة','Fouka','فوكة','Fouka','42','تيبازة','Tipaza');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين تاقورايت','Ain Tagourait','بواسماعيل','Bou Ismail','42','تيبازة','Tipaza');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بوهارون','Bou Haroun','بواسماعيل','Bou Ismail','42','تيبازة','Tipaza');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بواسماعيل','Bou Ismail','بواسماعيل','Bou Ismail','42','تيبازة','Tipaza');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('خميستي','Khemisti','بواسماعيل','Bou Ismail','42','تيبازة','Tipaza');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أحمر العين','Ahmer El Ain','أحمر العين','Ahmar El Ain','42','تيبازة','Tipaza');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بورقيقة','Bourkika','أحمر العين','Ahmar El Ain','42','تيبازة','Tipaza');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('دواودة','Douaouda','فوكة','Fouka','42','تيبازة','Tipaza');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي راشد','Si Rached','أحمر العين','Ahmar El Ain','42','تيبازة','Tipaza');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الحطاطبة','Attatba','القليعة','Kolea','42','تيبازة','Tipaza');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الشعيبة','Chaiba','القليعة','Kolea','42','تيبازة','Tipaza');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('القليعة','Kolea','القليعة','Kolea','42','تيبازة','Tipaza');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي سميان','Si Semiane','شرشال','Cherchell','42','تيبازة','Tipaza');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تيبازة','Tipaza','تيبازة','Tipaza','42','تيبازة','Tipaza');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بني ميلك','Beni Mileuk','الداموس','Damous','42','تيبازة','Tipaza');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('مشيرة','El Mechira','التلاغمة','Teleghma','43','ميلة','Mila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('العياضي برباس','El Ayadi Barbes','عين البيضاء أحريش','Ain Bea Harriche','43','ميلة','Mila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES (' عين البيضاء أحريش','Ain Bea Harriche','عين البيضاء أحريش','Ain Bea Harriche','43','ميلة','Mila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تسالة لمطاعي','Tassala Lematai','ترعي باينان','Terrai Bainen','43','ميلة','Mila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('ترعي باينان','Terrai Bainen','ترعي باينان','Terrai Bainen','43','ميلة','Mila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('اعميرة اراس','Amira Arres','ترعي باينان','Terrai Bainen','43','ميلة','Mila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تسدان حدادة','Tassadane Haddada','تسدان حدادة','Tassadane Haddada','43','ميلة','Mila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('مينار زارزة','Minar Zarza','تسدان حدادة','Tassadane Haddada','43','ميلة','Mila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي مروان','Si Merouane','سيدي مروان','Si Merouane','43','ميلة','Mila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الشيقارة','Chigara','سيدي مروان','Si Merouane','43','ميلة','Mila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('حمالة','Hamala','القرارم قوقة','Grarem Gouga','43','ميلة','Mila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('القرارم قوقة','Grarem Gouga','القرارم قوقة','Grarem Gouga','43','ميلة','Mila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تيبرقنت','Tiberguent','الرواشد','Rouached','43','ميلة','Mila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الرواشد','Rouached','الرواشد','Rouached','43','ميلة','Mila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('دراحي بوصلاح','Derrahi Bousselah','بوحاتم','Bouhatem','43','ميلة','Mila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('زغاية','Zeghaia','وادي النجاء','Oued Endja','43','ميلة','Mila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('وادي النجاء','Oued Endja','وادي النجاء','Oued Endja','43','ميلة','Mila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أحمد راشدي','Ahmed Rachedi','وادي النجاء','Oued Endja','43','ميلة','Mila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تاجنانت','Tadjenanet','تاجنانت','Tadjenanet','43','ميلة','Mila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين الملوك','Ain Mellouk','شلغوم العيد','Chelghoum La','43','ميلة','Mila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أولاد اخلوف','Ouled Khalouf','تاجنانت','Tadjenanet','43','ميلة','Mila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بن يحي عبد الرحمن','Benyahia Abderrahmane','تاجنانت','Tadjenanet','43','ميلة','Mila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('التلاغمة','Teleghma','التلاغمة','Teleghma','43','ميلة','Mila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('وادي سقان','Oued Seguen','التلاغمة','Teleghma','43','ميلة','Mila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('وادي العثمانية','Oued Athmenia','شلغوم العيد','Chelghoum La','43','ميلة','Mila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين التين','Ain Tine','ميلة','Mila','43','ميلة','Mila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('شلغوم العيد','Chelghoum La','شلغوم العيد','Chelghoum La','43','ميلة','Mila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('يحي بني قشة','Yahia Beniguecha','فرجيوة','Ferdjioua','43','ميلة','Mila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('فرجيوة','Ferdjioua','فرجيوة','Ferdjioua','43','ميلة','Mila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي خليفة','Si Khelifa','ميلة','Mila','43','ميلة','Mila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('ميلة','Mila','ميلة','Mila','43','ميلة','Mila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بوحاتم','Bouhatem','بوحاتم','Bouhatem','43','ميلة','Mila');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('خميس مليانة','Khemis-Miliana','خميس','Khemis','44','عين الدفلة','Aïn Defla');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي الأخضر','Si-Lakhdar','خميس','Khemis','44','عين الدفلة','Aïn Defla');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين البنيان','Ain-Benian','حمام ريغة','Hammam Righa','44','عين الدفلة','Aïn Defla');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين التركي','Ain-Torki','حمام ريغة','Hammam Righa','44','عين الدفلة','Aïn Defla');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('حمام ريغة','Hammam-Righa','حمام ريغة','Hammam Righa','44','عين الدفلة','Aïn Defla');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بوراشد','Bourached','جليدة','Djela','44','عين الدفلة','Aïn Defla');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الحسينية','Hoceinia','بومدفع','Boumedfaa','44','عين الدفلة','Aïn Defla');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('جليدة','Djela','جليدة','Djela','44','عين الدفلة','Aïn Defla');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عريب','Arib','العامرة','El Amra','44','عين الدفلة','Aïn Defla');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('جمعة أولاد الشيخ','Djemaa Ouled Cheikh','جليدة','Djela','44','عين الدفلة','Aïn Defla');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('العامرة','El-Amra','العامرة','El Amra','44','عين الدفلة','Aïn Defla');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('العطاف','El-Attaf','العطاف','El Attaf','44','عين الدفلة','Aïn Defla');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تبركانين','Tiberkanine','العطاف','El Attaf','44','عين الدفلة','Aïn Defla');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين بويحيى','Ain-Bouyahia','العبادية','El Abadia','44','عين الدفلة','Aïn Defla');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('العبادية','El-Abadia','العبادية','El Abadia','44','عين الدفلة','Aïn Defla');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تاشتة زقاغة','Tacheta Zegagha','العبادية','El Abadia','44','عين الدفلة','Aïn Defla');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بربوش','Birbouche','جندل','Djendel','44','عين الدفلة','Aïn Defla');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('جندل','Djendel','جندل','Djendel','44','عين الدفلة','Aïn Defla');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بن علال','Ben Allal','مليانة','Miliana','44','عين الدفلة','Aïn Defla');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('وادي الشرفاء','Oued Chorfa','جندل','Djendel','44','عين الدفلة','Aïn Defla');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بومدفع','Boumedfaa','بومدفع','Boumedfaa','44','عين الدفلة','Aïn Defla');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين الاشياخ','Ain-Lechiakh','عين الاشياخ','Ain Lechiakh','44','عين الدفلة','Aïn Defla');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين السلطان','Ain-Soltane','عين الاشياخ','Ain Lechiakh','44','عين الدفلة','Aïn Defla');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('واد الجمعة','Oued Djemaa','عين الاشياخ','Ain Lechiakh','44','عين الدفلة','Aïn Defla');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الماين','El-Maine','الروينة','Rouina','44','عين الدفلة','Aïn Defla');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الروينة','Rouina','الروينة','Rouina','44','عين الدفلة','Aïn Defla');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('زدين','Zeddine','الروينة','Rouina','44','عين الدفلة','Aïn Defla');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بئر ولد خليفة','Bir-Ould-Khelifa','برج الأمير خالد','Bordj El Emir Khaled','44','عين الدفلة','Aïn Defla');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('برج الأمير خالد','Bordj-Emir-Khaled','برج الأمير خالد','Bordj El Emir Khaled','44','عين الدفلة','Aïn Defla');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('طارق بن زياد','Tarik-Ibn-Ziad','برج الأمير خالد','Bordj El Emir Khaled','44','عين الدفلة','Aïn Defla');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بطحية','Bathia','بطحية','Bathia','44','عين الدفلة','Aïn Defla');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بلعاص','Belaas','بطحية','Bathia','44','عين الدفلة','Aïn Defla');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الحسانية','Hassania','بطحية','Bathia','44','عين الدفلة','Aïn Defla');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين الدفلى','Ain-Defla','عين الدفلى','Ain Defla','44','عين الدفلة','Aïn Defla');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('مليانة','Miliana','مليانة','Miliana','44','عين الدفلة','Aïn Defla');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('المخاطرية','Mekhatria','العامرة','El Amra','44','عين الدفلة','Aïn Defla');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تيوت','Tiout','عين الصفراء','Ain Sefra','45','النعامة','Naâma');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('مغرار','Moghrar','مغرار','Moghrar','45','النعامة','Naâma');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عسلة','Asla','عسلة','Asla','45','النعامة','Naâma');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('القصدير','Kasdir','مكمن بن عمار','Mekmen Ben Amar','45','النعامة','Naâma');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('مكمن بن عمار','Makmen Ben Amar','مكمن بن عمار','Mekmen Ben Amar','45','النعامة','Naâma');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين الصفراء','Ain Sefra','عين الصفراء','Ain Sefra','45','النعامة','Naâma');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('المشرية','Mecheria','المشرية','Mecheria','45','النعامة','Naâma');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('البيوض','El Biodh','المشرية','Mecheria','45','النعامة','Naâma');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين بن خليل','Ain Ben Khelil','المشرية','Mecheria','45','النعامة','Naâma');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('النعامة','Naama','النعامة','Naama','45','النعامة','Naâma');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('جنين بورزق','Djenienne Bourezg','مغرار','Moghrar','45','النعامة','Naâma');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سفيسيفة','Sfissifa','سفيسيفة','Sfissifa','45','النعامة','Naâma');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي بومدين','Si Boumediene','عين الأربعاء','Ain Larbaa','46','عين تيموشنت','Aïn Témouchent');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تامزورة','Tamzoura','عين الأربعاء','Ain Larbaa','46','عين تيموشنت','Aïn Témouchent');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('شعبة اللحم','Chaabat El Ham','المالح','El Maleh','46','عين تيموشنت','Aïn Témouchent');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('المالح','El Maleh','المالح','El Maleh','46','عين تيموشنت','Aïn Témouchent');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أولاد الكيحل','Ouled Kihal','المالح','El Maleh','46','عين تيموشنت','Aïn Témouchent');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('شنتوف','Chentouf','حمام بوحجر','Hammam Bou Hadjar','46','عين تيموشنت','Aïn Témouchent');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تارقة','Terga','المالح','El Maleh','46','عين تيموشنت','Aïn Témouchent');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('وادي الصباح','Oued Sebbah','عين الأربعاء','Ain Larbaa','46','عين تيموشنت','Aïn Témouchent');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('العامرية','El Amria','العامرية','El Amria','46','عين تيموشنت','Aïn Témouchent');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('حاسي الغلة','Hassi El Ghella','العامرية','El Amria','46','عين تيموشنت','Aïn Témouchent');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أولاد بوجمعة','Ouled Boudjemaa','العامرية','El Amria','46','عين تيموشنت','Aïn Témouchent');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أغلال','Aghlal','عين الكيحل','Ain Kihel','46','عين تيموشنت','Aïn Témouchent');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين الكيحل','Ain Kihal','عين الكيحل','Ain Kihel','46','عين تيموشنت','Aïn Témouchent');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين الطلبة','Ain Tolba','عين الكيحل','Ain Kihel','46','عين تيموشنت','Aïn Témouchent');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عقب الليل','Aoubellil','عين الكيحل','Ain Kihel','46','عين تيموشنت','Aïn Témouchent');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بني صاف','Beni Saf','بني صاف','Beni Saf','46','عين تيموشنت','Aïn Témouchent');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الحساسنة','Hassasna','حمام بوحجر','Hammam Bou Hadjar','46','عين تيموشنت','Aïn Témouchent');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الأمير عبد القادر','Emir Abdelkader','بني صاف','Beni Saf','46','عين تيموشنت','Aïn Témouchent');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي صافي','Si Safi','بني صاف','Beni Saf','46','عين تيموشنت','Aïn Témouchent');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('ولهاصة الغرابة','Oulhaca El Gheraba','ولهاصة الغرابة','Oulhassa Gheraba','46','عين تيموشنت','Aïn Témouchent');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي ورياش','Si Ouriache','ولهاصة الغرابة','Oulhassa Gheraba','46','عين تيموشنت','Aïn Témouchent');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين الأربعاء','Ain El Arbaa','عين الأربعاء','Ain Larbaa','46','عين تيموشنت','Aïn Témouchent');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('المساعيد','El Messa','العامرية','El Amria','46','عين تيموشنت','Aïn Témouchent');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('وادي برقش','Oued Berkeche','حمام بوحجر','Hammam Bou Hadjar','46','عين تيموشنت','Aïn Témouchent');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي بن عدة','Si Ben Adda','عين تموشنت','Ain Temouchent','46','عين تيموشنت','Aïn Témouchent');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين تموشنت','Ain Temouchent','عين تموشنت','Ain Temouchent','46','عين تيموشنت','Aïn Témouchent');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بوزجار','Bouzedjar','العامرية','El Amria','46','عين تيموشنت','Aïn Témouchent');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('حمام بوحجر','Hammam Bou Hadjar','حمام بوحجر','Hammam Bou Hadjar','46','عين تيموشنت','Aïn Témouchent');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('ضاية بن ضحوة','Dhayet Bendhahoua','ضاية بن ضحوة','Dhayet Ben Dhahoua','47','غرداية','Ghardaïa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('المنصورة','Mansoura','المنصورة','Mansourah','47','غرداية','Ghardaïa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('العطف','El Atteuf','بونورة','Bounoura','47','غرداية','Ghardaïa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بونورة','Bounoura','بونورة','Bounoura','47','غرداية','Ghardaïa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('زلفانة','Zelfana','زلفانة','Zelfana','47','غرداية','Ghardaïa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('القرارة','El Guerrara','القرارة','El Guerrara','47','غرداية','Ghardaïa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سبسب','Sebseb','متليلي','Metlili','47','غرداية','Ghardaïa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('متليلي','Metlili','متليلي','Metlili','47','غرداية','Ghardaïa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بريان','Berriane','بريان','Berriane','47','غرداية','Ghardaïa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('غرداية','Ghardaia','غرداية','Ghardaia','47','غرداية','Ghardaïa');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('القطار','El-Guettar','مازونة','Mazouna','48','غليزان','Relizane');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أولاد يعيش','Ouled Aiche','عمي موسى','Ammi Moussa','48','غليزان','Relizane');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بني درقن','Beni Dergoun','زمورة','Zemmoura','48','غليزان','Relizane');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('دار بن عبد الله','Dar Ben Abdelah','زمورة','Zemmoura','48','غليزان','Relizane');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('زمورة','Zemmoura','زمورة','Zemmoura','48','غليزان','Relizane');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('جديوية','Djiouia','جديوية','Djiouia','48','غليزان','Relizane');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('حمري','Hamri','جديوية','Djiouia','48','غليزان','Relizane');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بلعسل بوزقزة','Belaassel Bouzagza','المطمر','El Matmar','48','غليزان','Relizane');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('المطمر','El-Matmar','المطمر','El Matmar','48','غليزان','Relizane');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي  خطاب','Si Khettab','المطمر','El Matmar','48','غليزان','Relizane');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي امحمد بن عودة','Si M\'hamed Benaouda','المطمر','El Matmar','48','غليزان','Relizane');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين طارق','Ain-Tarek','عين طارق','Ain Tarek','48','غليزان','Relizane');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('حد الشكالة','Had Echkalla','عين طارق','Ain Tarek','48','غليزان','Relizane');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الولجة','El Ouldja','عمي موسى','Ammi Moussa','48','غليزان','Relizane');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('مازونة','Mazouna','مازونة','Mazouna','48','غليزان','Relizane');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين الرحمة','Ain Rahma','يلل','Yellel','48','غليزان','Relizane');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('القلعة','Kalaa','يلل','Yellel','48','غليزان','Relizane');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي سعادة','Si Saada','يلل','Yellel','48','غليزان','Relizane');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('يلل','Yellel','يلل','Yellel','48','غليزان','Relizane');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سوق الحد','Souk El Had','الرمكة','Ramka','48','غليزان','Relizane');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('منداس','Mendes','منداس','Mendes','48','غليزان','Relizane');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('وادي السلام','Oued Essalem','منداس','Mendes','48','غليزان','Relizane');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي لزرق','Si Lazreg','منداس','Mendes','48','غليزان','Relizane');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عمي موسى','Ammi Moussa','عمي موسى','Ammi Moussa','48','غليزان','Relizane');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('واريزان','Ouarizane','وادي رهيو','Oued Rhiou','48','غليزان','Relizane');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('مرجة سيدي عابد','Merdja Si Abed','وادي رهيو','Oued Rhiou','48','غليزان','Relizane');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أولاد سيدي الميهوب','Ouled Si Mihoub','جديوية','Djiouia','48','غليزان','Relizane');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بن داود','Bendaoud','غليزان','Relizane','48','غليزان','Relizane');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('وادي رهيو','Oued-Rhiou','وادي رهيو','Oued Rhiou','48','غليزان','Relizane');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الحاسي','El Hassi','عمي موسى','Ammi Moussa','48','غليزان','Relizane');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي أمحمد بن علي','Si M\'hamed Benali','سيدي أمحمد بن علي','Si M\'hamed Ben Ali','48','غليزان','Relizane');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('مديونة','Mediouna','سيدي أمحمد بن علي','Si M\'hamed Ben Ali','48','غليزان','Relizane');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بني زنطيس','Beni Zentis','سيدي أمحمد بن علي','Si M\'hamed Ben Ali','48','غليزان','Relizane');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('وادي الجمعة','Oued El Djemaa','الحمادنة','El H\'madna','48','غليزان','Relizane');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('لحلاف','Lahlef','وادي رهيو','Oued Rhiou','48','غليزان','Relizane');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('غليزان','Relizane','غليزان','Relizane','48','غليزان','Relizane');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الحمادنة','El H\'madna','الحمادنة','El H\'madna','48','غليزان','Relizane');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الرمكة','Ramka','الرمكة','Ramka','48','غليزان','Relizane');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تنركوك','Tinerkouk','تنركوك','Tinerkouk','49','تيميمون','Timimoun');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تيميمون','Timimoun','تيميمون','Timimoun','49','تيميمون','Timimoun');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أولاد السعيد','Ouled Sa','تيميمون','Timimoun','49','تيميمون','Timimoun');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('المطارفة','Metarfa','أوقروت','Aougrout','49','تيميمون','Timimoun');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('طالمين','Talmine','شروين','Charouine','49','تيميمون','Timimoun');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أولاد عيسى','Ouled Aissa','شروين','Charouine','49','تيميمون','Timimoun');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('شروين','Charouine','شروين','Charouine','49','تيميمون','Timimoun');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أوقروت','Aougrout','أوقروت','Aougrout','49','تيميمون','Timimoun');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('دلدول','Deldoul','أوقروت','Aougrout','49','تيميمون','Timimoun');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('قصر قدور','Ksar Kaddour','تنركوك','Tinerkouk','49','تيميمون','Timimoun');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تيمياوين','Timiaouine','برج باجي مختار','Bordj Badji Mokhtar','50','برج باجي مختار','Bordj Badji Mokhtar');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('برج باجي مختار','Bordj Badji Mokhtar','برج باجي مختار','Bordj Badji Mokhtar','50','برج باجي مختار','Bordj Badji Mokhtar');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('رأس الميعاد','Ras El Miad','سيدي  خالد','Si Khaled','51','أولاد جلال','Ouled Djellal');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بسباس','Besbes','سيدي  خالد','Si Khaled','51','أولاد جلال','Ouled Djellal');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي  خالد','Si Khaled','سيدي  خالد','Si Khaled','51','أولاد جلال','Ouled Djellal');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الدوسن','Doucen','أولاد جلال','Ouled Djellal','51','أولاد جلال','Ouled Djellal');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الشعيبة','Chaiba','أولاد جلال','Ouled Djellal','51','أولاد جلال','Ouled Djellal');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أولاد جلال','Ouled Djellal','أولاد جلال','Ouled Djellal','51','أولاد جلال','Ouled Djellal');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بني عباس','Beni-Abbes','بني عباس','Beni Abbes','52','بني عباس','Béni Abbès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تامترت','Tamtert','بني عباس','Beni Abbes','52','بني عباس','Béni Abbès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('إقلي','Igli','إقلي','Igli','52','بني عباس','Béni Abbès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الواتة','El Ouata','الواتة','El Ouata','52','بني عباس','Béni Abbès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أولاد خضير','Ouled-Khodeir','أولاد خضير','Ouled Khodeir','52','بني عباس','Béni Abbès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('كرزاز','Kerzaz','كرزاز','Kerzaz','52','بني عباس','Béni Abbès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تيمودي','Timoudi','كرزاز','Kerzaz','52','بني عباس','Béni Abbès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('القصابي','Ksabi','أولاد خضير','Ouled Khodeir','52','بني عباس','Béni Abbès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بن يخلف','Beni-Ikhlef','كرزاز','Kerzaz','52','بني عباس','Béni Abbès');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('إينغر','Inghar','إينغر','In Ghar','53','عين صالح','In Salah');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين صالح','Ain Salah','عين صالح','In Salah','53','عين صالح','In Salah');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('فقارة الزوى','Foggaret Ezzoua','عين صالح','In Salah','53','عين صالح','In Salah');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تين زواتين','Tin Zouatine','تين زواتين','Tin Zouatine','54','عين قزام','In Guezzam');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('عين قزام','Ain Guezzam','عين قزام','In Guezzam','54','عين قزام','In Guezzam');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تماسين','Temacine','تماسين','Temacine','55','تقرت','Touggourt');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي سليمان','Si Slimane','المقارين','Megarine','55','تقرت','Touggourt');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('المقارين','Megarine','المقارين','Megarine','55','تقرت','Touggourt');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('النزلة','Nezla','تقرت','Touggourt','55','تقرت','Touggourt');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بلدة اعمر','Blet Amor','تماسين','Temacine','55','تقرت','Touggourt');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تبسبست','Tebesbest','تقرت','Touggourt','55','تقرت','Touggourt');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تقرت','Touggourt','تقرت','Touggourt','55','تقرت','Touggourt');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الطيبات','Taibet','الطيبات','Taibet','55','تقرت','Touggourt');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('العالية','El Alia','الحجيرة','El-Hadjira','55','تقرت','Touggourt');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الحجيرة','El-Hadjira','الحجيرة','El-Hadjira','55','تقرت','Touggourt');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('بن ناصر','Benaceur','الطيبات','Taibet','55','تقرت','Touggourt');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('المنقر','M\'naguer','الطيبات','Taibet','55','تقرت','Touggourt');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('الزاوية العابدية','Zaouia El Abia','تقرت','Touggourt','55','تقرت','Touggourt');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('جانت','Djanet','جانت','Djanet','56','جانت','Djanet');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('برج الحواس','Bordj El Haouass','جانت','Djanet','56','جانت','Djanet');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('أم الطيور','Oum Touyour','المغير','El Meghaier','57','المغير','El Meghaier');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي عمران','Si Amrane','جامعة','Djamaa','57','المغير','El Meghaier');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('المرارة','M\'rara','جامعة','Djamaa','57','المغير','El Meghaier');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('جامعة','Djamaa','جامعة','Djamaa','57','المغير','El Meghaier');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('تندلة','Tenedla','جامعة','Djamaa','57','المغير','El Meghaier');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('المغير','El-M\'ghaier','المغير','El Meghaier','57','المغير','El Meghaier');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سطيل','Still','المغير','El Meghaier','57','المغير','El Meghaier');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('سيدي خليل','Si Khelil','المغير','El Meghaier','57','المغير','El Meghaier');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('المنيعة','El Meniaa','المنيعة','El Menia','58','المنيعة','El Menia');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('حاسي القارة','Hassi Gara','المنيعة','El Menia','58','المنيعة','El Menia');
-INSERT INTO algeria_cities(commune_name,commune_name_ascii,daira_name,daira_name_ascii,wilaya_code,wilaya_name,wilaya_name_ascii) VALUES ('حاسي الفحل','Hassi Fehal','المنصورة','Mansourah','58','المنيعة','El Menia');
+
+
+INSERT INTO algeria_cities (
+  
+    commune_name,
+    commune_name_ascii,
+    daira_name,
+    daira_name_ascii,
+    wilaya_code,
+    wilaya_name,
+    wilaya_name_ascii
+) VALUES
+('تيمقتن','Timekten','أولف','Aoulef','01','أدرار','Adrar'),
+('بودة','Bouda','أدرار','Adrar','01','أدرار','Adrar'),
+('أولاد أحمد تيمي','Ouled Ahmed Timmi','أدرار','Adrar','01','أدرار','Adrar'),
+('أدرار','Adrar','أدرار','Adrar','01','أدرار','Adrar'),
+('فنوغيل','Fenoughil','فنوغيل','Fenoughil','01','أدرار','Adrar'),
+('إن زغمير','In Zghmir','زاوية كنتة','Zaouiat Kounta','01','أدرار','Adrar'),
+('رقان','Reggane','رقان','Reggane','01','أدرار','Adrar'),
+('سالي','Sali','رقان','Reggane','01','أدرار','Adrar'),
+('السبع','Sebaa','تسابيت','Tsabit','01','أدرار','Adrar'),
+('تسابيت','Tsabit','تسابيت','Tsabit','01','أدرار','Adrar'),
+('تامست','Tamest','فنوغيل','Fenoughil','01','أدرار','Adrar'),
+('تامنطيط','Tamantit','فنوغيل','Fenoughil','01','أدرار','Adrar'),
+('تيت','Tit','أولف','Aoulef','01','أدرار','Adrar'),
+('زاوية كنتة','Zaouiet Kounta','زاوية كنتة','Zaouiat Kounta','01','أدرار','Adrar'),
+('اقبلي','Akabli','أولف','Aoulef','01','أدرار','Adrar'),
+('أولف','Aoulef','أولف','Aoulef','01','أدرار','Adrar'),
+('تلعصة','Talassa','أبو الحسن','Abou El Hassane','02',' الشلف','Chlef'),
+('الزبوجة','Zeboudja','الزبوجة','Zeboudja','02',' الشلف','Chlef'),
+('الحجاج','El Hadjadj','أولاد بن عبد القادر','Ouled Ben Abdelkader','02',' الشلف','Chlef'),
+('أولاد بن عبد القادر','Ouled Ben Abdelkader','أولاد بن عبد القادر','Ouled Ben Abdelkader','02',' الشلف','Chlef'),
+('عين مران','Ain Merane','عين مران','Ain Merane','02',' الشلف','Chlef'),
+('بريرة','Breira','بني حواء','Beni Haoua','02',' الشلف','Chlef'),
+('أولاد عباس','Ouled Abbes','وادي الفضة','Oued Fodda','02',' الشلف','Chlef'),
+('وادي الفضة','Oued Fodda','وادي الفضة','Oued Fodda','02',' الشلف','Chlef'),
+('بني راشد','Beni Rached','وادي الفضة','Oued Fodda','02',' الشلف','Chlef'),
+('الهرانفة','Herenfa','عين مران','Ain Merane','02',' الشلف','Chlef'),
+('تاجنة','Tadjena','أبو الحسن','Abou El Hassane','02',' الشلف','Chlef'),
+('المرسى','El Marsa','المرسى','El Marsa','02',' الشلف','Chlef'),
+('الشلف','Chlef','الشلف','Chlef','02',' الشلف','Chlef'),
+('أم الدروع','Oum Drou','الشلف','Chlef','02',' الشلف','Chlef'),
+('سنجاس','Sendjas','الشلف','Chlef','02',' الشلف','Chlef'),
+('سيدي عبد الرحمن','Si Abderrahmane','تنس','Tenes','02',' الشلف','Chlef'),
+('سيدي عكاشة','Si Akkacha','تنس','Tenes','02',' الشلف','Chlef'),
+('تنس','Tenes','تنس','Tenes','02',' الشلف','Chlef'),
+('بني بوعتاب','Beni  Bouattab','الكريمية','El Karimia','02',' الشلف','Chlef'),
+('الكريمية','El Karimia','الكريمية','El Karimia','02',' الشلف','Chlef'),
+('حرشون','Harchoun','الكريمية','El Karimia','02',' الشلف','Chlef'),
+('بوزغاية','Bouzeghaia','الزبوجة','Zeboudja','02',' الشلف','Chlef'),
+('تاوقريت','Taougrit','تاوقريت','Taougrit','02',' الشلف','Chlef'),
+('بني حواء','Beni Haoua','بني حواء','Beni Haoua','02',' الشلف','Chlef'),
+('أبو الحسن','Abou El Hassane','أبو الحسن','Abou El Hassane','02',' الشلف','Chlef'),
+('وادي قوسين','Oued Goussine','بني حواء','Beni Haoua','02',' الشلف','Chlef'),
+('الشطية','Chettia','أولاد فارس','Ouled Fares','02',' الشلف','Chlef'),
+('مصدق','Moussadek','المرسى','El Marsa','02',' الشلف','Chlef'),
+('أولاد فارس','Ouled Fares','أولاد فارس','Ouled Fares','02',' الشلف','Chlef'),
+('بوقادير','Boukadir','بوقادير','Boukadir','02',' الشلف','Chlef'),
+('وادي سلي','Oued Sly','بوقادير','Boukadir','02',' الشلف','Chlef'),
+('الصبحة','Sobha','بوقادير','Boukadir','02',' الشلف','Chlef'),
+('بنايرية','Benairia','الزبوجة','Zeboudja','02',' الشلف','Chlef'),
+('الأبيض مجاجة','Labiod Medjadja','أولاد فارس','Ouled Fares','02',' الشلف','Chlef'),
+('الظهرة','Dahra','تاوقريت','Taougrit','02',' الشلف','Chlef'),
+('البيضاء','El Beha','قتلة سيدي سعيد','Gueltat Si Saad','03','الأغواط','Laghouat'),
+('قلتة سيدي سعد','Gueltat Si Saad','قتلة سيدي سعيد','Gueltat Si Saad','03','الأغواط','Laghouat'),
+('بريدة','Bra','بريدة','Bra','03','الأغواط','Laghouat'),
+('عين سيدي علي','Ain Si Ali','قتلة سيدي سعيد','Gueltat Si Saad','03','الأغواط','Laghouat'),
+('تاجموت','Tadjemout','عين ماضي','Ain Madhi','03','الأغواط','Laghouat'),
+('الحاج مشري','Hadj Mechri','بريدة','Bra','03','الأغواط','Laghouat'),
+('تاويالة','Taouiala','بريدة','Bra','03','الأغواط','Laghouat'),
+('الغيشة','El Ghicha','الغيشة','El Ghicha','03','الأغواط','Laghouat'),
+('تاجرونة','Tadjrouna','عين ماضي','Ain Madhi','03','الأغواط','Laghouat'),
+('سبقاق','Sebgag','أفلو','Aflou','03','الأغواط','Laghouat'),
+('سيدي بوزيد','Si Bouz','أفلو','Aflou','03','الأغواط','Laghouat'),
+('وادي مرة','Oued Morra','وادي مرة','Oued Morra','03','الأغواط','Laghouat'),
+('الأغواط','Laghouat','الأغواط','Laghouat','03','الأغواط','Laghouat'),
+('وادي مزي','Oued M''''zi','وادي مرة','Oued Morra','03','الأغواط','Laghouat'),
+('قصر الحيران','Ksar El Hirane','قصر الحيران','Ksar El Hirane','03','الأغواط','Laghouat'),
+('العسافية','El Assafia','سيدي مخلوف','Si Makhlouf','03','الأغواط','Laghouat'),
+('سيدي مخلوف','Si Makhlouf','سيدي مخلوف','Si Makhlouf','03','الأغواط','Laghouat'),
+('حاسي الدلاعة','Hassi Delaa','حاسي الرمل','Hassi R''mel','03','الأغواط','Laghouat'),
+('حاسي الرمل','Hassi R''mel','حاسي الرمل','Hassi R''mel','03','الأغواط','Laghouat'),
+('عين ماضي','Ain Madhi','عين ماضي','Ain Madhi','03','الأغواط','Laghouat'),
+('الحويطة','El Haouaita','عين ماضي','Ain Madhi','03','الأغواط','Laghouat'),
+('الخنق','Kheneg','عين ماضي','Ain Madhi','03','الأغواط','Laghouat'),
+('بن ناصر بن شهرة','Benacer Benchohra','قصر الحيران','Ksar El Hirane','03','الأغواط','Laghouat'),
+('أفلو','Aflou','أفلو','Aflou','03','الأغواط','Laghouat'),
+('فكيرينة','Fkirina','فكيرينة','F''kirina','04','أم البواقي','Oum El Bouaghi'),
+('الفجوج بوغرارة سعودي','El Fedjoudj Boughrara Sa','عين فكرون','Ain Fekroun','04','أم البواقي','Oum El Bouaghi'),
+('عين فكرون','Ain Fekroun','عين فكرون','Ain Fekroun','04','أم البواقي','Oum El Bouaghi'),
+('الرحية','Rahia','مسكيانة','Meskiana','04','أم البواقي','Oum El Bouaghi'),
+('مسكيانة','Meskiana','مسكيانة','Meskiana','04','أم البواقي','Oum El Bouaghi'),
+('البلالة','El Belala','مسكيانة','Meskiana','04','أم البواقي','Oum El Bouaghi'),
+('بحير الشرقي','Behir Chergui','مسكيانة','Meskiana','04','أم البواقي','Oum El Bouaghi'),
+('قصر الصباحي','Ksar Sbahi','قصر الصباحي','Ksar Sbahi','04','أم البواقي','Oum El Bouaghi'),
+('سوق نعمان','Souk Naamane','سوق نعمان','Souk Naamane','04','أم البواقي','Oum El Bouaghi'),
+('أولاد زواي','Ouled Zouai','سوق نعمان','Souk Naamane','04','أم البواقي','Oum El Bouaghi'),
+('أم البواقي','Oum El Bouaghi','أم البواقي','Oum El Bouaghi','04','أم البواقي','Oum El Bouaghi'),
+('عين ببوش','Ain Babouche','عين ببوش','Ain Babouche','04','أم البواقي','Oum El Bouaghi'),
+('عين الزيتون','Ain Zitoun','أم البواقي','Oum El Bouaghi','04','أم البواقي','Oum El Bouaghi'),
+('بئر الشهداء','Bir Chouhada','سوق نعمان','Souk Naamane','04','أم البواقي','Oum El Bouaghi'),
+('عين البيضاء','Ain Bea','عين البيضاء','Ain Bea','04','أم البواقي','Oum El Bouaghi'),
+('بريش','Berriche','عين البيضاء','Ain Bea','04','أم البواقي','Oum El Bouaghi'),
+('الزرق','Zorg','عين البيضاء','Ain Bea','04','أم البواقي','Oum El Bouaghi'),
+('عين مليلة','Ain M''lila','عين مليلة','Ain M''lila','04','أم البواقي','Oum El Bouaghi'),
+('أولاد قاسم','Ouled Gacem','عين مليلة','Ain M''lila','04','أم البواقي','Oum El Bouaghi'),
+('أولاد حملة','Ouled Hamla','عين مليلة','Ain M''lila','04','أم البواقي','Oum El Bouaghi'),
+('العامرية','El Amiria','سيقوس','Sigus','04','أم البواقي','Oum El Bouaghi'),
+('سيقوس','Sigus','سيقوس','Sigus','04','أم البواقي','Oum El Bouaghi'),
+('وادي نيني','Oued Nini','فكيرينة','F''kirina','04','أم البواقي','Oum El Bouaghi'),
+('عين الديس','Ain Diss','عين ببوش','Ain Babouche','04','أم البواقي','Oum El Bouaghi'),
+('الضلعة','Dhalaa','الضلعة','Dhalaa','04','أم البواقي','Oum El Bouaghi'),
+('الجازية','El Djazia','الضلعة','Dhalaa','04','أم البواقي','Oum El Bouaghi'),
+('عين كرشة','Ain Kercha','عين كرشة','Ain Kercha','04','أم البواقي','Oum El Bouaghi'),
+('الحرملية','El Harmilia','عين كرشة','Ain Kercha','04','أم البواقي','Oum El Bouaghi'),
+('هنشير تومغني','Hanchir Toumghani','عين كرشة','Ain Kercha','04','أم البواقي','Oum El Bouaghi'),
+('معافة','Maafa','عين التوتة','Ain Touta','05','باتنة','Batna'),
+('القصبات','Gosbat','رأس العيون','Ras El Aioun','05','باتنة','Batna'),
+('تيمقاد','Timgad','تيمقاد','Timgad','05','باتنة','Batna'),
+('تاكسلانت','Taxlent','أولاد سي سليمان','Ouled Si Slimane','05','باتنة','Batna'),
+('أولاد سي سليمان','Ouled Si Slimane','أولاد سي سليمان','Ouled Si Slimane','05','باتنة','Batna'),
+('لمسان','Lemcene','أولاد سي سليمان','Ouled Si Slimane','05','باتنة','Batna'),
+('تالخمت','Talkhamt','رأس العيون','Ras El Aioun','05','باتنة','Batna'),
+('رأس العيون','Ras El Aioun','رأس العيون','Ras El Aioun','05','باتنة','Batna'),
+('الرحبات','Rahbat','رأس العيون','Ras El Aioun','05','باتنة','Batna'),
+('أولاد سلام','Ouled Sellem','رأس العيون','Ras El Aioun','05','باتنة','Batna'),
+('القيقبة','Guigba','رأس العيون','Ras El Aioun','05','باتنة','Batna'),
+('ثنية العابد','Teniet El Abed','ثنية العابد','Theniet El Abed','05','باتنة','Batna'),
+('باتنة','Batna','باتنة','Batna','05','باتنة','Batna'),
+('فسديس','Fesdis','باتنة','Batna','05','باتنة','Batna'),
+('وادي الشعبة','Oued Chaaba','باتنة','Batna','05','باتنة','Batna'),
+('حيدوسة','Houssa','مروانة','Merouana','05','باتنة','Batna'),
+('قصر بلزمة','Ksar Bellezma','مروانة','Merouana','05','باتنة','Batna'),
+('مروانة','Merouana','مروانة','Merouana','05','باتنة','Batna'),
+('وادي الماء','Oued El Ma','مروانة','Merouana','05','باتنة','Batna'),
+('لازرو','Lazrou','سريانة','Seriana','05','باتنة','Batna'),
+('سريانة','Seriana','سريانة','Seriana','05','باتنة','Batna'),
+('زانة البيضاء','Zanet El Bea','سريانة','Seriana','05','باتنة','Batna'),
+('منعة','Menaa','منعة','Menaa','05','باتنة','Batna'),
+('تغرغار','Tigharghar','منعة','Menaa','05','باتنة','Batna'),
+('عين ياقوت','Ain Yagout','المعذر','El Madher','05','باتنة','Batna'),
+('بومية','Boumia','المعذر','El Madher','05','باتنة','Batna'),
+('جرمة','Djerma','المعذر','El Madher','05','باتنة','Batna'),
+('المعذر','El Madher','المعذر','El Madher','05','باتنة','Batna'),
+('عيون العصافير','Ouyoun El Assafir','تازولت','Tazoult','05','باتنة','Batna'),
+('تازولت','Tazoult','تازولت','Tazoult','05','باتنة','Batna'),
+('بومقر','Boumagueur','نقاوس','N''gaous','05','باتنة','Batna'),
+('نقاوس','N Gaous','نقاوس','N''gaous','05','باتنة','Batna'),
+('سفيان','Sefiane','نقاوس','N''gaous','05','باتنة','Batna'),
+('أريس','Arris','أريس','Arris','05','باتنة','Batna'),
+('تيغانمين','Tighanimine','أريس','Arris','05','باتنة','Batna'),
+('عين جاسر','Ain Djasser','عين جاسر','Ain Djasser','05','باتنة','Batna'),
+('الحاسي','El Hassi','عين جاسر','Ain Djasser','05','باتنة','Batna'),
+('سقانة','Seggana','سقانة','Seggana','05','باتنة','Batna'),
+('تيلاطو','Tilatou','سقانة','Seggana','05','باتنة','Batna'),
+('فم الطوب','Foum Toub','إشمول','Ichemoul','05','باتنة','Batna'),
+('إشمول','Ichemoul','إشمول','Ichemoul','05','باتنة','Batna'),
+('إينوغيسن','Inoughissen','إشمول','Ichemoul','05','باتنة','Batna'),
+('بوزينة','Bouzina','بوزينة','Bouzina','05','باتنة','Batna'),
+('لارباع','Larbaa','بوزينة','Bouzina','05','باتنة','Batna'),
+('بولهيلات','Boulhilat','الشمرة','Chemora','05','باتنة','Batna'),
+('الشمرة','Chemora','الشمرة','Chemora','05','باتنة','Batna'),
+('بريكة','Barika','بريكة','Barika','05','باتنة','Batna'),
+('بيطام','Bitam','بريكة','Barika','05','باتنة','Batna'),
+('إمدوكل','M Doukal','بريكة','Barika','05','باتنة','Batna'),
+('عزيل عبد القادر','Azil Abedelkader','الجزار','Djezzar','05','باتنة','Batna'),
+('الجزار','Djezzar','الجزار','Djezzar','05','باتنة','Batna'),
+('أولاد عمار','Ouled Ammar','الجزار','Djezzar','05','باتنة','Batna'),
+('غسيرة','Ghassira','تكوت','Tkout','05','باتنة','Batna'),
+('كيمل','Kimmel','تكوت','Tkout','05','باتنة','Batna'),
+('تكوت','T Kout','تكوت','Tkout','05','باتنة','Batna'),
+('عين التوتة','Ain Touta','عين التوتة','Ain Touta','05','باتنة','Batna'),
+('بني فضالة الحقانية','Beni Foudhala El Hakania','عين التوتة','Ain Touta','05','باتنة','Batna'),
+('أولاد فاضل','Ouled Fadel','تيمقاد','Timgad','05','باتنة','Batna'),
+('أولاد عوف','Ouled Aouf','عين التوتة','Ain Touta','05','باتنة','Batna'),
+('شير','Chir','ثنية العابد','Theniet El Abed','05','باتنة','Batna'),
+('وادي الطاقة','Oued Taga','ثنية العابد','Theniet El Abed','05','باتنة','Batna'),
+('سيدي عياد','Si Ayad','سيدي عيش','Si Aich','06',' بجاية','Béjaïa'),
+('برباشة','Barbacha','برباشة','Barbacha','06',' بجاية','Béjaïa'),
+('الفلاي','Leflaye','سيدي عيش','Si Aich','06',' بجاية','Béjaïa'),
+('كنديرة','Kendira','برباشة','Barbacha','06',' بجاية','Béjaïa'),
+('سيدي عيش','Si-Aich','سيدي عيش','Si Aich','06',' بجاية','Béjaïa'),
+('تيفرة','Tifra','سيدي عيش','Si Aich','06',' بجاية','Béjaïa'),
+('تينبدار','Tinebdar','سيدي عيش','Si Aich','06',' بجاية','Béjaïa'),
+('القصر','El Kseur','القصر','El Kseur','06',' بجاية','Béjaïa'),
+('فناية الماثن','Fenaia Il Maten','القصر','El Kseur','06',' بجاية','Béjaïa'),
+('توجة','Toudja','القصر','El Kseur','06',' بجاية','Béjaïa'),
+('ذراع القايد','Dra El Ca','خراطة','Kherrata','06',' بجاية','Béjaïa'),
+('خراطة','Kherrata','خراطة','Kherrata','06',' بجاية','Béjaïa'),
+('بجاية','Bejaia','بجاية','Bejaia','06',' بجاية','Béjaïa'),
+('وادي غير','Oued Ghir','بجاية','Bejaia','06',' بجاية','Béjaïa'),
+('بني معوش','Benimaouche','بني معوش','Beni Maouche','06',' بجاية','Béjaïa'),
+('بني جليل','Beni Djellil','أميزور','Amizour','06',' بجاية','Béjaïa'),
+('فرعون','Feraoun','أميزور','Amizour','06',' بجاية','Béjaïa'),
+('سمعون','Smaoun','أميزور','Amizour','06',' بجاية','Béjaïa'),
+('تيمزريت','Timezrit','تيمزريت','Timezrit','06',' بجاية','Béjaïa'),
+('مالبو','Melbou','سوق الإثنين','Souk El Tenine','06',' بجاية','Béjaïa'),
+('سوق لإثنين','Souk El Tenine','سوق الإثنين','Souk El Tenine','06',' بجاية','Béjaïa'),
+('تامريجت','Tamrjet','سوق الإثنين','Souk El Tenine','06',' بجاية','Béjaïa'),
+('بوخليفة','Boukhelifa','تيشي','Tichy','06',' بجاية','Béjaïa'),
+('تالة حمزة','Tala Hamza','تيشي','Tichy','06',' بجاية','Béjaïa'),
+('تيشي','Tichy','تيشي','Tichy','06',' بجاية','Béjaïa'),
+('أيت رزين','Ait R''zine','إغيل علي','Ighil Ali','06',' بجاية','Béjaïa'),
+('إغيل علي','Ighil-Ali','إغيل علي','Ighil Ali','06',' بجاية','Béjaïa'),
+('أيت إسماعيل','Ait-Smail','درقينة','Darguina','06',' بجاية','Béjaïa'),
+('درقينة','Darguina','درقينة','Darguina','06',' بجاية','Béjaïa'),
+('تاسكريوت','Taskriout','درقينة','Darguina','06',' بجاية','Béjaïa'),
+('أوقاس','Aokas','أوقاس','Aokas','06',' بجاية','Béjaïa'),
+('تيزي نبربر','Tizi-N''berber','أوقاس','Aokas','06',' بجاية','Béjaïa'),
+('أدكار','Adekar','أدكار','Adekar','06',' بجاية','Béjaïa'),
+('بني كسيلة','Beni K''sila','أدكار','Adekar','06',' بجاية','Béjaïa'),
+('تاوريرت إغيل','Taourit Ighil','أدكار','Adekar','06',' بجاية','Béjaïa'),
+('أقبو','Akbou','أقبو','Akbou','06',' بجاية','Béjaïa'),
+('شلاطة','Chellata','أقبو','Akbou','06',' بجاية','Béjaïa'),
+('اغرم','Ighram','أقبو','Akbou','06',' بجاية','Béjaïa'),
+('تامقرة','Tamokra','أقبو','Akbou','06',' بجاية','Béjaïa'),
+('أمالو','Amalou','صدوق','Seddouk','06',' بجاية','Béjaïa'),
+('بوحمزة','Bouhamza','صدوق','Seddouk','06',' بجاية','Béjaïa'),
+('مسيسنة','M''cisna','صدوق','Seddouk','06',' بجاية','Béjaïa'),
+('صدوق','Seddouk','صدوق','Seddouk','06',' بجاية','Béjaïa'),
+('بني مليكش','Beni-Mallikeche','تازملت','Tazmalt','06',' بجاية','Béjaïa'),
+('بو جليل','Boudjellil','تازملت','Tazmalt','06',' بجاية','Béjaïa'),
+('تازمالت','Tazmalt','تازملت','Tazmalt','06',' بجاية','Béjaïa'),
+('أكفادو','Akfadou','شميني','Chemini','06',' بجاية','Béjaïa'),
+('شميني','Chemini','شميني','Chemini','06',' بجاية','Béjaïa'),
+('سوق اوفلا','Souk Oufella','شميني','Chemini','06',' بجاية','Béjaïa'),
+('طيبان','Tibane','شميني','Chemini','06',' بجاية','Béjaïa'),
+('أوزلاقن','Ouzellaguen','إفري أوزلاقن','Ifri Ouzellaguene','06',' بجاية','Béjaïa'),
+('أميزور','Amizour','أميزور','Amizour','06',' بجاية','Béjaïa'),
+('الفيض','El Feh','زريبة الوادي','Zeribet El Oued','07','بسكرة','Biskra'),
+('ليشانة','Lichana','طولقة','Tolga','07','بسكرة','Biskra'),
+('بوشقرون','Bouchakroun','طولقة','Tolga','07','بسكرة','Biskra'),
+('مخادمة','Mekhadma','أورلال','Ourlal','07','بسكرة','Biskra'),
+('جمورة','Djemorah','جمورة','Djemorah','07','بسكرة','Biskra'),
+('برانيس','Branis','جمورة','Djemorah','07','بسكرة','Biskra'),
+('الوطاية','El Outaya','الوطاية','El Outaya','07','بسكرة','Biskra'),
+('القنطرة','El Kantara','القنطرة','El Kantara','07','بسكرة','Biskra'),
+('خنقة سيدي ناجي','Khenguet Si Nadji','زريبة الوادي','Zeribet El Oued','07','بسكرة','Biskra'),
+('عين زعطوط','Ain Zaatout','القنطرة','El Kantara','07','بسكرة','Biskra'),
+('زريبة الوادي','Zeribet El Oued','زريبة الوادي','Zeribet El Oued','07','بسكرة','Biskra'),
+('المزيرعة','Meziraa','زريبة الوادي','Zeribet El Oued','07','بسكرة','Biskra'),
+('بسكرة','Biskra','بسكرة','Biskra','07','بسكرة','Biskra'),
+('الحاجب','El Hadjab','بسكرة','Biskra','07','بسكرة','Biskra'),
+('مليلي','M''lili','أورلال','Ourlal','07','بسكرة','Biskra'),
+('فوغالة','Foughala','فوغالة','Foughala','07','بسكرة','Biskra'),
+('الغروس','El Ghrous','فوغالة','Foughala','07','بسكرة','Biskra'),
+('برج بن عزوز','Bordj Ben Azzouz','طولقة','Tolga','07','بسكرة','Biskra'),
+('أورلال','Ourlal','أورلال','Ourlal','07','بسكرة','Biskra'),
+('أوماش','Oumache','أورلال','Ourlal','07','بسكرة','Biskra'),
+('عين الناقة','Ain Naga','سيدي عقبة','Si Okba','07','بسكرة','Biskra'),
+('شتمة','Chetma','سيدي عقبة','Si Okba','07','بسكرة','Biskra'),
+('الحوش','El Haouch','سيدي عقبة','Si Okba','07','بسكرة','Biskra'),
+('سيدي عقبة','Si Okba','سيدي عقبة','Si Okba','07','بسكرة','Biskra'),
+('مشونش','M''chouneche','مشونش','Mechouneche','07','بسكرة','Biskra'),
+('ليوة','Lioua','أورلال','Ourlal','07','بسكرة','Biskra'),
+('طولقة','Tolga','طولقة','Tolga','07','بسكرة','Biskra'),
+('بشار','Bechar','بشار','Bechar','08','بشار','Béchar'),
+('بوكايس','Boukais','لحمر','Lahmar','08','بشار','Béchar'),
+('لحمر','Lahmar','لحمر','Lahmar','08','بشار','Béchar'),
+('موغل','Mogheul','لحمر','Lahmar','08','بشار','Béchar'),
+('المريجة','Merja','القنادسة','Kenadsa','08','بشار','Béchar'),
+('تاغيت','Taghit','تاغيت','Taghit','08','بشار','Béchar'),
+('العبادلة','Abadla','العبادلة','Abadla','08','بشار','Béchar'),
+('عرق فراج','Erg-Ferradj','العبادلة','Abadla','08','بشار','Béchar'),
+('مشرع هواري بومدين','Machraa-Houari-Boumediene','العبادلة','Abadla','08','بشار','Béchar'),
+('بني ونيف','Beni-Ounif','بني ونيف','Beni Ounif','08','بشار','Béchar'),
+('تبلبالة','Tabelbala','تبلبالة','Tabelbala','08','بشار','Béchar'),
+('القنادسة','Kenadsa','القنادسة','Kenadsa','08','بشار','Béchar'),
+('بني مراد','Beni Mered','أولاد يعيش','Ouled Yaich','09','البليدة','Bla'),
+('اولاد سلامة','Ouled Slama','بوقرة','Bougara','09','البليدة','Bla'),
+('موزاية','Mouzaia','موزاية','Mouzaia','09','البليدة','Bla'),
+('حمام ملوان','Hammam Elouane','بوقرة','Bougara','09','البليدة','Bla'),
+('بوقرة','Bougara','بوقرة','Bougara','09','البليدة','Bla'),
+('صوحان','Souhane','الأربعاء','Larbaa','09','البليدة','Bla'),
+('الأربعاء','Larbaa','الأربعاء','Larbaa','09','البليدة','Bla'),
+('الصومعة','Soumaa','بوفاريك','Boufarik','09','البليدة','Bla'),
+('قرواو','Guerrouaou','بوفاريك','Boufarik','09','البليدة','Bla'),
+('بوفاريك','Boufarik','بوفاريك','Boufarik','09','البليدة','Bla'),
+('مفتاح','Meftah','مفتاح','Meftah','09','البليدة','Bla'),
+('الشفة','Chiffa','موزاية','Mouzaia','09','البليدة','Bla'),
+('عين الرمانة','Ain Romana','موزاية','Mouzaia','09','البليدة','Bla'),
+('وادي جر','Oued  Djer','العفرون','El Affroun','09','البليدة','Bla'),
+('العفرون','El-Affroun','العفرون','El Affroun','09','البليدة','Bla'),
+('أولاد يعيش','Ouled Yaich','أولاد يعيش','Ouled Yaich','09','البليدة','Bla'),
+('الشريعة','Chrea','أولاد يعيش','Ouled Yaich','09','البليدة','Bla'),
+('جبابرة','Djebabra','مفتاح','Meftah','09','البليدة','Bla'),
+('وادي العلايق','Oued El Alleug','وادي العلايق','Oued El Alleug','09','البليدة','Bla'),
+('بن خليل','Benkhelil','وادي العلايق','Oued El Alleug','09','البليدة','Bla'),
+('بني تامو','Beni-Tamou','وادي العلايق','Oued El Alleug','09','البليدة','Bla'),
+('الشبلي','Chebli','بوعينان','Bouinan','09','البليدة','Bla'),
+('بوعينان','Bouinan','بوعينان','Bouinan','09','البليدة','Bla'),
+('بوعرفة','Bouarfa','البليدة','Bla','09','البليدة','Bla'),
+('البليدة','Bla','البليدة','Bla','09','البليدة','Bla'),
+('عين العلوي','Ain Laloui','عين بسام','Ain Bessem','10','البويرة','Bouira'),
+('الحجرة الزرقاء','Hadjera Zerga','برج أوخريص','Bordj Okhriss','10','البويرة','Bouira'),
+('مزدور','Mezdour','برج أوخريص','Bordj Okhriss','10','البويرة','Bouira'),
+('تاقديت','Taguedite','برج أوخريص','Bordj Okhriss','10','البويرة','Bouira'),
+('ريدان','Rane','سور الغزلان','Sour El Ghozlane','10','البويرة','Bouira'),
+('المعمورة','Maamora','سور الغزلان','Sour El Ghozlane','10','البويرة','Bouira'),
+('الحاكمية','El-Hakimia','سور الغزلان','Sour El Ghozlane','10','البويرة','Bouira'),
+('أهل القصر','Ahl El Ksar','بشلول','Bechloul','10','البويرة','Bouira'),
+('ديرة','Dirah','سور الغزلان','Sour El Ghozlane','10','البويرة','Bouira'),
+('الدشمية','Dechmia','سور الغزلان','Sour El Ghozlane','10','البويرة','Bouira'),
+('بشلول','Bechloul','بشلول','Bechloul','10','البويرة','Bouira'),
+('آث  منصور','Ath Mansour','مشد الله','M''chedallah','10','البويرة','Bouira'),
+('سحاريج','Saharj','مشد الله','M''chedallah','10','البويرة','Bouira'),
+('العجيبة','El Adjiba','بشلول','Bechloul','10','البويرة','Bouira'),
+('الأسنام','El Asnam','بشلول','Bechloul','10','البويرة','Bouira'),
+('أمشدالة','M Chedallah','مشد الله','M''chedallah','10','البويرة','Bouira'),
+('برج أوخريص','Bordj Okhriss','برج أوخريص','Bordj Okhriss','10','البويرة','Bouira'),
+('سور الغزلان','Sour El Ghozlane','سور الغزلان','Sour El Ghozlane','10','البويرة','Bouira'),
+('حنيف','Hanif','مشد الله','M''chedallah','10','البويرة','Bouira'),
+('شرفة','Chorfa','مشد الله','M''chedallah','10','البويرة','Bouira'),
+('أولاد راشد','Ouled Rached','بشلول','Bechloul','10','البويرة','Bouira'),
+('عين الحجر','Ain El Hadjar','عين بسام','Ain Bessem','10','البويرة','Bouira'),
+('أغبالو','Aghbalou','مشد الله','M''chedallah','10','البويرة','Bouira'),
+('روراوة','Raouraoua','بئر غبالو','Bir Ghbalou','10','البويرة','Bouira'),
+('الخبوزية','El Khabouzia','بئر غبالو','Bir Ghbalou','10','البويرة','Bouira'),
+('بئر غبالو','Bir Ghbalou','بئر غبالو','Bir Ghbalou','10','البويرة','Bouira'),
+('البويرة','Bouira','البويرة','Bouira','10','البويرة','Bouira'),
+('عين الترك','Ain Turk','البويرة','Bouira','10','البويرة','Bouira'),
+('أيت لعزيز','Ait Laaziz','البويرة','Bouira','10','البويرة','Bouira'),
+('عين بسام','Ain-Bessem','عين بسام','Ain Bessem','10','البويرة','Bouira'),
+('المقراني','El-Mokrani','سوق الخميس','Souk El Khemis','10','البويرة','Bouira'),
+('سوق الخميس','Souk El Khemis','سوق الخميس','Souk El Khemis','10','البويرة','Bouira'),
+('أعمر','Aomar','القادرية','Kadiria','10','البويرة','Bouira'),
+('جباحية','Djebahia','القادرية','Kadiria','10','البويرة','Bouira'),
+('الهاشمية','El Hachimia','الهاشمية','El Hachimia','10','البويرة','Bouira'),
+('حيزر','Haizer','الحيزر','Haizer','10','البويرة','Bouira'),
+('تاغزوت','Taghzout','الحيزر','Haizer','10','البويرة','Bouira'),
+('بودربالة','Bouderbala','الأخضرية','Lakhdaria','10','البويرة','Bouira'),
+('بوكرم','Boukram','الأخضرية','Lakhdaria','10','البويرة','Bouira'),
+('قرومة','Guerrouma','الأخضرية','Lakhdaria','10','البويرة','Bouira'),
+('الأخضرية','Lakhdaria','الأخضرية','Lakhdaria','10','البويرة','Bouira'),
+('معلة','Maala','الأخضرية','Lakhdaria','10','البويرة','Bouira'),
+('قادرية','Kadiria','القادرية','Kadiria','10','البويرة','Bouira'),
+('زبربر','Z''barbar (El Isseri )','الأخضرية','Lakhdaria','10','البويرة','Bouira'),
+('وادي البردي','Oued El Berdi','الهاشمية','El Hachimia','10','البويرة','Bouira'),
+('تاظروك','Tazrouk','تاظروك','Tazrouk','11','تمنراست','Tamanrasset'),
+('ابلسة','Abelsa','سيلت','Silet','11','تمنراست','Tamanrasset'),
+('تمنراست','Tamanrasset','تمنراست','Tamanrasset','11','تمنراست','Tamanrasset'),
+('عين امقل','Ain Amguel','تمنراست','Tamanrasset','11','تمنراست','Tamanrasset'),
+('أدلس','les','تاظروك','Tazrouk','11','تمنراست','Tamanrasset'),
+('الحويجبات','El-Houjbet','الماء الابيض','El Malabiod','12','تبسة','Tébessa'),
+('العوينات','El-Aouinet','العوينات','El Aouinet','12','تبسة','Tébessa'),
+('فركان','Ferkane','نقرين','Negrine','12','تبسة','Tébessa'),
+('نقرين','Negrine','نقرين','Negrine','12','تبسة','Tébessa'),
+('بئر مقدم','Bir Mokkadem','بئر مقدم','Bir Mokadem','12','تبسة','Tébessa'),
+('بئر الذهب','Bir Dheheb','مرسط','Morsott','12','تبسة','Tébessa'),
+('صفصاف الوسرى','Saf Saf El Ouesra','أم علي','Oum Ali','12','تبسة','Tébessa'),
+('قريقر','Guorriguer','بئر مقدم','Bir Mokadem','12','تبسة','Tébessa'),
+('بكارية','Bekkaria','الكويف','El Kouif','12','تبسة','Tébessa'),
+('بولحاف الدير','Boulhaf Dyr','الكويف','El Kouif','12','تبسة','Tébessa'),
+('أم علي','Oum Ali','أم علي','Oum Ali','12','تبسة','Tébessa'),
+('بوخضرة','Boukhadra','العوينات','El Aouinet','12','تبسة','Tébessa'),
+('الماء الابيض','El Malabiod','الماء الابيض','El Malabiod','12','تبسة','Tébessa'),
+('الونزة','Ouenza','الونزة','Ouenza','12','تبسة','Tébessa'),
+('المريج','El Merj','الونزة','Ouenza','12','تبسة','Tébessa'),
+('عين الزرقاء','Ain Zerga','الونزة','Ouenza','12','تبسة','Tébessa'),
+('سطح قنطيس','Stah Guentis','العقلة','El Ogla','12','تبسة','Tébessa'),
+('العقلة','El Ogla','العقلة','El Ogla','12','تبسة','Tébessa'),
+('المزرعة','El Mezeraa','العقلة','El Ogla','12','تبسة','Tébessa'),
+('بجن','Bedjene','العقلة','El Ogla','12','تبسة','Tébessa'),
+('مرسط','Morsott','مرسط','Morsott','12','تبسة','Tébessa'),
+('ثليجان','Teljen','الشريعة','Cheria','12','تبسة','Tébessa'),
+('الشريعة','Cheria','الشريعة','Cheria','12','تبسة','Tébessa'),
+('العقلة المالحة','El Ogla El Malha','بئر العاتر','Bir El Ater','12','تبسة','Tébessa'),
+('بئر العاتر','Bir-El-Ater','بئر العاتر','Bir El Ater','12','تبسة','Tébessa'),
+('تبسة','Tebessa','تبسة','Tebessa','12','تبسة','Tébessa'),
+('الحمامات','Hammamet','بئر مقدم','Bir Mokadem','12','تبسة','Tébessa'),
+('الكويف','El Kouif','الكويف','El Kouif','12','تبسة','Tébessa'),
+('باب العسة','Bab El Assa','باب العسة','Bab El Assa','13','تلمسان','Tlemcen'),
+('تيرني بني هديل','Terny Beni Hediel','منصورة','Mansourah','13','تلمسان','Tlemcen'),
+('منصورة','Mansourah','منصورة','Mansourah','13','تلمسان','Tlemcen'),
+('بني مستر','Beni Mester','منصورة','Mansourah','13','تلمسان','Tlemcen'),
+('عين غرابة','Ain Ghoraba','منصورة','Mansourah','13','تلمسان','Tlemcen'),
+('شتوان','Chetouane','شتوان','Chetouane','13','تلمسان','Tlemcen'),
+('عمير','Amieur','شتوان','Chetouane','13','تلمسان','Tlemcen'),
+('عين فزة','Ain Fezza','شتوان','Chetouane','13','تلمسان','Tlemcen'),
+('هنين','Honnaine','هنين','Honnaine','13','تلمسان','Tlemcen'),
+('بني خلاد','Beni Khellad','هنين','Honnaine','13','تلمسان','Tlemcen'),
+('سيدي الجيلالي','Si Djillali','سيدي الجيلالي','Si Djillali','13','تلمسان','Tlemcen'),
+('البويهي','Bouihi','سيدي الجيلالي','Si Djillali','13','تلمسان','Tlemcen'),
+('ندرومة','Nedroma','ندرومة','Nedroma','13','تلمسان','Tlemcen'),
+('مسيردة الفواقة','M''sirda Fouaga','مرسى بن مهيدي','Marsa Ben Mehdi','13','تلمسان','Tlemcen'),
+('مرسى بن مهيدي','Marsa Ben M''hi','مرسى بن مهيدي','Marsa Ben Mehdi','13','تلمسان','Tlemcen'),
+('سيدي مجاهد','Si Medjahed','بني بوسعيد','Beni Boussa','13','تلمسان','Tlemcen'),
+('بني بوسعيد','Beni Boussa','بني بوسعيد','Beni Boussa','13','تلمسان','Tlemcen'),
+('سبدو','Sebdou','سبدو','Sebdou','13','تلمسان','Tlemcen'),
+('القور','El Gor','سبدو','Sebdou','13','تلمسان','Tlemcen'),
+('العريشة','El Aricha','سبدو','Sebdou','13','تلمسان','Tlemcen'),
+('بوحلو','Bouhlou','صبرة','Sabra','13','تلمسان','Tlemcen'),
+('مغنية','Maghnia','مغنية','Maghnia','13','تلمسان','Tlemcen'),
+('حمام بوغرارة','Hammam Boughrara','مغنية','Maghnia','13','تلمسان','Tlemcen'),
+('زناتة','Zenata','الحناية','Hennaya','13','تلمسان','Tlemcen'),
+('أولاد رياح','Ouled Riyah','الحناية','Hennaya','13','تلمسان','Tlemcen'),
+('الحناية','Hennaya','الحناية','Hennaya','13','تلمسان','Tlemcen'),
+('سيدي العبدلي','Si Abdelli','بن سكران','Bensekrane','13','تلمسان','Tlemcen'),
+('سوق الثلاثاء','Souk Tleta','باب العسة','Bab El Assa','13','تلمسان','Tlemcen'),
+('بن سكران','Bensekrane','بن سكران','Bensekrane','13','تلمسان','Tlemcen'),
+('فلاوسن','Fellaoucene','فلاوسن','Fellaoucene','13','تلمسان','Tlemcen'),
+('عين الكبيرة','Ain Kebira','فلاوسن','Fellaoucene','13','تلمسان','Tlemcen'),
+('عين فتاح','Ain Fetah','فلاوسن','Fellaoucene','13','تلمسان','Tlemcen'),
+('تلمسان','Tlemcen','تلمسان','Tlemcen','13','تلمسان','Tlemcen'),
+('عين النحالة','Ain Nehala','عين تالوت','Ain Tellout','13','تلمسان','Tlemcen'),
+('عين تالوت','Ain Tellout','عين تالوت','Ain Tellout','13','تلمسان','Tlemcen'),
+('عين يوسف','Ain Youcef','الرمشي','Remchi','13','تلمسان','Tlemcen'),
+('بني وارسوس','Beni Ouarsous','الرمشي','Remchi','13','تلمسان','Tlemcen'),
+('الفحول','El Fehoul','الرمشي','Remchi','13','تلمسان','Tlemcen'),
+('الرمشي','Remchi','الرمشي','Remchi','13','تلمسان','Tlemcen'),
+('سبعة شيوخ','Sebbaa Chioukh','الرمشي','Remchi','13','تلمسان','Tlemcen'),
+('السواني','Souani','باب العسة','Bab El Assa','13','تلمسان','Tlemcen'),
+('صبرة','Sabra','صبرة','Sabra','13','تلمسان','Tlemcen'),
+('دار يغمراسن','Dar Yaghmoracen','الغزوات','Ghazaouet','13','تلمسان','Tlemcen'),
+('الغزوات','Ghazaouet','الغزوات','Ghazaouet','13','تلمسان','Tlemcen'),
+('السواحلية','Souahlia','الغزوات','Ghazaouet','13','تلمسان','Tlemcen'),
+('تيانت','Tianet','الغزوات','Ghazaouet','13','تلمسان','Tlemcen'),
+('بني صميل','Beni Smiel','أولاد ميمون','Ouled Mimoun','13','تلمسان','Tlemcen'),
+('وادي الخضر','Oued Lakhdar','أولاد ميمون','Ouled Mimoun','13','تلمسان','Tlemcen'),
+('أولاد ميمون','Ouled Mimoun','أولاد ميمون','Ouled Mimoun','13','تلمسان','Tlemcen'),
+('بني بهدل','Beni Bahdel','بني سنوس','Beni Snous','13','تلمسان','Tlemcen'),
+('بني سنوس','Beni Snous','بني سنوس','Beni Snous','13','تلمسان','Tlemcen'),
+('العزايل','Azail','بني سنوس','Beni Snous','13','تلمسان','Tlemcen'),
+('جبالة','Djebala','ندرومة','Nedroma','13','تلمسان','Tlemcen'),
+('مهدية','Mahdia','مهدية','Mahdia','14','تيارت','Tiaret'),
+('عين دزاريت','Ain Dzarit','مهدية','Mahdia','14','تيارت','Tiaret'),
+('السبعين','Sebaine','مهدية','Mahdia','14','تيارت','Tiaret'),
+('الفايجة','Faja','السوقر','Sougueur','14','تيارت','Tiaret'),
+('سي عبد الغني','Si Abdelghani','السوقر','Sougueur','14','تيارت','Tiaret'),
+('السوقر','Sougueur','السوقر','Sougueur','14','تيارت','Tiaret'),
+('توسنينة','Tousnina','السوقر','Sougueur','14','تيارت','Tiaret'),
+('مغيلة','Meghila','مغيلة','Meghila','14','تيارت','Tiaret'),
+('السبت','Sebt','مغيلة','Meghila','14','تيارت','Tiaret'),
+('سيدي حسني','Si Hosni','مغيلة','Meghila','14','تيارت','Tiaret'),
+('عين الحديد','Ain El Had','فرندة','Frenda','14','تيارت','Tiaret'),
+('فرندة','Frenda','فرندة','Frenda','14','تيارت','Tiaret'),
+('تخمرت','Takhemaret','فرندة','Frenda','14','تيارت','Tiaret'),
+('عين كرمس','Ain Kermes','عين كرمس','Ain Kermes','14','تيارت','Tiaret'),
+('جبيلات الرصفاء','Djebilet Rosfa','عين كرمس','Ain Kermes','14','تيارت','Tiaret'),
+('مادنة','Madna','عين كرمس','Ain Kermes','14','تيارت','Tiaret'),
+('مدريسة','Medrissa','عين كرمس','Ain Kermes','14','تيارت','Tiaret'),
+('سيدي عبد الرحمن','Si Abderrahmane','عين كرمس','Ain Kermes','14','تيارت','Tiaret'),
+('قصر الشلالة','Ksar Chellala','قصر الشلالة','Ksar Chellala','14','تيارت','Tiaret'),
+('قرطوفة','Guertoufa','رحوية','Rahouia','14','تيارت','Tiaret'),
+('سرغين','Serghine','قصر الشلالة','Ksar Chellala','14','تيارت','Tiaret'),
+('زمالة  الأمير عبد القادر','Zmalet El Emir Abdelkade','قصر الشلالة','Ksar Chellala','14','تيارت','Tiaret'),
+('وادي ليلي','Oued Lilli','وادي ليلي','Oued Lili','14','تيارت','Tiaret'),
+('سيدي علي ملال','Si Ali Mellal','وادي ليلي','Oued Lili','14','تيارت','Tiaret'),
+('جيلالي بن عمار','Djillali Ben Amar','مشرع الصفا','Mechraa Sfa','14','تيارت','Tiaret'),
+('مشرع الصفا','Mechraa Safa','مشرع الصفا','Mechraa Sfa','14','تيارت','Tiaret'),
+('تاقدمت','Tagdempt','مشرع الصفا','Mechraa Sfa','14','تيارت','Tiaret'),
+('بوقرة','Bougara','حمادية','Hamadia','14','تيارت','Tiaret'),
+('حمادية','Hamadia','حمادية','Hamadia','14','تيارت','Tiaret'),
+('الرشايقة','Rechaiga','حمادية','Hamadia','14','تيارت','Tiaret'),
+('تيدة','Tda','وادي ليلي','Oued Lili','14','تيارت','Tiaret'),
+('الناظورة','Nadorah','مهدية','Mahdia','14','تيارت','Tiaret'),
+('تيارت','Tiaret','تيارت','Tiaret','14','تيارت','Tiaret'),
+('مدروسة','Medroussa','مدروسة','Medroussa','14','تيارت','Tiaret'),
+('ملاكو','Mellakou','مدروسة','Medroussa','14','تيارت','Tiaret'),
+('سيدي بختي','Si Bakhti','مدروسة','Medroussa','14','تيارت','Tiaret'),
+('عين الذهب','Ain Deheb','عين الذهب','Ain Deheb','14','تيارت','Tiaret'),
+('شحيمة','Chehaima','عين الذهب','Ain Deheb','14','تيارت','Tiaret'),
+('النعيمة','Naima','عين الذهب','Ain Deheb','14','تيارت','Tiaret'),
+('عين بوشقيف','Ain Bouchekif','دحموني','Dahmouni','14','تيارت','Tiaret'),
+('دحموني','Dahmouni','دحموني','Dahmouni','14','تيارت','Tiaret'),
+('الرحوية','Rahouia','رحوية','Rahouia','14','تيارت','Tiaret'),
+('ميزرانـــة','Mizrana','تيقزيرت','Tigzirt','15','تيزي وزو','Tizi Ouzou'),
+('إيجــار','jeur','بوزقن','Bouzeguene','15','تيزي وزو','Tizi Ouzou'),
+('بني دوالة','Beni-Douala','بني دوالة','Beni Douala','15','تيزي وزو','Tizi Ouzou'),
+('بني زيكــي','Beni-Zikki','بوزقن','Bouzeguene','15','تيزي وزو','Tizi Ouzou'),
+('إيلولة أومـــالو','Illoula Oumalou','بوزقن','Bouzeguene','15','تيزي وزو','Tizi Ouzou'),
+('أقني قغران','Agouni-Gueghrane','واضية','Ouadhias','15','تيزي وزو','Tizi Ouzou'),
+('أيت بــوادو','Ait Bouaddou','واضية','Ouadhias','15','تيزي وزو','Tizi Ouzou'),
+('واضية','Ouadhias','واضية','Ouadhias','15','تيزي وزو','Tizi Ouzou'),
+('تيزي نثلاثة','Tizi N''tleta','واضية','Ouadhias','15','تيزي وزو','Tizi Ouzou'),
+('أغريب','Aghribs','أزفون','Azeffoun','15','تيزي وزو','Tizi Ouzou'),
+('أيت شافع','Ait-Chafaa','أزفون','Azeffoun','15','تيزي وزو','Tizi Ouzou'),
+('أقرو','Akerrou','أزفون','Azeffoun','15','تيزي وزو','Tizi Ouzou'),
+('أزفون','Azeffoun','أزفون','Azeffoun','15','تيزي وزو','Tizi Ouzou'),
+('إفليـــسن','Iflissen','تيقزيرت','Tigzirt','15','تيزي وزو','Tizi Ouzou'),
+('تيقـزيرت','Tigzirt','تيقزيرت','Tigzirt','15','تيزي وزو','Tizi Ouzou'),
+('أسي يوسف','Assi-Youcef','بوغني','Boghni','15','تيزي وزو','Tizi Ouzou'),
+('بوغني','Boghni','بوغني','Boghni','15','تيزي وزو','Tizi Ouzou'),
+('بونوح','Bounouh','بوغني','Boghni','15','تيزي وزو','Tizi Ouzou'),
+('مشطراس','Mechtras','بوغني','Boghni','15','تيزي وزو','Tizi Ouzou'),
+('ذراع بن خدة','Draa-Ben-Khedda','ذراع بن خدة','Draa Ben Khedda','15','تيزي وزو','Tizi Ouzou'),
+('سيدي نعمان','Si Namane','ذراع بن خدة','Draa Ben Khedda','15','تيزي وزو','Tizi Ouzou'),
+('تادمايت','Tadmait','ذراع بن خدة','Draa Ben Khedda','15','تيزي وزو','Tizi Ouzou'),
+('تيرمتين','Tirmitine','ذراع بن خدة','Draa Ben Khedda','15','تيزي وزو','Tizi Ouzou'),
+('أيت بومهدي','Ait Boumahdi','واسيف','Ouacif','15','تيزي وزو','Tizi Ouzou'),
+('أيت تودرت','Ait-Toudert','واسيف','Ouacif','15','تيزي وزو','Tizi Ouzou'),
+('بني عيسي','Beni-Aissi','بني دوالة','Beni Douala','15','تيزي وزو','Tizi Ouzou'),
+('واسيف','Ouacif','واسيف','Ouacif','15','تيزي وزو','Tizi Ouzou'),
+('أيت خليلي','Ait Khellili','مقلع','Mekla','15','تيزي وزو','Tizi Ouzou'),
+('مقــلع','Mekla','مقلع','Mekla','15','تيزي وزو','Tizi Ouzou'),
+('صوامـــع','Souama','مقلع','Mekla','15','تيزي وزو','Tizi Ouzou'),
+('بني يني','Beni-Yenni','بني يني','Benni Yenni','15','تيزي وزو','Tizi Ouzou'),
+('إبودرارن','Iboudrarene','بني يني','Benni Yenni','15','تيزي وزو','Tizi Ouzou'),
+('تيزي وزو','Tizi-Ouzou','تيزي وزو','Tizi Ouzou','15','تيزي وزو','Tizi Ouzou'),
+('أبي يوسف','Abi-Youcef','عين الحمام','Ain El Hammam','15','تيزي وزو','Tizi Ouzou'),
+('عين الحمام','Ain-El-Hammam','عين الحمام','Ain El Hammam','15','تيزي وزو','Tizi Ouzou'),
+('أيت يحيى','Ait-Yahia','عين الحمام','Ain El Hammam','15','تيزي وزو','Tizi Ouzou'),
+('اقبيل','Akbil','عين الحمام','Ain El Hammam','15','تيزي وزو','Tizi Ouzou'),
+('بوجيمة','Boudjima','ماكودة','Makouda','15','تيزي وزو','Tizi Ouzou'),
+('ماكودة','Makouda','ماكودة','Makouda','15','تيزي وزو','Tizi Ouzou'),
+('عين الزاوية','Ain-Zaouia','ذراع الميزان','Draa El Mizan','15','تيزي وزو','Tizi Ouzou'),
+('أيت يحي موسى','Ait Yahia Moussa','ذراع الميزان','Draa El Mizan','15','تيزي وزو','Tizi Ouzou'),
+('ذراع الميزان','Draa-El-Mizan','ذراع الميزان','Draa El Mizan','15','تيزي وزو','Tizi Ouzou'),
+('فريقات','Frikat','ذراع الميزان','Draa El Mizan','15','تيزي وزو','Tizi Ouzou'),
+('مكيرة','M''kira','تيزي غنيف','Tizi-Ghenif','15','تيزي وزو','Tizi Ouzou'),
+('تيزي غنيف','Tizi-Gheniff','تيزي غنيف','Tizi-Ghenif','15','تيزي وزو','Tizi Ouzou'),
+('يطــافن','Yatafene','بني يني','Benni Yenni','15','تيزي وزو','Tizi Ouzou'),
+('إيلـيــلتـن','Illilten','إفرحونان','Iferhounene','15','تيزي وزو','Tizi Ouzou'),
+('إمســوحال','Imsouhal','إفرحونان','Iferhounene','15','تيزي وزو','Tizi Ouzou'),
+('عزازقة','Azazga','عزازقة','Azazga','15','تيزي وزو','Tizi Ouzou'),
+('فريحة','Freha','عزازقة','Azazga','15','تيزي وزو','Tizi Ouzou'),
+('إيفيغاء','Ifigha','عزازقة','Azazga','15','تيزي وزو','Tizi Ouzou'),
+('إعــكورن','Yakourene','عزازقة','Azazga','15','تيزي وزو','Tizi Ouzou'),
+('زكري','Zekri','عزازقة','Azazga','15','تيزي وزو','Tizi Ouzou'),
+('أيت عقـواشة','Ait Aggouacha','الأربعاء ناث إيراثن','Larbaa Nath Iraten','15','تيزي وزو','Tizi Ouzou'),
+('إيرجـــن','Irdjen','الأربعاء ناث إيراثن','Larbaa Nath Iraten','15','تيزي وزو','Tizi Ouzou'),
+('الأربعــاء ناث إيراثن','Larbaa Nath Irathen','الأربعاء ناث إيراثن','Larbaa Nath Iraten','15','تيزي وزو','Tizi Ouzou'),
+('أيت  أومالو','Ait-Oumalou','تيزي راشد','Tizi Rached','15','تيزي وزو','Tizi Ouzou'),
+('تيزي راشد','Tizi-Rached','تيزي راشد','Tizi Rached','15','تيزي وزو','Tizi Ouzou'),
+('أيت عيسى ميمون','Ait-Aissa-Mimoun','واقنون','Ouaguenoun','15','تيزي وزو','Tizi Ouzou'),
+('واقنون','Ouaguenoun','واقنون','Ouaguenoun','15','تيزي وزو','Tizi Ouzou'),
+('تيمـيزار','Timizart','واقنون','Ouaguenoun','15','تيزي وزو','Tizi Ouzou'),
+('معـــاتقة','Maatkas','معاتقة','Maatkas','15','تيزي وزو','Tizi Ouzou'),
+('سوق الإثنين','Souk-El-Tenine','معاتقة','Maatkas','15','تيزي وزو','Tizi Ouzou'),
+('أيت محمود','Ait-Mahmoud','بني دوالة','Beni Douala','15','تيزي وزو','Tizi Ouzou'),
+('بنــــي زمنزار','Beni Zmenzer','بني دوالة','Beni Douala','15','تيزي وزو','Tizi Ouzou'),
+('إفــرحــونان','Iferhounene','إفرحونان','Iferhounene','15','تيزي وزو','Tizi Ouzou'),
+('بوزقــن','Bouzeguene','بوزقن','Bouzeguene','15','تيزي وزو','Tizi Ouzou'),
+('حسين داي','Hussein Dey','حسين داي','Hussein Dey','16','الجزائر','Alger'),
+('الكاليتوس','Les Eucalyptus','براقي','Baraki','16','الجزائر','Alger'),
+('سيدي موسى','Si Moussa','براقي','Baraki','16','الجزائر','Alger'),
+('القبة','Kouba','حسين داي','Hussein Dey','16','الجزائر','Alger'),
+('محمد بلوزداد','Mohamed Belouzdad','حسين داي','Hussein Dey','16','الجزائر','Alger'),
+('عين طاية','Ain Taya','الدار البيضاء','Dar El Bea','16','الجزائر','Alger'),
+('باب الزوار','Bab Ezzouar','الدار البيضاء','Dar El Bea','16','الجزائر','Alger'),
+('برج الكيفان','Bordj El Kiffan','الدار البيضاء','Dar El Bea','16','الجزائر','Alger'),
+('الدار البيضاء','Dar El Bea','الدار البيضاء','Dar El Bea','16','الجزائر','Alger'),
+('المرسى','El Marsa','الدار البيضاء','Dar El Bea','16','الجزائر','Alger'),
+('المحمدية','Mohammadia','الدار البيضاء','Dar El Bea','16','الجزائر','Alger'),
+('بئر توتة','Bir Touta','بئر توتة','Birtouta','16','الجزائر','Alger'),
+('اولاد شبل','Ouled Chebel','بئر توتة','Birtouta','16','الجزائر','Alger'),
+('تسالة المرجة','Tessala El Merdja','بئر توتة','Birtouta','16','الجزائر','Alger'),
+('هراوة','Herraoua','الرويبة','Rouiba','16','الجزائر','Alger'),
+('رغاية','Reghaia','الرويبة','Rouiba','16','الجزائر','Alger'),
+('الرويبة','Rouiba','الرويبة','Rouiba','16','الجزائر','Alger'),
+('المعالمة','Maalma','زرالدة','Zeralda','16','الجزائر','Alger'),
+('الرحمانية','Rahmania','زرالدة','Zeralda','16','الجزائر','Alger'),
+('سويدانية','Souania','زرالدة','Zeralda','16','الجزائر','Alger'),
+('سطاوالي','Staoueli','زرالدة','Zeralda','16','الجزائر','Alger'),
+('زرالدة','Zeralda','زرالدة','Zeralda','16','الجزائر','Alger'),
+('بابا حسن','Baba Hassen','الدرارية','Draria','16','الجزائر','Alger'),
+('الدويرة','Douira','الدرارية','Draria','16','الجزائر','Alger'),
+('الدرارية','Draria','الدرارية','Draria','16','الجزائر','Alger'),
+('العاشور','El Achour','الدرارية','Draria','16','الجزائر','Alger'),
+('الخرايسية','Khraissia','الدرارية','Draria','16','الجزائر','Alger'),
+('عين بنيان','Ain Benian','الشراقة','Cheraga','16','الجزائر','Alger'),
+('الشراقة','Cheraga','الشراقة','Cheraga','16','الجزائر','Alger'),
+('دالي ابراهيم','Dely Ibrahim','الشراقة','Cheraga','16','الجزائر','Alger'),
+('الحمامات','Hammamet','الشراقة','Cheraga','16','الجزائر','Alger'),
+('اولاد فايت','Ouled Fayet','الشراقة','Cheraga','16','الجزائر','Alger'),
+('الجزائر الوسطى','Alger Centre','سيدي امحمد','Si M''hamed','16','الجزائر','Alger'),
+('المدنية','El Madania','سيدي امحمد','Si M''hamed','16','الجزائر','Alger'),
+('المرادية','El Mouradia','سيدي امحمد','Si M''hamed','16','الجزائر','Alger'),
+('سيدي امحمد','Si M''hamed','سيدي امحمد','Si M''hamed','16','الجزائر','Alger'),
+('السحاولة','Sehaoula','بئر مراد رايس','Bir Mourad Rais','16','الجزائر','Alger'),
+('بولوغين بن زيري','Bologhine Ibnou Ziri','باب الوادي','Bab El Oued','16','الجزائر','Alger'),
+('القصبة','Casbah','باب الوادي','Bab El Oued','16','الجزائر','Alger'),
+('وادي قريش','Oued Koriche','باب الوادي','Bab El Oued','16','الجزائر','Alger'),
+('الرايس حميدو','Rais Hamou','باب الوادي','Bab El Oued','16','الجزائر','Alger'),
+('بئر مراد رايس','Bir Mourad Rais','بئر مراد رايس','Bir Mourad Rais','16','الجزائر','Alger'),
+('بئر خادم','Birkhadem','بئر مراد رايس','Bir Mourad Rais','16','الجزائر','Alger'),
+('جسر قسنطينة','Djasr Kasentina','بئر مراد رايس','Bir Mourad Rais','16','الجزائر','Alger'),
+('حيدرة','Hydra','بئر مراد رايس','Bir Mourad Rais','16','الجزائر','Alger'),
+('المغارية','El Magharia','حسين داي','Hussein Dey','16','الجزائر','Alger'),
+('ابن عكنون','Ben Aknoun','بوزريعة','Bouzareah','16','الجزائر','Alger'),
+('بني مسوس','Beni Messous','بوزريعة','Bouzareah','16','الجزائر','Alger'),
+('بوزريعة','Bouzareah','بوزريعة','Bouzareah','16','الجزائر','Alger'),
+('الابيار','El Biar','بوزريعة','Bouzareah','16','الجزائر','Alger'),
+('باش جراح','Bachedjerah','الحراش','El Harrach','16','الجزائر','Alger'),
+('بوروبة','Bourouba','الحراش','El Harrach','16','الجزائر','Alger'),
+('الحراش','El Harrach','الحراش','El Harrach','16','الجزائر','Alger'),
+('وادي السمار','Oued Smar','الحراش','El Harrach','16','الجزائر','Alger'),
+('براقي','Baraki','براقي','Baraki','16','الجزائر','Alger'),
+('برج البحري','Bordj El Bahri','الدار البيضاء','Dar El Bea','16','الجزائر','Alger'),
+('باب الوادي','Bab El Oued','باب الوادي','Bab El Oued','16','الجزائر','Alger'),
+('حاسي العش','Hassi El Euch','حاسي بحبح','Hassi Bahbah','17','الجلفة','Djelfa'),
+('عين الإبل','Ain El Ibel','عين الإبل','Ain El Ibel','17','الجلفة','Djelfa'),
+('القديد','El Gued','الشارف','Charef','17','الجلفة','Djelfa'),
+('الشارف','Charef','الشارف','Charef','17','الجلفة','Djelfa'),
+('بن يعقوب','Benyagoub','الشارف','Charef','17','الجلفة','Djelfa'),
+('سيدي بايزيد','Si Baiz','دار الشيوخ','Dar Chioukh','17','الجلفة','Djelfa'),
+('مليليحة','M''liliha','دار الشيوخ','Dar Chioukh','17','الجلفة','Djelfa'),
+('دار الشيوخ','Dar Chioukh','دار الشيوخ','Dar Chioukh','17','الجلفة','Djelfa'),
+('تعظميت','Taadmit','عين الإبل','Ain El Ibel','17','الجلفة','Djelfa'),
+('حد الصحاري','Had Sahary','حد الصحاري','Had Sahary','17','الجلفة','Djelfa'),
+('بويرة الأحداب','Bouira Lahdab','حد الصحاري','Had Sahary','17','الجلفة','Djelfa'),
+('عين فقه','Ain Fekka','حد الصحاري','Had Sahary','17','الجلفة','Djelfa'),
+('سيدي لعجال','Si Laadjel','سيدي لعجال','Si Laadjel','17','الجلفة','Djelfa'),
+('حاسي فدول','Hassi Fedoul','سيدي لعجال','Si Laadjel','17','الجلفة','Djelfa'),
+('الخميس','El Khemis','سيدي لعجال','Si Laadjel','17','الجلفة','Djelfa'),
+('سلمانة','Selmana','مسعد','Messaad','17','الجلفة','Djelfa'),
+('سد الرحال','Sed Rahal','مسعد','Messaad','17','الجلفة','Djelfa'),
+('مسعد','Messaad','مسعد','Messaad','17','الجلفة','Djelfa'),
+('قطارة','Guettara','مسعد','Messaad','17','الجلفة','Djelfa'),
+('دلدول','Deldoul','مسعد','Messaad','17','الجلفة','Djelfa'),
+('زكار','Zaccar','عين الإبل','Ain El Ibel','17','الجلفة','Djelfa'),
+('دويس','Douis','الادريسية','El rissia','17','الجلفة','Djelfa'),
+('الادريسية','El rissia','الادريسية','El rissia','17','الجلفة','Djelfa'),
+('عين الشهداء','Ain Chouhada','الادريسية','El rissia','17','الجلفة','Djelfa'),
+('الجلفة','Djelfa','الجلفة','Djelfa','17','الجلفة','Djelfa'),
+('بيرين','Birine','بيرين','Birine','17','الجلفة','Djelfa'),
+('أم العظام','Oum Laadham','فيض البطمة','Fah El Botma','17','الجلفة','Djelfa'),
+('فيض البطمة','Fah El Botma','فيض البطمة','Fah El Botma','17','الجلفة','Djelfa'),
+('عمورة','Amourah','فيض البطمة','Fah El Botma','17','الجلفة','Djelfa'),
+('زعفران','Zaafrane','حاسي بحبح','Hassi Bahbah','17','الجلفة','Djelfa'),
+('قرنيني','Guernini','عين وسارة','Ain Oussera','17','الجلفة','Djelfa'),
+('عين وسارة','Ain Oussera','عين وسارة','Ain Oussera','17','الجلفة','Djelfa'),
+('بنهار','Benhar','بيرين','Birine','17','الجلفة','Djelfa'),
+('عين معبد','Ain Maabed','حاسي بحبح','Hassi Bahbah','17','الجلفة','Djelfa'),
+('حاسي بحبح','Hassi Bahbah','حاسي بحبح','Hassi Bahbah','17','الجلفة','Djelfa'),
+('مجبارة','Moudjebara','عين الإبل','Ain El Ibel','17','الجلفة','Djelfa'),
+('جيجل','Jijel','جيجل','Jijel','18','جيجل','Jijel'),
+('العوانة','El Aouana','العوانة','El Aouana','18','جيجل','Jijel'),
+('سلمى بن زيادة','Selma Benziada','العوانة','El Aouana','18','جيجل','Jijel'),
+('أراقن سويسي','Erraguene Souissi','زيامة منصورية','Ziamah Mansouriah','18','جيجل','Jijel'),
+('بوسيف أولاد عسكر','Boussif Ouled Askeur','الطاهير','Taher','18','جيجل','Jijel'),
+('زيامة منصورية','Ziama Mansouriah','زيامة منصورية','Ziamah Mansouriah','18','جيجل','Jijel'),
+('الشحنة','Chahna','الطاهير','Taher','18','جيجل','Jijel'),
+('الامير عبد القادر','Emir Abdelkader','الطاهير','Taher','18','جيجل','Jijel'),
+('وجانة','Oudjana','الطاهير','Taher','18','جيجل','Jijel'),
+('الطاهير','Taher','الطاهير','Taher','18','جيجل','Jijel'),
+('الشقفة','Chekfa','الشقفة','Chekfa','18','جيجل','Jijel'),
+('القنار نشفي','El Kennar Nouchfi','الشقفة','Chekfa','18','جيجل','Jijel'),
+('سيدي عبد العزيز','Si Abdelaziz','الشقفة','Chekfa','18','جيجل','Jijel'),
+('الميلية','El Milia','الميلية','El Milia','18','جيجل','Jijel'),
+('أولاد يحيى خدروش','Ouled Yahia Khadrouch','الميلية','El Milia','18','جيجل','Jijel'),
+('أولاد رابح','Ouled Rabah','سيدي معروف','Si Marouf','18','جيجل','Jijel'),
+('سيدي معروف','Si Marouf','سيدي معروف','Si Marouf','18','جيجل','Jijel'),
+('غبالة','Ghebala','السطارة','Settara','18','جيجل','Jijel'),
+('السطارة','Settara','السطارة','Settara','18','جيجل','Jijel'),
+('بوراوي بلهادف','Bouraoui Belhadef','العنصر','El Ancer','18','جيجل','Jijel'),
+('العنصر','El Ancer','العنصر','El Ancer','18','جيجل','Jijel'),
+('خيري واد عجول','Khiri Oued Adjoul','العنصر','El Ancer','18','جيجل','Jijel'),
+('جيملة','Djimla','جيملة','Djimla','18','جيجل','Jijel'),
+('قاوس','Kaous','تاكسنة','Texenna','18','جيجل','Jijel'),
+('تاكسنة','Texenna','تاكسنة','Texenna','18','جيجل','Jijel'),
+('برج الطهر','Bordj T''har','الشقفة','Chekfa','18','جيجل','Jijel'),
+('بودريعة بني  ياجيس','Boudria Beniyadjis','جيملة','Djimla','18','جيجل','Jijel'),
+('الجمعة بني حبيبي','Djemaa Beni Habibi','العنصر','El Ancer','18','جيجل','Jijel'),
+('الرصفة','Rosfa','صالح باي','Salah Bey','19','سطيف','Sétif'),
+('واد البارد','Oued El Bared','عموشة','Amoucha','19','سطيف','Sétif'),
+('تيزي نبشار','Tizi N''bechar','عموشة','Amoucha','19','سطيف','Sétif'),
+('مزلوق','Mezloug','عين أرنات','Ain Arnat','19','سطيف','Sétif'),
+('قلال','Guellal','عين ولمان','Ain Oulmene','19','سطيف','Sétif'),
+('قصر الابطال','Kasr El Abtal','عين ولمان','Ain Oulmene','19','سطيف','Sétif'),
+('أولاد سي أحمد','Ouled Si Ahmed','عين ولمان','Ain Oulmene','19','سطيف','Sétif'),
+('أيت نوال مزادة','Ait Naoual Mezada','بوعنداس','Bouandas','19','سطيف','Sétif'),
+('ايت تيزي','Ait-Tizi','بوعنداس','Bouandas','19','سطيف','Sétif'),
+('بوعنداس','Bouandas','بوعنداس','Bouandas','19','سطيف','Sétif'),
+('بوسلام','Bousselam','بوعنداس','Bouandas','19','سطيف','Sétif'),
+('حمام السخنة','Hamam Soukhna','حمام السخنة','Hammam Sokhna','19','سطيف','Sétif'),
+('الطاية','Taya','حمام السخنة','Hammam Sokhna','19','سطيف','Sétif'),
+('التلة','Tella','حمام السخنة','Hammam Sokhna','19','سطيف','Sétif'),
+('عين ولمان','Ain Oulmene','عين ولمان','Ain Oulmene','19','سطيف','Sétif'),
+('بوطالب','Boutaleb','صالح باي','Salah Bey','19','سطيف','Sétif'),
+('الحامة','Hamma','صالح باي','Salah Bey','19','سطيف','Sétif'),
+('أولاد تبان','Ouled Tebben','صالح باي','Salah Bey','19','سطيف','Sétif'),
+('عموشة','Amoucha','عموشة','Amoucha','19','سطيف','Sétif'),
+('صالح باي','Salah Bey','صالح باي','Salah Bey','19','سطيف','Sétif'),
+('عين أزال','Ain Azel','عين أزال','Ain Azel','19','سطيف','Sétif'),
+('عين الحجر','Ain Lahdjar','عين أزال','Ain Azel','19','سطيف','Sétif'),
+('بيضاء برج','Beha Bordj','عين أزال','Ain Azel','19','سطيف','Sétif'),
+('بئر حدادة','Bir Haddada','عين أزال','Ain Azel','19','سطيف','Sétif'),
+('قنزات','Guenzet','قنزات','Guenzet','19','سطيف','Sétif'),
+('حربيل','Harbil','قنزات','Guenzet','19','سطيف','Sétif'),
+('عين الروى','Ain-Roua','بوقاعة','Bougaa','19','سطيف','Sétif'),
+('بني وسين','Beni Oussine','بوقاعة','Bougaa','19','سطيف','Sétif'),
+('أوريسيا','El Ouricia','عين أرنات','Ain Arnat','19','سطيف','Sétif'),
+('بوقاعة','Bougaa','بوقاعة','Bougaa','19','سطيف','Sétif'),
+('ذراع قبيلة','Draa-Kebila','حمام قرقور','Hammam Guergour','19','سطيف','Sétif'),
+('حمام قرقور','Hammam Guergour','حمام قرقور','Hammam Guergour','19','سطيف','Sétif'),
+('سطيف','Setif','سطيف','Setif','19','سطيف','Sétif'),
+('عين الكبيرة','Ain El Kebira','عين الكبيرة','Ain El Kebira','19','سطيف','Sétif'),
+('الدهامشة','Dehamcha','عين الكبيرة','Ain El Kebira','19','سطيف','Sétif'),
+('أولاد عدوان','Ouled Addouane','عين الكبيرة','Ain El Kebira','19','سطيف','Sétif'),
+('عين السبت','Ain-Sebt','بني عزيز','Beni Aziz','19','سطيف','Sétif'),
+('بني عزيز','Beni-Aziz','بني عزيز','Beni Aziz','19','سطيف','Sétif'),
+('معاوية','Maaouia','بني عزيز','Beni Aziz','19','سطيف','Sétif'),
+('بلاعة','Bellaa','بئر العرش','Bir El Arch','19','سطيف','Sétif'),
+('بئر العرش','Bir-El-Arch','بئر العرش','Bir El Arch','19','سطيف','Sétif'),
+('الولجة','El-Ouldja','بئر العرش','Bir El Arch','19','سطيف','Sétif'),
+('تاشودة','Tachouda','بئر العرش','Bir El Arch','19','سطيف','Sétif'),
+('تالة إيفاسن','Tala-Ifacene','ماوكلان','Maoklane','19','سطيف','Sétif'),
+('سرج الغول','Serdj-El-Ghoul','بابور','Babor','19','سطيف','Sétif'),
+('قجال','Gujel','قجال','Gujel','19','سطيف','Sétif'),
+('أولاد صابر','Ouled Sabor','قجال','Gujel','19','سطيف','Sétif'),
+('بازر سكرة','Bazer-Sakra','العلمة','El Eulma','19','سطيف','Sétif'),
+('العلمة','El Eulma','العلمة','El Eulma','19','سطيف','Sétif'),
+('قلتة زرقاء','Guelta Zerka','العلمة','El Eulma','19','سطيف','Sétif'),
+('بني فودة','Beni Fouda','جميلة','Djemila','19','سطيف','Sétif'),
+('جميلة','Djemila','جميلة','Djemila','19','سطيف','Sétif'),
+('عين لقراج','Ain-Legradj','بني ورتيلان','Beni Ourtilane','19','سطيف','Sétif'),
+('بني شبانة','Beni Chebana','بني ورتيلان','Beni Ourtilane','19','سطيف','Sétif'),
+('بني ورتيلان','Beni Ourtilane','بني ورتيلان','Beni Ourtilane','19','سطيف','Sétif'),
+('بني موحلي','Beni-Mouhli','بني ورتيلان','Beni Ourtilane','19','سطيف','Sétif'),
+('عين عباسة','Ain Abessa','عين أرنات','Ain Arnat','19','سطيف','Sétif'),
+('عين أرنات','Ain Arnat','عين أرنات','Ain Arnat','19','سطيف','Sétif'),
+('بابور','Babor','بابور','Babor','19','سطيف','Sétif'),
+('ماوكلان','Maouaklane','ماوكلان','Maoklane','19','سطيف','Sétif'),
+('سعيدة','Saa','سعيدة','Saa','20','سعيدة','Saïda'),
+('تيرسين','Tircine','أولاد ابراهيم','Ouled Brahim','20','سعيدة','Saïda'),
+('أولاد إبراهيم','Ouled Brahim','أولاد ابراهيم','Ouled Brahim','20','سعيدة','Saïda'),
+('عين السلطان','Ain Soltane','أولاد ابراهيم','Ouled Brahim','20','سعيدة','Saïda'),
+('المعمورة','Maamora','الحساسنة','El Hassasna','20','سعيدة','Saïda'),
+('الحساسنة','El Hassasna','الحساسنة','El Hassasna','20','سعيدة','Saïda'),
+('عين السخونة','Ain Sekhouna','الحساسنة','El Hassasna','20','سعيدة','Saïda'),
+('سيدي بوبكر','Si Boubekeur','سيدي بوبكر','Si Boubekeur','20','سعيدة','Saïda'),
+('أولاد خالد','Ouled Khaled','سيدي بوبكر','Si Boubekeur','20','سعيدة','Saïda'),
+('هونت','Hounet','سيدي بوبكر','Si Boubekeur','20','سعيدة','Saïda'),
+('يوب','Youb','يوب','Youb','20','سعيدة','Saïda'),
+('دوي ثابت','Doui Thabet','يوب','Youb','20','سعيدة','Saïda'),
+('سيدي احمد','Si Ahmed','عين الحجر','Ain El Hadjar','20','سعيدة','Saïda'),
+('مولاي العربي','Moulay Larbi','عين الحجر','Ain El Hadjar','20','سعيدة','Saïda'),
+('عين الحجر','Ain El Hadjar','عين الحجر','Ain El Hadjar','20','سعيدة','Saïda'),
+('سيدي عمر','Si Amar','سيدي بوبكر','Si Boubekeur','20','سعيدة','Saïda'),
+('عين بوزيان','Ain Bouziane','سيدي مزغيش','Si Mezghiche','21','سكيكدة','Skikda'),
+('صالح بو الشعور','Salah Bouchaour','الحروش','El Harrouch','21','سكيكدة','Skikda'),
+('الحدائق','El Hadaiek','الحدائق','El Hadaiek','21','سكيكدة','Skikda'),
+('زردازة','Zerdezas','الحروش','El Harrouch','21','سكيكدة','Skikda'),
+('أولاد حبابة','Ouled Habbaba','الحروش','El Harrouch','21','سكيكدة','Skikda'),
+('بني ولبان','Beni Oulbane','سيدي مزغيش','Si Mezghiche','21','سكيكدة','Skikda'),
+('سيدي مزغيش','Si Mezghiche','سيدي مزغيش','Si Mezghiche','21','سكيكدة','Skikda'),
+('بني بشير','Beni Bechir','رمضان جمال','Ramdane Djamel','21','سكيكدة','Skikda'),
+('رمضان جمال','Ramdane Djamel','رمضان جمال','Ramdane Djamel','21','سكيكدة','Skikda'),
+('بين الويدان','Bin El Ouen','تمالوس','Tamalous','21','سكيكدة','Skikda'),
+('مجاز الدشيش','Emjez Edchich','الحروش','El Harrouch','21','سكيكدة','Skikda'),
+('تمالوس','Tamalous','تمالوس','Tamalous','21','سكيكدة','Skikda'),
+('عين قشرة','Ain Kechra','عين قشرة','Ain Kechra','21','سكيكدة','Skikda'),
+('الولجة بولبلوط','Ouldja Boulbalout','عين قشرة','Ain Kechra','21','سكيكدة','Skikda'),
+('أم الطوب','Oum Toub','أم الطوب','Oum Toub','21','سكيكدة','Skikda'),
+('الغدير','El Ghedir','عزابة','Azzaba','21','سكيكدة','Skikda'),
+('الكركرة','Kerkara','تمالوس','Tamalous','21','سكيكدة','Skikda'),
+('الحروش','El Arrouch','الحروش','El Harrouch','21','سكيكدة','Skikda'),
+('الزيتونة','Zitouna','الزيتونة','Zitouna','21','سكيكدة','Skikda'),
+('أولاد عطية','Ouled Attia','أولاد عطية','Ouled Attia','21','سكيكدة','Skikda'),
+('وادي الزهور','Oued Zhour','أولاد عطية','Ouled Attia','21','سكيكدة','Skikda'),
+('القل','Collo','القل','Collo','21','سكيكدة','Skikda'),
+('الشرايع','Cheraia','القل','Collo','21','سكيكدة','Skikda'),
+('بني زيد','Beni Z','القل','Collo','21','سكيكدة','Skikda'),
+('خناق مايو','Khenag Maoune','أولاد عطية','Ouled Attia','21','سكيكدة','Skikda'),
+('المرسى','El Marsa','بن عزوز','Ben Azzouz','21','سكيكدة','Skikda'),
+('بن عزوز','Ben Azzouz','بن عزوز','Ben Azzouz','21','سكيكدة','Skikda'),
+('بكوش لخضر','Bekkouche Lakhdar','بن عزوز','Ben Azzouz','21','سكيكدة','Skikda'),
+('السبت','Es Sebt','عزابة','Azzaba','21','سكيكدة','Skikda'),
+('عين شرشار','Ain Charchar','عزابة','Azzaba','21','سكيكدة','Skikda'),
+('عزابة','Azzaba','عزابة','Azzaba','21','سكيكدة','Skikda'),
+('بوشطاطة','Bouchetata','الحدائق','El Hadaiek','21','سكيكدة','Skikda'),
+('فلفلة','Filfila','سكيكدة','Skikda','21','سكيكدة','Skikda'),
+('حمادي كرومة','Hammadi Krouma','سكيكدة','Skikda','21','سكيكدة','Skikda'),
+('سكيكدة','Skikda','سكيكدة','Skikda','21','سكيكدة','Skikda'),
+('عين زويت','Ain Zouit','الحدائق','El Hadaiek','21','سكيكدة','Skikda'),
+('جندل سعدي محمد','Djendel Saadi Mohamed','عزابة','Azzaba','21','سكيكدة','Skikda'),
+('قنواع','Kanoua','الزيتونة','Zitouna','21','سكيكدة','Skikda'),
+('سيدي علي بن يوب','Si Ali Benyoub','سيدي علي بن يوب','Si Ali Ben Youb','22','سيدي بلعباس','Si Bel Abbès'),
+('مولاي سليسن','Moulay Slissen','مولاي سليسن','Moulay Slissen','22','سيدي بلعباس','Si Bel Abbès'),
+('الحصيبة','El Hacaiba','مولاي سليسن','Moulay Slissen','22','سيدي بلعباس','Si Bel Abbès'),
+('عين تندمين','Ain Tindamine','مولاي سليسن','Moulay Slissen','22','سيدي بلعباس','Si Bel Abbès'),
+('تنيرة','Tenira','تنيرة','Tenira','22','سيدي بلعباس','Si Bel Abbès'),
+('وادي سفيون','Oued Sefioun','تنيرة','Tenira','22','سيدي بلعباس','Si Bel Abbès'),
+('حاسي دحو','Hassi Dahou','تنيرة','Tenira','22','سيدي بلعباس','Si Bel Abbès'),
+('وادي تاوريرة','Oued Taourira','مرين','Merine','22','سيدي بلعباس','Si Bel Abbès'),
+('بن عشيبة شلية','Benachiba Chelia','تنيرة','Tenira','22','سيدي بلعباس','Si Bel Abbès'),
+('سيدي يعقوب','Si Yacoub','سيدي لحسن','Si Lahcene','22','سيدي بلعباس','Si Bel Abbès'),
+('سيدي لحسن','Si Lahcene','سيدي لحسن','Si Lahcene','22','سيدي بلعباس','Si Bel Abbès'),
+('سيدي خالد','Si Khaled','سيدي لحسن','Si Lahcene','22','سيدي بلعباس','Si Bel Abbès'),
+('طابية','Tabia','سيدي علي بن يوب','Si Ali Ben Youb','22','سيدي بلعباس','Si Bel Abbès'),
+('سيدي ابراهيم','Si Brahim','عين البرد','Ain El Berd','22','سيدي بلعباس','Si Bel Abbès'),
+('العمارنة','Amarnas','سيدي لحسن','Si Lahcene','22','سيدي بلعباس','Si Bel Abbès'),
+('بوخنفيس','Boukhanefis','سيدي علي بن يوب','Si Ali Ben Youb','22','سيدي بلعباس','Si Bel Abbès'),
+('حاسي زهانة','Hassi Zahana','بن باديس','Ben Badis','22','سيدي بلعباس','Si Bel Abbès'),
+('شيطوان البلايلة','Chetouane Belaila','بن باديس','Ben Badis','22','سيدي بلعباس','Si Bel Abbès'),
+('بن باديس','Ben Badis','بن باديس','Ben Badis','22','سيدي بلعباس','Si Bel Abbès'),
+('بضرابين المقراني','Bedrabine El Mokrani','بن باديس','Ben Badis','22','سيدي بلعباس','Si Bel Abbès'),
+('سفيزف','Sfisef','سفيزف','Sfisef','22','سيدي بلعباس','Si Bel Abbès'),
+('مسيد','M''c','سفيزف','Sfisef','22','سيدي بلعباس','Si Bel Abbès'),
+('بوجبهة البرج','Boudjebaa El Bordj','سفيزف','Sfisef','22','سيدي بلعباس','Si Bel Abbès'),
+('عين أدن','Ain- Adden','سفيزف','Sfisef','22','سيدي بلعباس','Si Bel Abbès'),
+('سيدي حمادوش','Si Hamadouche','عين البرد','Ain El Berd','22','سيدي بلعباس','Si Bel Abbès'),
+('سيدي شعيب','Si Chaib','مرحوم','Marhoum','22','سيدي بلعباس','Si Bel Abbès'),
+('مكدرة','Makedra','عين البرد','Ain El Berd','22','سيدي بلعباس','Si Bel Abbès'),
+('عين البرد','Ain El Berd','عين البرد','Ain El Berd','22','سيدي بلعباس','Si Bel Abbès'),
+('رجم دموش','Redjem Demouche','راس الماء','Ras El Ma','22','سيدي بلعباس','Si Bel Abbès'),
+('راس الماء','Ras El Ma','راس الماء','Ras El Ma','22','سيدي بلعباس','Si Bel Abbès'),
+('وادي السبع','Oued Sebaa','راس الماء','Ras El Ma','22','سيدي بلعباس','Si Bel Abbès'),
+('مرحوم','Marhoum','مرحوم','Marhoum','22','سيدي بلعباس','Si Bel Abbès'),
+('سيدي بلعباس','Si Bel-Abbes','سيدي بلعباس','Si Bel Abbes','22','سيدي بلعباس','Si Bel Abbès'),
+('عين الثريد','Ain Thr','تسالة','Tessala','22','سيدي بلعباس','Si Bel Abbès'),
+('السهالة الثورة','Sehala Thaoura','تسالة','Tessala','22','سيدي بلعباس','Si Bel Abbès'),
+('تسالة','Tessala','تسالة','Tessala','22','سيدي بلعباس','Si Bel Abbès'),
+('بلعربي','Belarbi','مصطفى بن ابراهيم','Mostefa  Ben Brahim','22','سيدي بلعباس','Si Bel Abbès'),
+('مصطفى بن ابراهيم','Mostefa  Ben Brahim','مصطفى بن ابراهيم','Mostefa  Ben Brahim','22','سيدي بلعباس','Si Bel Abbès'),
+('تلموني','Tilmouni','مصطفى بن ابراهيم','Mostefa  Ben Brahim','22','سيدي بلعباس','Si Bel Abbès'),
+('زروالة','Zerouala','مصطفى بن ابراهيم','Mostefa  Ben Brahim','22','سيدي بلعباس','Si Bel Abbès'),
+('الضاية','Dhaya','تلاغ','Telagh','22','سيدي بلعباس','Si Bel Abbès'),
+('مزاورو','Mezaourou','تلاغ','Telagh','22','سيدي بلعباس','Si Bel Abbès'),
+('تغاليمت','Teghalimet','تلاغ','Telagh','22','سيدي بلعباس','Si Bel Abbès'),
+('تلاغ','Telagh','تلاغ','Telagh','22','سيدي بلعباس','Si Bel Abbès'),
+('عين قادة','Ain Kada','سيدي علي بوسيدي','Si Ali Boussi','22','سيدي بلعباس','Si Bel Abbès'),
+('لمطار','Lamtar','سيدي علي بوسيدي','Si Ali Boussi','22','سيدي بلعباس','Si Bel Abbès'),
+('سيدي علي بوسيدي','Si Ali Boussi','سيدي علي بوسيدي','Si Ali Boussi','22','سيدي بلعباس','Si Bel Abbès'),
+('سيدي دحو الزاير','Si Dahou Zairs','سيدي علي بوسيدي','Si Ali Boussi','22','سيدي بلعباس','Si Bel Abbès'),
+('بئر الحمام','Bir El Hammam','مرحوم','Marhoum','22','سيدي بلعباس','Si Bel Abbès'),
+('مرين','Merine','مرين','Merine','22','سيدي بلعباس','Si Bel Abbès'),
+('تفسور','Tefessour','مرين','Merine','22','سيدي بلعباس','Si Bel Abbès'),
+('تاودموت','Taoudmout','مرين','Merine','22','سيدي بلعباس','Si Bel Abbès'),
+('عنابة','Annaba','عنابة','Annaba','23','عنابة','Annaba'),
+('سرايدي','Serai','عنابة','Annaba','23','عنابة','Annaba'),
+('برحال','Berrahal','برحال','Berrahal','23','عنابة','Annaba'),
+('واد العنب','Oued El Aneb','برحال','Berrahal','23','عنابة','Annaba'),
+('الحجار','El Hadjar','الحجار','El Hadjar','23','عنابة','Annaba'),
+('سيدي عمار','Si Amar','الحجار','El Hadjar','23','عنابة','Annaba'),
+('البوني','El Bouni','البوني','El Bouni','23','عنابة','Annaba'),
+('عين الباردة','Ain El Berda','عين الباردة','Ain El Berda','23','عنابة','Annaba'),
+('الشرفة','Cheurfa','عين الباردة','Ain El Berda','23','عنابة','Annaba'),
+('العلمة','El Eulma','عين الباردة','Ain El Berda','23','عنابة','Annaba'),
+('التريعات','Treat','برحال','Berrahal','23','عنابة','Annaba'),
+('شطايبي','Chetaibi','شطايبي','Chetaibi','23','عنابة','Annaba'),
+('نشماية','Nechmaya','قلعة بوصبع','Guelaat Bousbaa','24','قالمة','Guelma'),
+('بوحمدان','Bou Hamdane','حمام دباغ','Hammam Debagh','24','قالمة','Guelma'),
+('حمام دباغ','Hammam Debagh','حمام دباغ','Hammam Debagh','24','قالمة','Guelma'),
+('الركنية','Roknia','حمام دباغ','Hammam Debagh','24','قالمة','Guelma'),
+('الدهوارة','Dahouara','حمام النبايل','Hammam N''bails','24','قالمة','Guelma'),
+('حمام النبايل','Hammam N''bail','حمام النبايل','Hammam N''bails','24','قالمة','Guelma'),
+('قالمة','Guelma','قالمة','Guelma','24','قالمة','Guelma'),
+('بومهرة أحمد','Boumahra Ahmed','قلعة بوصبع','Guelaat Bousbaa','24','قالمة','Guelma'),
+('عين بن بيضاء','Ain Ben Bea','بوشقوف','Bouchegouf','24','قالمة','Guelma'),
+('بوشقوف','Bouchegouf','بوشقوف','Bouchegouf','24','قالمة','Guelma'),
+('مجاز الصفاء','Medjez Sfa','بوشقوف','Bouchegouf','24','قالمة','Guelma'),
+('وادي فراغة','Oued Ferragha','بوشقوف','Bouchegouf','24','قالمة','Guelma'),
+('بوعاتي محمود','Bouati Mahmoud','هيليوبوليس','Heliopolis','24','قالمة','Guelma'),
+('الفجوج','El Fedjoudj','هيليوبوليس','Heliopolis','24','قالمة','Guelma'),
+('هيليوبوليس','Heliopolis','هيليوبوليس','Heliopolis','24','قالمة','Guelma'),
+('مجاز عمار','Medjez Amar','عين حساينية','Ain Hessainia','24','قالمة','Guelma'),
+('هواري بومدين','Houari Boumedienne','عين حساينية','Ain Hessainia','24','قالمة','Guelma'),
+('رأس العقبة','Ras El Agba','عين حساينية','Ain Hessainia','24','قالمة','Guelma'),
+('سلاوة عنونة','Sellaoua Announa','عين حساينية','Ain Hessainia','24','قالمة','Guelma'),
+('جبالة الخميسي','Djeballah Khemissi','قلعة بوصبع','Guelaat Bousbaa','24','قالمة','Guelma'),
+('برج صباط','Bordj Sabath','وادي الزناتي','Oued Zenati','24','قالمة','Guelma'),
+('وادي الزناتي','Oued Zenati','وادي الزناتي','Oued Zenati','24','قالمة','Guelma'),
+('عين رقادة','Ain Regada','وادي الزناتي','Oued Zenati','24','قالمة','Guelma'),
+('عين العربي','Ain Larbi','عين مخلوف','Ain Makhlouf','24','قالمة','Guelma'),
+('عين مخلوف','Ain Makhlouf','عين مخلوف','Ain Makhlouf','24','قالمة','Guelma'),
+('تاملوكة','Tamlouka','عين مخلوف','Ain Makhlouf','24','قالمة','Guelma'),
+('عين صندل','Ain Sandel','خزارة','Khezaras','24','قالمة','Guelma'),
+('بوحشانة','Bou Hachana','خزارة','Khezaras','24','قالمة','Guelma'),
+('لخزارة','Khezaras','خزارة','Khezaras','24','قالمة','Guelma'),
+('بلخير','Belkheir','قلعة بوصبع','Guelaat Bousbaa','24','قالمة','Guelma'),
+('بني مزلين','Beni Mezline','قلعة بوصبع','Guelaat Bousbaa','24','قالمة','Guelma'),
+('قلعة بوصبع','Guelaat Bou Sbaa','قلعة بوصبع','Guelaat Bousbaa','24','قالمة','Guelma'),
+('وادي الشحم','Oued Cheham','حمام النبايل','Hammam N''bails','24','قالمة','Guelma'),
+('بن جراح','Bendjarah','قالمة','Guelma','24','قالمة','Guelma'),
+('ديدوش مراد','Douche Mourad','حامة بوزيان','Hamma Bouziane','25','قسنطينة','Constantine'),
+('حامة بوزيان','Hamma Bouziane','حامة بوزيان','Hamma Bouziane','25','قسنطينة','Constantine'),
+('بني حميدان','Beni Hamane','زيغود يوسف','Zighoud Youcef','25','قسنطينة','Constantine'),
+('زيغود يوسف','Zighoud Youcef','زيغود يوسف','Zighoud Youcef','25','قسنطينة','Constantine'),
+('عين السمارة','Ain Smara','الخروب','El Khroub','25','قسنطينة','Constantine'),
+('الخروب','El Khroub','الخروب','El Khroub','25','قسنطينة','Constantine'),
+('أولاد رحمون','Ouled Rahmoun','الخروب','El Khroub','25','قسنطينة','Constantine'),
+('عين عبيد','Ain Ab','عين عبيد','Ain Ab','25','قسنطينة','Constantine'),
+('أبن باديس الهرية','Ben Badis','عين عبيد','Ain Ab','25','قسنطينة','Constantine'),
+('ابن زياد','Ibn Ziad','ابن زياد','Ibn Ziad','25','قسنطينة','Constantine'),
+('بوجريو مسعود','Messaoud Boudjeriou','ابن زياد','Ibn Ziad','25','قسنطينة','Constantine'),
+('قسنطينة','Constantine','قسنطينة','Constantine','25','قسنطينة','Constantine'),
+('أولاد هلال','Ouled Hellal','أولاد عنتر','Ouled Antar','26','المدية','Médéa'),
+('السواقي','Souagui','السواقي','Souaghi','26','المدية','Médéa'),
+('قصر البخاري','Ksar El Boukhari','قصر البخاري','Ksar El Boukhari','26','المدية','Médéa'),
+('مفاتحة','M''fatha','قصر البخاري','Ksar El Boukhari','26','المدية','Médéa'),
+('السانق','Saneg','قصر البخاري','Ksar El Boukhari','26','المدية','Médéa'),
+('العزيزية','El Azizia','العزيزية','El Azizia','26','المدية','Médéa'),
+('مغراوة','Maghraoua','العزيزية','El Azizia','26','المدية','Médéa'),
+('ميهوب','Mihoub','العزيزية','El Azizia','26','المدية','Médéa'),
+('بوعيش','Bouaiche','الشهبونية','Chahbounia','26','المدية','Médéa'),
+('بوغزول','Boughzoul','الشهبونية','Chahbounia','26','المدية','Médéa'),
+('الشهبونية','Chabounia','الشهبونية','Chahbounia','26','المدية','Médéa'),
+('حناشة','Hannacha','عوامري','Ouamri','26','المدية','Médéa'),
+('عوامري','Ouamri','عوامري','Ouamri','26','المدية','Médéa'),
+('وادي حربيل','Oued Harbil','عوامري','Ouamri','26','المدية','Médéa'),
+('بني سليمان','Beni Slimane','بني سليمان','Beni Slimane','26','المدية','Médéa'),
+('بوعيشون','Bouaichoune','سي المحجوب','Si Mahdjoub','26','المدية','Médéa'),
+('أولاد بوعشرة','Ouled Bouachra','سي المحجوب','Si Mahdjoub','26','المدية','Médéa'),
+('سي المحجوب','Si Mahdjoub','سي المحجوب','Si Mahdjoub','26','المدية','Médéa'),
+('بوسكن','Bouskene','بني سليمان','Beni Slimane','26','المدية','Médéa'),
+('سيدي الربيع','Si Rabie','بني سليمان','Beni Slimane','26','المدية','Médéa'),
+('البرواقية','Berrouaghia','البرواقية','Berrouaghia','26','المدية','Médéa'),
+('أولاد دايد','Ouled De','البرواقية','Berrouaghia','26','المدية','Médéa'),
+('الربعية','Rebaia','البرواقية','Berrouaghia','26','المدية','Médéa'),
+('مجبر','Medjebar','سغوان','Seghouane','26','المدية','Médéa'),
+('ثلاث دوائر','Tletat Ed Douair','سغوان','Seghouane','26','المدية','Médéa'),
+('الزبيرية','Zoubiria','سغوان','Seghouane','26','المدية','Médéa'),
+('العيساوية','Aissaouia','تابلاط','Tablat','26','المدية','Médéa'),
+('الحوضان','El Haoudane','تابلاط','Tablat','26','المدية','Médéa'),
+('مزغنة','Mezerana','تابلاط','Tablat','26','المدية','Médéa'),
+('تابلاط','Tablat','تابلاط','Tablat','26','المدية','Médéa'),
+('بوغار','Boghar','أولاد عنتر','Ouled Antar','26','المدية','Médéa'),
+('سغوان','Seghouane','سغوان','Seghouane','26','المدية','Médéa'),
+('ذراع السمار','Draa Esmar','المدية','Medea','26','المدية','Médéa'),
+('المدية','Medea','المدية','Medea','26','المدية','Médéa'),
+('تمسقيدة','Tamesgua','المدية','Medea','26','المدية','Médéa'),
+('بن شكاو','Ben Chicao','وزرة','Ouzera','26','المدية','Médéa'),
+('الحمدانية','El Hamdania','وزرة','Ouzera','26','المدية','Médéa'),
+('وزرة','Ouzera','وزرة','Ouzera','26','المدية','Médéa'),
+('تيزي مهدي','Tizi Mahdi','وزرة','Ouzera','26','المدية','Médéa'),
+('عين بوسيف','Ain Boucif','عين بوسيف','Ain Boucif','26','المدية','Médéa'),
+('العوينات','El Ouinet','عين بوسيف','Ain Boucif','26','المدية','Médéa'),
+('الكاف الاخضر','Kef Lakhdar','عين بوسيف','Ain Boucif','26','المدية','Médéa'),
+('أولاد امعرف','Ouled Emaaraf','عين بوسيف','Ain Boucif','26','المدية','Médéa'),
+('سيدي دامد','Si Demed','عين بوسيف','Ain Boucif','26','المدية','Médéa'),
+('بعطة','Baata','العمارية','El Omaria','26','المدية','Médéa'),
+('العمارية','El Omaria','العمارية','El Omaria','26','المدية','Médéa'),
+('أولاد إبراهيم','Ouled Brahim','العمارية','El Omaria','26','المدية','Médéa'),
+('بئر بن عابد','Bir Ben Laabed','القلب الكبير','Guelb El Kebir','26','المدية','Médéa'),
+('القلب الكبير','El Guelbelkebir','القلب الكبير','Guelb El Kebir','26','المدية','Médéa'),
+('سدراية','Sedraya','القلب الكبير','Guelb El Kebir','26','المدية','Médéa'),
+('عين اقصير','Ain Ouksir','شلالة العذاورة','Chellalat El Adhaoura','26','المدية','Médéa'),
+('شلالة العذاورة','Chelalet El Adhaoura','شلالة العذاورة','Chellalat El Adhaoura','26','المدية','Médéa'),
+('شنيقل','Cheniguel','شلالة العذاورة','Chellalat El Adhaoura','26','المدية','Médéa'),
+('تفراوت','Tafraout','شلالة العذاورة','Chellalat El Adhaoura','26','المدية','Médéa'),
+('بوشراحيل','Bouchrahil','سيدي نعمان','Si Naamane','26','المدية','Médéa'),
+('خمس جوامع','Khams Djouamaa','سيدي نعمان','Si Naamane','26','المدية','Médéa'),
+('سيدي نعمان','Si Naamane','سيدي نعمان','Si Naamane','26','المدية','Médéa'),
+('عزيز','Aziz','عزيز','Aziz','26','المدية','Médéa'),
+('دراق','Derrag','عزيز','Aziz','26','المدية','Médéa'),
+('أم الجليل','Oum El Djellil','عزيز','Aziz','26','المدية','Médéa'),
+('جواب','Djouab','السواقي','Souaghi','26','المدية','Médéa'),
+('سيدي زهار','Si Zahar','السواقي','Souaghi','26','المدية','Médéa'),
+('سيدي زيان','Si Ziane','السواقي','Souaghi','26','المدية','Médéa'),
+('أولاد عنتر','Ouled Antar','أولاد عنتر','Ouled Antar','26','المدية','Médéa'),
+('فرناقة','Fornaka','عين نويسي','Ain Nouicy','27','مستغانم','Mostaganem'),
+('وادي الخير','Oued El Kheir','عين تادلس','Ain Tedeles','27','مستغانم','Mostaganem'),
+('الحسيان (بني ياحي','Hassiane','عين نويسي','Ain Nouicy','27','مستغانم','Mostaganem'),
+('حاسي ماماش','Hassi Mameche','حاسي ماماش','Hassi Mameche','27','مستغانم','Mostaganem'),
+('مزغران','Mazagran','حاسي ماماش','Hassi Mameche','27','مستغانم','Mostaganem'),
+('ستيدية','Stia','حاسي ماماش','Hassi Mameche','27','مستغانم','Mostaganem'),
+('عين تادلس','Ain-Tedles','عين تادلس','Ain Tedeles','27','مستغانم','Mostaganem'),
+('سيدي بلعطار','Si Belaattar','عين تادلس','Ain Tedeles','27','مستغانم','Mostaganem'),
+('سور','Sour','عين تادلس','Ain Tedeles','27','مستغانم','Mostaganem'),
+('عين بودينار','Ain-Boudinar','خير الدين','Kheir Eddine','27','مستغانم','Mostaganem'),
+('خير الدين','Kheir-Eddine','خير الدين','Kheir Eddine','27','مستغانم','Mostaganem'),
+('صيادة','Sayada','خير الدين','Kheir Eddine','27','مستغانم','Mostaganem'),
+('سيدي علي','Si Ali','سيدي علي','Si Ali','27','مستغانم','Mostaganem'),
+('تزقايت','Tazgait','سيدي علي','Si Ali','27','مستغانم','Mostaganem'),
+('بن عبد المالك رمضان','Benabdelmalek Ramdane','سيدي لخضر','Si Lakhdar','27','مستغانم','Mostaganem'),
+('مستغانم','Mostaganem','مستغانم','Mostaganem','27','مستغانم','Mostaganem'),
+('حجاج','Hadjadj','سيدي لخضر','Si Lakhdar','27','مستغانم','Mostaganem'),
+('سيدي لخضر','Si-Lakhdar','سيدي لخضر','Si Lakhdar','27','مستغانم','Mostaganem'),
+('عشعاشة','Achaacha','عشعاشة','Achaacha','27','مستغانم','Mostaganem'),
+('خضرة','Khadra','عشعاشة','Achaacha','27','مستغانم','Mostaganem'),
+('نكمارية','Nekmaria','عشعاشة','Achaacha','27','مستغانم','Mostaganem'),
+('أولاد بوغالم','Ouled Boughalem','عشعاشة','Achaacha','27','مستغانم','Mostaganem'),
+('بوقيراط','Bouguirat','بوقيراط','Bouguirat','27','مستغانم','Mostaganem'),
+('صفصاف','Safsaf','بوقيراط','Bouguirat','27','مستغانم','Mostaganem'),
+('سيرات','Sirat','بوقيراط','Bouguirat','27','مستغانم','Mostaganem'),
+('السوافلية','Souaflia','بوقيراط','Bouguirat','27','مستغانم','Mostaganem'),
+('عين سيدي الشريف','Ain-Si Cherif','ماسرة','Mesra','27','مستغانم','Mostaganem'),
+('منصورة','Mansourah','ماسرة','Mesra','27','مستغانم','Mostaganem'),
+('ماسرة','Mesra','ماسرة','Mesra','27','مستغانم','Mostaganem'),
+('الطواهرية','Touahria','ماسرة','Mesra','27','مستغانم','Mostaganem'),
+('عين نويسي','Ain-Nouissy','عين نويسي','Ain Nouicy','27','مستغانم','Mostaganem'),
+('أولاد مع الله','Ouled-Maalah','سيدي علي','Si Ali','27','مستغانم','Mostaganem'),
+('شلال','Chellal','شلال','Chellal','28','المسيلة','M''Sila'),
+('أولاد ماضي','Ouled Madhi','شلال','Chellal','28','المسيلة','M''Sila'),
+('خطوطي سد الجير','Khettouti Sed-El-Jir','شلال','Chellal','28','المسيلة','M''Sila'),
+('بلعايبة','Belaiba','مقرة','Magra','28','المسيلة','M''Sila'),
+('برهوم','Berhoum','مقرة','Magra','28','المسيلة','M''Sila'),
+('دهاهنة','Dehahna','مقرة','Magra','28','المسيلة','M''Sila'),
+('مقرة','Magra','مقرة','Magra','28','المسيلة','M''Sila'),
+('بني يلمان','Beni Ilmane','سيدي عيسى','Si Aissa','28','المسيلة','M''Sila'),
+('بوطي السايح','Bouti Sayeh','سيدي عيسى','Si Aissa','28','المسيلة','M''Sila'),
+('سيدي عيسى','Si Aissa','سيدي عيسى','Si Aissa','28','المسيلة','M''Sila'),
+('عين الحجل','Ain El Hadjel','عين الحجل','Ain El Hadjel','28','المسيلة','M''Sila'),
+('سيدي هجرس','Si Hadjeres','عين الحجل','Ain El Hadjel','28','المسيلة','M''Sila'),
+('بوسعادة','Bou Saada','بوسعادة','Bousaada','28','المسيلة','M''Sila'),
+('الهامل','El Hamel','بوسعادة','Bousaada','28','المسيلة','M''Sila'),
+('ولتام','Oulteme','بوسعادة','Bousaada','28','المسيلة','M''Sila'),
+('بن زوه','Benzouh','أولاد سيدي ابراهيم','Ouled Si Brahim','28','المسيلة','M''Sila'),
+('أولاد سيدي ابراهيم','Ouled Si Brahim','أولاد سيدي ابراهيم','Ouled Si Brahim','28','المسيلة','M''Sila'),
+('سيدي عامر','Si Ameur','سيدي عامر','Si Ameur','28','المسيلة','M''Sila'),
+('تامسة','Tamsa','سيدي عامر','Si Ameur','28','المسيلة','M''Sila'),
+('بن سرور','Ben Srour','بن سرور','Ben Srour','28','المسيلة','M''Sila'),
+('محمد بوضياف','Mohamed Boudiaf','بن سرور','Ben Srour','28','المسيلة','M''Sila'),
+('أولاد سليمان','Ouled Slimane','بن سرور','Ben Srour','28','المسيلة','M''Sila'),
+('زرزور','Zarzour','بن سرور','Ben Srour','28','المسيلة','M''Sila'),
+('عين الملح','Ain El Melh','عين الملح','Ain El Melh','28','المسيلة','M''Sila'),
+('عين فارس','Ain Fares','عين الملح','Ain El Melh','28','المسيلة','M''Sila'),
+('عين الريش','Ain Rich','عين الملح','Ain El Melh','28','المسيلة','M''Sila'),
+('بئر فضة','Bir Foda','عين الملح','Ain El Melh','28','المسيلة','M''Sila'),
+('سيدي امحمد','Si M''hamed','عين الملح','Ain El Melh','28','المسيلة','M''Sila'),
+('امجدل','Medjedel','امجدل','Medjedel','28','المسيلة','M''Sila'),
+('مناعة','Menaa','امجدل','Medjedel','28','المسيلة','M''Sila'),
+('جبل مساعد','Djebel Messaad','جبل مساعد','Djebel Messaad','28','المسيلة','M''Sila'),
+('سليم','Slim','جبل مساعد','Djebel Messaad','28','المسيلة','M''Sila'),
+('المسيلة','M''sila','المسيلة','M''sila','28','المسيلة','M''Sila'),
+('حمام الضلعة','Hammam Dalaa','حمام الضلعة','Hammam Dalaa','28','المسيلة','M''Sila'),
+('ونوغة','Ouanougha','حمام الضلعة','Hammam Dalaa','28','المسيلة','M''Sila'),
+('أولاد منصور','Ouled Mansour','حمام الضلعة','Hammam Dalaa','28','المسيلة','M''Sila'),
+('تارمونت','Tarmount','حمام الضلعة','Hammam Dalaa','28','المسيلة','M''Sila'),
+('المعاضيد','Maad','أولاد دراج','Ouled Derradj','28','المسيلة','M''Sila'),
+('المطارفة','M''tarfa','أولاد دراج','Ouled Derradj','28','المسيلة','M''Sila'),
+('معاريف','Maarif','شلال','Chellal','28','المسيلة','M''Sila'),
+('أولاد دراج','Ouled Derradj','أولاد دراج','Ouled Derradj','28','المسيلة','M''Sila'),
+('السوامع','Souamaa','أولاد دراج','Ouled Derradj','28','المسيلة','M''Sila'),
+('الحوامد','El Houamed','خبانة','Khoubana','28','المسيلة','M''Sila'),
+('خبانة','Khoubana','خبانة','Khoubana','28','المسيلة','M''Sila'),
+('مسيف','M''cif','خبانة','Khoubana','28','المسيلة','M''Sila'),
+('عين الخضراء','Ain Khadra','مقرة','Magra','28','المسيلة','M''Sila'),
+('أولاد عدي لقبالة','Ouled Addi Guebala','أولاد دراج','Ouled Derradj','28','المسيلة','M''Sila'),
+('وادي الأبطال','Oued El Abtal','وادي الأبطال','Oued El Abtal','29','معسكر','Mascara'),
+('سيدي عبد المومن','Si Abdelmoumene','المحمدية','Mohammadia','29','معسكر','Mascara'),
+('سجرارة','Sedjerara','المحمدية','Mohammadia','29','معسكر','Mascara'),
+('المحمدية','Mohammadia','المحمدية','Mohammadia','29','معسكر','Mascara'),
+('تيغنيف','Tighennif','تيغنيف','Tighennif','29','معسكر','Mascara'),
+('مقطع الدوز','Mocta-Douz','المحمدية','Mohammadia','29','معسكر','Mascara'),
+('فراقيق','Ferraguig','المحمدية','Mohammadia','29','معسكر','Mascara'),
+('الغمري','El Ghomri','المحمدية','Mohammadia','29','معسكر','Mascara'),
+('زهانة','Zahana','زهانة','Zahana','29','معسكر','Mascara'),
+('القعدة','El Gaada','زهانة','Zahana','29','معسكر','Mascara'),
+('رأس عين عميروش','Ras El Ain Amirouche','عقاز','Oggaz','29','معسكر','Mascara'),
+('عقاز','Oggaz','عقاز','Oggaz','29','معسكر','Mascara'),
+('العلايمية','Alaimia','عقاز','Oggaz','29','معسكر','Mascara'),
+('سيق','Sig','سيق','Sig','29','معسكر','Mascara'),
+('الشرفاء','Chorfa','سيق','Sig','29','معسكر','Mascara'),
+('بوهني','Bou Henni','سيق','Sig','29','معسكر','Mascara'),
+('المأمونية','El Mamounia','عين فارس','Ain Fares','29','معسكر','Mascara'),
+('القطنة','El Gueitena','بوحنيفية','Bouhanifia','29','معسكر','Mascara'),
+('عين فارس','Ain Fares','عين فارس','Ain Fares','29','معسكر','Mascara'),
+('غروس','Gharrous','عوف','Aouf','29','معسكر','Mascara'),
+('بنيان','Benian','عوف','Aouf','29','معسكر','Mascara'),
+('عوف','Aouf','عوف','Aouf','29','معسكر','Mascara'),
+('قرجوم','Guerdjoum','وادي التاغية','Oued Taria','29','معسكر','Mascara'),
+('عين أفرص','Ain Frass','عين فكان','Ain Fekan','29','معسكر','Mascara'),
+('عين فكان','Ain Fekan','عين فكان','Ain Fekan','29','معسكر','Mascara'),
+('خلوية','Khalouia','البرج','El Bordj','29','معسكر','Mascara'),
+('المنور','El Menaouer','البرج','El Bordj','29','معسكر','Mascara'),
+('البرج','El Bordj','البرج','El Bordj','29','معسكر','Mascara'),
+('سيدي بوسعيد','Si Boussa','غريس','Ghriss','29','معسكر','Mascara'),
+('المطمور','Matemore','غريس','Ghriss','29','معسكر','Mascara'),
+('سيدي قادة','Si Kada','تيغنيف','Tighennif','29','معسكر','Mascara'),
+('ماقضة','Makhda','غريس','Ghriss','29','معسكر','Mascara'),
+('معسكر','Mascara','معسكر','Mascara','29','معسكر','Mascara'),
+('بوحنيفية','Bouhanifia','بوحنيفية','Bouhanifia','29','معسكر','Mascara'),
+('غريس','Ghriss','غريس','Ghriss','29','معسكر','Mascara'),
+('حسين','Hacine','بوحنيفية','Bouhanifia','29','معسكر','Mascara'),
+('القرط','El Keurt','تيزي','Tizi','29','معسكر','Mascara'),
+('فروحة','Froha','تيزي','Tizi','29','معسكر','Mascara'),
+('تيزي','Tizi','تيزي','Tizi','29','معسكر','Mascara'),
+('السهايلية','Sehailia','تيغنيف','Tighennif','29','معسكر','Mascara'),
+('ماوسة','Maoussa','غريس','Ghriss','29','معسكر','Mascara'),
+('سيدي عبد الجبار','Si Abdeldjebar','وادي الأبطال','Oued El Abtal','29','معسكر','Mascara'),
+('الحشم','El Hachem','الحشم','Hachem','29','معسكر','Mascara'),
+('نسمط','Nesmot','الحشم','Hachem','29','معسكر','Mascara'),
+('زلامطة','Zelamta','الحشم','Hachem','29','معسكر','Mascara'),
+('عين فراح','Ain Ferah','وادي الأبطال','Oued El Abtal','29','معسكر','Mascara'),
+('وادي التاغية','Oued Taria','وادي التاغية','Oued Taria','29','معسكر','Mascara'),
+('ورقلة','Ouargla','ورقلة','Ouargla','30','ورقلة','Ouargla'),
+('حاسي مسعود','Hassi Messaoud','حاسي مسعود','Hassi Messaoud','30','ورقلة','Ouargla'),
+('عين البيضاء','Ain Bea','سيدي خويلد','Si Khouiled','30','ورقلة','Ouargla'),
+('حاسي بن عبد الله','Hassi Ben Abdellah','سيدي خويلد','Si Khouiled','30','ورقلة','Ouargla'),
+('سيدي خويلد','Si Khouiled','سيدي خويلد','Si Khouiled','30','ورقلة','Ouargla'),
+('البرمة','El Borma','البرمة','El Borma','30','ورقلة','Ouargla'),
+('الرويسات','Rouissat','ورقلة','Ouargla','30','ورقلة','Ouargla'),
+('انقوسة','N''goussa','انقوسة','N''goussa','30','ورقلة','Ouargla'),
+('سيدي الشحمي','Si Chami','السانية','Es Senia','31','وهران','Oran'),
+('حاسي مفسوخ','Hassi Mefsoukh','قديل','Gdyel','31','وهران','Oran'),
+('بئر الجير','Bir El Djir','بئر الجير','Bir El Djir','31','وهران','Oran'),
+('حاسي بن عقبة','Hassi Ben Okba','بئر الجير','Bir El Djir','31','وهران','Oran'),
+('قديل','Gdyel','قديل','Gdyel','31','وهران','Oran'),
+('حاسي بونيف','Hassi Bounif','بئر الجير','Bir El Djir','31','وهران','Oran'),
+('الكرمة','El Kerma','السانية','Es Senia','31','وهران','Oran'),
+('السانية','Es Senia','السانية','Es Senia','31','وهران','Oran'),
+('بن فريحة','Ben Freha','قديل','Gdyel','31','وهران','Oran'),
+('أرزيو','Arzew','أرزيو','Arzew','31','وهران','Oran'),
+('سيدي بن يبقى','Si Ben Yebka','أرزيو','Arzew','31','وهران','Oran'),
+('عين البية','Ain Biya','بطيوة','Bethioua','31','وهران','Oran'),
+('بطيوة','Bethioua','بطيوة','Bethioua','31','وهران','Oran'),
+('مرسى الحجاج','Marsat El Hadjadj','بطيوة','Bethioua','31','وهران','Oran'),
+('عين الترك','Ain Turk','عين الترك','Ain Turk','31','وهران','Oran'),
+('وهران','Oran','وهران','Oran','31','وهران','Oran'),
+('العنصر','El Ancor','عين الترك','Ain Turk','31','وهران','Oran'),
+('المرسى الكبير','Mers El Kebir','عين الترك','Ain Turk','31','وهران','Oran'),
+('بوفاتيس','Boufatis','وادي تليلات','Oued Tlelat','31','وهران','Oran'),
+('البراية','El Braya','وادي تليلات','Oued Tlelat','31','وهران','Oran'),
+('وادي تليلات','Oued Tlelat','وادي تليلات','Oued Tlelat','31','وهران','Oran'),
+('عين الكرمة','Ain Kerma','بوتليليس','Boutlelis','31','وهران','Oran'),
+('بوتليليس','Boutlelis','بوتليليس','Boutlelis','31','وهران','Oran'),
+('مسرغين','Messerghin','بوتليليس','Boutlelis','31','وهران','Oran'),
+('بوسفر','Bousfer','عين الترك','Ain Turk','31','وهران','Oran'),
+('طفراوي','Tafraoui','وادي تليلات','Oued Tlelat','31','وهران','Oran'),
+('عين العراك','Ain El Orak','الأبيض سيدي الشيخ','Labiodh Si Cheikh','32','البيض','El Bayadh'),
+('كراكدة','Krakda','بريزينة','Brezina','32','البيض','El Bayadh'),
+('سيدي سليمان','Si Slimane','بوعلام','Boualem','32','البيض','El Bayadh'),
+('سيدي عامر','Si Ameur','بوعلام','Boualem','32','البيض','El Bayadh'),
+('بوعلام','Boualem','بوعلام','Boualem','32','البيض','El Bayadh'),
+('البنود','El Bnoud','الأبيض سيدي الشيخ','Labiodh Si Cheikh','32','البيض','El Bayadh'),
+('بوقطب','Bougtoub','بوقطب','Bougtoub','32','البيض','El Bayadh'),
+('الخيثر','El Kheiter','بوقطب','Bougtoub','32','البيض','El Bayadh'),
+('توسمولين','Tousmouline','بوقطب','Bougtoub','32','البيض','El Bayadh'),
+('سيدي طيفور','Si Tiffour','بوعلام','Boualem','32','البيض','El Bayadh'),
+('ستيتن','Stitten','بوعلام','Boualem','32','البيض','El Bayadh'),
+('البيض','El Bayadh','البيض','El Bayadh','32','البيض','El Bayadh'),
+('رقاصة','Rogassa','رقاصة','Rogassa','32','البيض','El Bayadh'),
+('المحرة','El Mehara','شلالة','Chellala','32','البيض','El Bayadh'),
+('الكاف الأحمر','Kef El Ahmar','رقاصة','Rogassa','32','البيض','El Bayadh'),
+('بريزينة','Brezina','بريزينة','Brezina','32','البيض','El Bayadh'),
+('الغاسول','Ghassoul','بريزينة','Brezina','32','البيض','El Bayadh'),
+('الأبيض سيدي الشيخ','Labiodh Si Cheikh','الأبيض سيدي الشيخ','Labiodh Si Cheikh','32','البيض','El Bayadh'),
+('بوسمغون','Boussemghoun','بوسمغون','Boussemghoun','32','البيض','El Bayadh'),
+('الشقيق','Cheguig','رقاصة','Rogassa','32','البيض','El Bayadh'),
+('شلالة','Chellala','شلالة','Chellala','32','البيض','El Bayadh'),
+('اربوات','Arbaouat','الأبيض سيدي الشيخ','Labiodh Si Cheikh','32','البيض','El Bayadh'),
+('برج عمر إدريس','Bordj Omar Driss','إن أمناس','In Amenas','33','إليزي','Illizi'),
+('دبداب','Debdeb','إن أمناس','In Amenas','33','إليزي','Illizi'),
+('إن أمناس','In Amenas','إن أمناس','In Amenas','33','إليزي','Illizi'),
+('إيليزي','Illizi','إيليزي','Illizi','33','إليزي','Illizi'),
+('الحمادية','Elhammadia','الحمادية','El Hamadia','34','برج بوعريريج','Bordj Bou Arrerj'),
+('أولاد سيدي ابراهيم','Ouled Si-Brahim','المنصورة','Mansourah','34','برج بوعريريج','Bordj Bou Arrerj'),
+('عين تاغروت','Ain Taghrout','عين تاغروت','Ain Taghrout','34','برج بوعريريج','Bordj Bou Arrerj'),
+('تيكستار','Tixter','عين تاغروت','Ain Taghrout','34','برج بوعريريج','Bordj Bou Arrerj'),
+('بليمور','Belimour','برج الغدير','Bordj Ghedir','34','برج بوعريريج','Bordj Bou Arrerj'),
+('العناصر','El Annasseur','برج الغدير','Bordj Ghedir','34','برج بوعريريج','Bordj Bou Arrerj'),
+('غيلاسة','Ghailasa','برج الغدير','Bordj Ghedir','34','برج بوعريريج','Bordj Bou Arrerj'),
+('تقلعيت','Taglait','برج الغدير','Bordj Ghedir','34','برج بوعريريج','Bordj Bou Arrerj'),
+('برج الغدير','Bordj Ghedir','برج الغدير','Bordj Ghedir','34','برج بوعريريج','Bordj Bou Arrerj'),
+('العش','El Euch','الحمادية','El Hamadia','34','برج بوعريريج','Bordj Bou Arrerj'),
+('سيدي أمبارك','Si-Embarek','بئر قاصد علي','Bir Kasdali','34','برج بوعريريج','Bordj Bou Arrerj'),
+('خليل','Khelil','بئر قاصد علي','Bir Kasdali','34','برج بوعريريج','Bordj Bou Arrerj'),
+('بئر قاصد علي','Bir Kasdali','بئر قاصد علي','Bir Kasdali','34','برج بوعريريج','Bordj Bou Arrerj'),
+('تفرق','Tefreg','جعافرة','Djaafra','34','برج بوعريريج','Bordj Bou Arrerj'),
+('الماين','El Main','جعافرة','Djaafra','34','برج بوعريريج','Bordj Bou Arrerj'),
+('جعافرة','Djaafra','جعافرة','Djaafra','34','برج بوعريريج','Bordj Bou Arrerj'),
+('القلة','Colla','جعافرة','Djaafra','34','برج بوعريريج','Bordj Bou Arrerj'),
+('ثنية النصر','Teniet En Nasr','مجانة','Medjana','34','برج بوعريريج','Bordj Bou Arrerj'),
+('المهير','El M''hir','المنصورة','Mansourah','34','برج بوعريريج','Bordj Bou Arrerj'),
+('القصور','Ksour','الحمادية','El Hamadia','34','برج بوعريريج','Bordj Bou Arrerj'),
+('المنصورة','Mansoura','المنصورة','Mansourah','34','برج بوعريريج','Bordj Bou Arrerj'),
+('حرازة','Haraza','المنصورة','Mansourah','34','برج بوعريريج','Bordj Bou Arrerj'),
+('الرابطة','Rabta','الحمادية','El Hamadia','34','برج بوعريريج','Bordj Bou Arrerj'),
+('الياشير','El Achir','مجانة','Medjana','34','برج بوعريريج','Bordj Bou Arrerj'),
+('حسناوة','Hasnaoua','مجانة','Medjana','34','برج بوعريريج','Bordj Bou Arrerj'),
+('مجانة','Medjana','مجانة','Medjana','34','برج بوعريريج','Bordj Bou Arrerj'),
+('عين تسرة','Ain Tesra','رأس الوادي','Ras El Oued','34','برج بوعريريج','Bordj Bou Arrerj'),
+('أولاد أبراهم','Ouled Brahem','رأس الوادي','Ras El Oued','34','برج بوعريريج','Bordj Bou Arrerj'),
+('رأس الوادي','Ras El Oued','رأس الوادي','Ras El Oued','34','برج بوعريريج','Bordj Bou Arrerj'),
+('برج زمورة','Bordj Zemmoura','برج زمورة','Bordj Zemmoura','34','برج بوعريريج','Bordj Bou Arrerj'),
+('أولاد دحمان','Ouled Dahmane','برج زمورة','Bordj Zemmoura','34','برج بوعريريج','Bordj Bou Arrerj'),
+('تسامرت','Tassamert','برج زمورة','Bordj Zemmoura','34','برج بوعريريج','Bordj Bou Arrerj'),
+('برج بوعريرج','B. B. Arrerj','برج بوعريريج','Bordj Bou Arrerj','34','برج بوعريريج','Bordj Bou Arrerj'),
+('بن داود','Ben Daoud','المنصورة','Mansourah','34','برج بوعريريج','Bordj Bou Arrerj'),
+('الخروبة','El Kharrouba','بودواو','Boudouaou','35','بومرداس','Boumerdès'),
+('دلس','Dellys','دلس','Dellys','35','بومرداس','Boumerdès'),
+('بن شود','Ben Choud','دلس','Dellys','35','بومرداس','Boumerdès'),
+('أعفير','Afir','دلس','Dellys','35','بومرداس','Boumerdès'),
+('الثنية','Thenia','الثنية','Thenia','35','بومرداس','Boumerdès'),
+('بني عمران','Beni Amrane','الثنية','Thenia','35','بومرداس','Boumerdès'),
+('خميس الخشنة','Khemis El Khechna','خميس الخشنة','Khemis El Khechna','35','بومرداس','Boumerdès'),
+('عمال','Ammal','الثنية','Thenia','35','بومرداس','Boumerdès'),
+('تيمزريت','Timezrit','يسر','Isser','35','بومرداس','Boumerdès'),
+('زموري','Zemmouri','برج منايل','Bordj Menaiel','35','بومرداس','Boumerdès'),
+('الاربعطاش','Larbatache','خميس الخشنة','Khemis El Khechna','35','بومرداس','Boumerdès'),
+('يسر','Isser','يسر','Isser','35','بومرداس','Boumerdès'),
+('شعبة العامر','Chabet El Ameur','يسر','Isser','35','بومرداس','Boumerdès'),
+('أولاد عيسى','Ouled Aissa','الناصرية','Naciria','35','بومرداس','Boumerdès'),
+('الناصرية','Naciria','الناصرية','Naciria','35','بومرداس','Boumerdès'),
+('بوزقزة قدارة','Bouzegza Keddara','بودواو','Boudouaou','35','بومرداس','Boumerdès'),
+('سوق الحد','Souk El Had','الثنية','Thenia','35','بومرداس','Boumerdès'),
+('سيدي داود','Si Daoud','بغلية','Baghlia','35','بومرداس','Boumerdès'),
+('بغلية','Baghlia','بغلية','Baghlia','35','بومرداس','Boumerdès'),
+('لقاطة','Leghata','برج منايل','Bordj Menaiel','35','بومرداس','Boumerdès'),
+('جنات','Djinet','برج منايل','Bordj Menaiel','35','بومرداس','Boumerdès'),
+('تيجلابين','Tjelabine','بومرداس','Boumerdes','35','بومرداس','Boumerdès'),
+('سي مصطفى','Si Mustapha','يسر','Isser','35','بومرداس','Boumerdès'),
+('أولاد هداج','Ouled Hedadj','بودواو','Boudouaou','35','بومرداس','Boumerdès'),
+('أولاد موسى','Ouled Moussa','خميس الخشنة','Khemis El Khechna','35','بومرداس','Boumerdès'),
+('بومرداس','Boumerdes','بومرداس','Boumerdes','35','بومرداس','Boumerdès'),
+('قورصو','Corso','بومرداس','Boumerdes','35','بومرداس','Boumerdès'),
+('برج منايل','Bordj Menaiel','برج منايل','Bordj Menaiel','35','بومرداس','Boumerdès'),
+('بودواو','Boudouaou','بودواو','Boudouaou','35','بومرداس','Boumerdès'),
+('بودواو البحري','Boudouaou El Bahri','بودواو','Boudouaou','35','بومرداس','Boumerdès'),
+('تاورقة','Taourga','بغلية','Baghlia','35','بومرداس','Boumerdès'),
+('حمادي','Hammedi','خميس الخشنة','Khemis El Khechna','35','بومرداس','Boumerdès'),
+('عين العسل','Ain El Assel','الطارف','El Tarf','36','الطارف','El Tarf'),
+('بوقوس','Bougous','الطارف','El Tarf','36','الطارف','El Tarf'),
+('الطارف','El Tarf','الطارف','El Tarf','36','الطارف','El Tarf'),
+('الزيتونة','Zitouna','الطارف','El Tarf','36','الطارف','El Tarf'),
+('البسباس','Besbes','البسباس','Besbes','36','الطارف','El Tarf'),
+('عين الكرمة','Ain Kerma','بوحجار','Bouhadjar','36','الطارف','El Tarf'),
+('بوحجار','Bouhadjar','بوحجار','Bouhadjar','36','الطارف','El Tarf'),
+('حمام بني صالح','Hammam Beni Salah','بوحجار','Bouhadjar','36','الطارف','El Tarf'),
+('وادي الزيتون','Oued Zitoun','بوحجار','Bouhadjar','36','الطارف','El Tarf'),
+('بن مهيدي','Ben M Hi','بن مهيدي','Ben M''hi','36','الطارف','El Tarf'),
+('بريحان','Berrihane','بن مهيدي','Ben M''hi','36','الطارف','El Tarf'),
+('شبيطة مختار','Chebaita Mokhtar','الذرعان','Drean','36','الطارف','El Tarf'),
+('الشط','Echatt','بن مهيدي','Ben M''hi','36','الطارف','El Tarf'),
+('العيون','El Aioun','القالة','El Kala','36','الطارف','El Tarf'),
+('القالة','El Kala','القالة','El Kala','36','الطارف','El Tarf'),
+('السوارخ','Souarekh','القالة','El Kala','36','الطارف','El Tarf'),
+('زريزر','Zerizer','البسباس','Besbes','36','الطارف','El Tarf'),
+('بوثلجة','Bouteldja','بوثلجة','Bouteldja','36','الطارف','El Tarf'),
+('الشافية','Chefia','بوثلجة','Bouteldja','36','الطارف','El Tarf'),
+('بحيرة الطيور','Lac Des Oiseaux','بوثلجة','Bouteldja','36','الطارف','El Tarf'),
+('شحاني','Chihani','الذرعان','Drean','36','الطارف','El Tarf'),
+('رمل السوق','Raml Souk','القالة','El Kala','36','الطارف','El Tarf'),
+('عصفور','Asfour','البسباس','Besbes','36','الطارف','El Tarf'),
+('الذرعـان','Drean','الذرعان','Drean','36','الطارف','El Tarf'),
+('تندوف','Tindouf','تندوف','Tindouf','37','تندوف','Tindouf'),
+('أم العسل','Oum El Assel','تندوف','Tindouf','37','تندوف','Tindouf'),
+('خميستي','Khemisti','خميستي','Khemisti','38','تيسمسيلت','Tissemsilt'),
+('ثنية الاحد','Theniet El Had','ثنية الاحد','Theniet El Had','38','تيسمسيلت','Tissemsilt'),
+('أولاد بسام','Ouled Bessam','تيسمسيلت','Tissemsilt','38','تيسمسيلت','Tissemsilt'),
+('سيدي بوتوشنت','Si Boutouchent','ثنية الاحد','Theniet El Had','38','تيسمسيلت','Tissemsilt'),
+('تيسمسيلت','Tissemsilt','تيسمسيلت','Tissemsilt','38','تيسمسيلت','Tissemsilt'),
+('سيدي العنتري','Si Lantri','لرجام','Lardjem','38','تيسمسيلت','Tissemsilt'),
+('بني شعيب','Beni Chaib','برج بونعامة','Bordj Bounaama','38','تيسمسيلت','Tissemsilt'),
+('بني لحسن','Beni Lahcene','برج بونعامة','Bordj Bounaama','38','تيسمسيلت','Tissemsilt'),
+('سيدي عابد','Si Abed','عماري','Ammari','38','تيسمسيلت','Tissemsilt'),
+('سيدي سليمان','Si Slimane','برج بونعامة','Bordj Bounaama','38','تيسمسيلت','Tissemsilt'),
+('بوقائد','Bouca','الأزهرية','Lazharia','38','تيسمسيلت','Tissemsilt'),
+('الأربعاء','Larbaa','الأزهرية','Lazharia','38','تيسمسيلت','Tissemsilt'),
+('الأزهرية','Lazharia','الأزهرية','Lazharia','38','تيسمسيلت','Tissemsilt'),
+('لرجام','Lardjem','لرجام','Lardjem','38','تيسمسيلت','Tissemsilt'),
+('الملعب','Melaab','لرجام','Lardjem','38','تيسمسيلت','Tissemsilt'),
+('العيون','Layoune','خميستي','Khemisti','38','تيسمسيلت','Tissemsilt'),
+('تملاحت','Tamellahet','لرجام','Lardjem','38','تيسمسيلت','Tissemsilt'),
+('اليوسفية','Youssoufia','برج الأمير عبد القادر','Bordj Emir Abdelkader','38','تيسمسيلت','Tissemsilt'),
+('برج الأمير عبد القادر','Bordj El Emir Abdelkader','برج الأمير عبد القادر','Bordj Emir Abdelkader','38','تيسمسيلت','Tissemsilt'),
+('عماري','Ammari','عماري','Ammari','38','تيسمسيلت','Tissemsilt'),
+('المعاصم','Maacem','عماري','Ammari','38','تيسمسيلت','Tissemsilt'),
+('برج بونعامة','Bordj Bounaama','برج بونعامة','Bordj Bounaama','38','تيسمسيلت','Tissemsilt'),
+('دوار الماء','Douar El Maa','الطالب العربي','Taleb Larbi','39','الوادي','El Oued'),
+('العقلة','El Ogla','الرباح','Robbah','39','الوادي','El Oued'),
+('المقرن','Magrane','المقرن','Magrane','39','الوادي','El Oued'),
+('سيدي عون','Si Aoun','المقرن','Magrane','39','الوادي','El Oued'),
+('اميه وانسة','Mih Ouansa','اميه وانسة','Mih Ouensa','39','الوادي','El Oued'),
+('كوينين','Kouinine','الوادي','El Oued','39','الوادي','El Oued'),
+('البياضة','Bayadha','البياضة','Bayadha','39','الوادي','El Oued'),
+('النخلة','Nakhla','الرباح','Robbah','39','الوادي','El Oued'),
+('الرباح','Robbah','الرباح','Robbah','39','الوادي','El Oued'),
+('قمار','Guemar','قمار','Guemar','39','الوادي','El Oued'),
+('بن  قشة','Ben Guecha','الطالب العربي','Taleb Larbi','39','الوادي','El Oued'),
+('ورماس','Ourmes','قمار','Guemar','39','الوادي','El Oued'),
+('تغزوت','Taghzout','قمار','Guemar','39','الوادي','El Oued'),
+('الحمراية','Hamraia','الرقيبة','Reguiba','39','الوادي','El Oued'),
+('الرقيبة','Reguiba','الرقيبة','Reguiba','39','الوادي','El Oued'),
+('الدبيلة','Debila','الدبيلة','Debila','39','الوادي','El Oued'),
+('حساني عبد الكريم','Hassani Abdelkrim','الدبيلة','Debila','39','الوادي','El Oued'),
+('حاسي خليفة','Hassi Khalifa','حاسي خليفة','Hassi Khalifa','39','الوادي','El Oued'),
+('الطريفاوي','Trifaoui','حاسي خليفة','Hassi Khalifa','39','الوادي','El Oued'),
+('الطالب العربي','Taleb Larbi','الطالب العربي','Taleb Larbi','39','الوادي','El Oued'),
+('وادي العلندة','Oued El Alenda','اميه وانسة','Mih Ouensa','39','الوادي','El Oued'),
+('الوادي','El-Oued','الوادي','El Oued','39','الوادي','El Oued'),
+('خيران','Khirane','ششار','Chechar','40','خنشلة','Khenchela'),
+('بابار','Babar','بابار','Babar','40','خنشلة','Khenchela'),
+('المحمل','El Mahmal','أولاد رشاش','Ouled Rechache','40','خنشلة','Khenchela'),
+('أولاد رشاش','Ouled Rechache','أولاد رشاش','Ouled Rechache','40','خنشلة','Khenchela'),
+('جلال','Djellal','ششار','Chechar','40','خنشلة','Khenchela'),
+('يابوس','Yabous','بوحمامة','Bouhmama','40','خنشلة','Khenchela'),
+('خنشلة','Khenchela','خنشلة','Khenchela','40','خنشلة','Khenchela'),
+('قايس','Kais','قايس','Kais','40','خنشلة','Khenchela'),
+('شلية','Chelia','بوحمامة','Bouhmama','40','خنشلة','Khenchela'),
+('الرميلة','Remila','قايس','Kais','40','خنشلة','Khenchela'),
+('تاوزيانت','Taouzianat','قايس','Kais','40','خنشلة','Khenchela'),
+('بغاي','Baghai','الحامة','El Hamma','40','خنشلة','Khenchela'),
+('الحامة','El Hamma','الحامة','El Hamma','40','خنشلة','Khenchela'),
+('انسيغة','Ensigha','الحامة','El Hamma','40','خنشلة','Khenchela'),
+('طامزة','Tamza','الحامة','El Hamma','40','خنشلة','Khenchela'),
+('عين الطويلة','Ain Touila','عين الطويلة','Ain Touila','40','خنشلة','Khenchela'),
+('متوسة','M''toussa','عين الطويلة','Ain Touila','40','خنشلة','Khenchela'),
+('بوحمامة','Bouhmama','بوحمامة','Bouhmama','40','خنشلة','Khenchela'),
+('الولجة','El Oueldja','ششار','Chechar','40','خنشلة','Khenchela'),
+('مصارة','M''sara','بوحمامة','Bouhmama','40','خنشلة','Khenchela'),
+('ششار','Chechar','ششار','Chechar','40','خنشلة','Khenchela'),
+('سوق أهراس','Souk Ahras','سوق أهراس','Souk Ahras','41','سوق أهراس','Souk Ahras'),
+('عين سلطان','Ain Soltane','سدراتة','Sedrata','41','سوق أهراس','Souk Ahras'),
+('سدراتة','Sedrata','سدراتة','Sedrata','41','سوق أهراس','Souk Ahras'),
+('الحنانشة','Hanencha','المشروحة','Mechroha','41','سوق أهراس','Souk Ahras'),
+('المشروحة','Machroha','المشروحة','Mechroha','41','سوق أهراس','Souk Ahras'),
+('عين الزانة','Ain Zana','أولاد إدريس','Ouled Driss','41','سوق أهراس','Souk Ahras'),
+('أولاد إدريس','Ouled Driss','أولاد إدريس','Ouled Driss','41','سوق أهراس','Souk Ahras'),
+('ترقالت','Terraguelt','أم العظايم','Oum El Adhaim','41','سوق أهراس','Souk Ahras'),
+('أم العظايم','Oum El Adhaim','أم العظايم','Oum El Adhaim','41','سوق أهراس','Souk Ahras'),
+('وادي الكبريت','Oued Kebrit','أم العظايم','Oum El Adhaim','41','سوق أهراس','Souk Ahras'),
+('تيفاش','Tiffech','مداوروش','M''daourouche','41','سوق أهراس','Souk Ahras'),
+('الراقوبة','Ragouba','مداوروش','M''daourouche','41','سوق أهراس','Souk Ahras'),
+('الدريعة','Drea','تاورة','Taoura','41','سوق أهراس','Souk Ahras'),
+('تاورة','Taoura','تاورة','Taoura','41','سوق أهراس','Souk Ahras'),
+('الزعرورية','Zaarouria','تاورة','Taoura','41','سوق أهراس','Souk Ahras'),
+('الحدادة','Haddada','الحدادة','Haddada','41','سوق أهراس','Souk Ahras'),
+('الخضارة','Khedara','الحدادة','Haddada','41','سوق أهراس','Souk Ahras'),
+('أولاد مومن','Ouled Moumen','الحدادة','Haddada','41','سوق أهراس','Souk Ahras'),
+('المراهنة','Merahna','المراهنة','Merahna','41','سوق أهراس','Souk Ahras'),
+('ويلان','Ouillen','المراهنة','Merahna','41','سوق أهراس','Souk Ahras'),
+('سيدي فرج','Si Fredj','المراهنة','Merahna','41','سوق أهراس','Souk Ahras'),
+('بئر بوحوش','Bir Bouhouche','بئر بوحوش','Bir Bouhouche','41','سوق أهراس','Souk Ahras'),
+('سافل الويدان','Safel El Ouen','بئر بوحوش','Bir Bouhouche','41','سوق أهراس','Souk Ahras'),
+('خميسة','Khemissa','سدراتة','Sedrata','41','سوق أهراس','Souk Ahras'),
+('مداوروش','M''daourouche','مداوروش','M''daourouche','41','سوق أهراس','Souk Ahras'),
+('الزوابي','Zouabi','بئر بوحوش','Bir Bouhouche','41','سوق أهراس','Souk Ahras'),
+('حجوط','Hadjout','حجوط','Hadjout','42','تيبازة','Tipaza'),
+('مراد','Merad','حجوط','Hadjout','42','تيبازة','Tipaza'),
+('مناصر','Menaceur','سيدي أعمر','Si Amar','42','تيبازة','Tipaza'),
+('أغبال','Aghbal','قوراية','Gouraya','42','تيبازة','Tipaza'),
+('الناظور','Nador','سيدي أعمر','Si Amar','42','تيبازة','Tipaza'),
+('سيدي عامر','Si-Amar','سيدي أعمر','Si Amar','42','تيبازة','Tipaza'),
+('قوراية','Gouraya','قوراية','Gouraya','42','تيبازة','Tipaza'),
+('مسلمون','Messelmoun','قوراية','Gouraya','42','تيبازة','Tipaza'),
+('شرشال','Cherchell','شرشال','Cherchell','42','تيبازة','Tipaza'),
+('حجرة النص','Hadjret Ennous','شرشال','Cherchell','42','تيبازة','Tipaza'),
+('سيدي غيلاس','Si Ghiles','شرشال','Cherchell','42','تيبازة','Tipaza'),
+('الداموس','Damous','الداموس','Damous','42','تيبازة','Tipaza'),
+('الأرهاط','Larhat','الداموس','Damous','42','تيبازة','Tipaza'),
+('فوكة','Fouka','فوكة','Fouka','42','تيبازة','Tipaza'),
+('عين تاقورايت','Ain Tagourait','بواسماعيل','Bou Ismail','42','تيبازة','Tipaza'),
+('بوهارون','Bou Haroun','بواسماعيل','Bou Ismail','42','تيبازة','Tipaza'),
+('بواسماعيل','Bou Ismail','بواسماعيل','Bou Ismail','42','تيبازة','Tipaza'),
+('خميستي','Khemisti','بواسماعيل','Bou Ismail','42','تيبازة','Tipaza'),
+('أحمر العين','Ahmer El Ain','أحمر العين','Ahmar El Ain','42','تيبازة','Tipaza'),
+('بورقيقة','Bourkika','أحمر العين','Ahmar El Ain','42','تيبازة','Tipaza'),
+('دواودة','Douaouda','فوكة','Fouka','42','تيبازة','Tipaza'),
+('سيدي راشد','Si Rached','أحمر العين','Ahmar El Ain','42','تيبازة','Tipaza'),
+('الحطاطبة','Attatba','القليعة','Kolea','42','تيبازة','Tipaza'),
+('الشعيبة','Chaiba','القليعة','Kolea','42','تيبازة','Tipaza'),
+('القليعة','Kolea','القليعة','Kolea','42','تيبازة','Tipaza'),
+('سيدي سميان','Si Semiane','شرشال','Cherchell','42','تيبازة','Tipaza'),
+('تيبازة','Tipaza','تيبازة','Tipaza','42','تيبازة','Tipaza'),
+('بني ميلك','Beni Mileuk','الداموس','Damous','42','تيبازة','Tipaza'),
+('مشيرة','El Mechira','التلاغمة','Teleghma','43','ميلة','Mila'),
+('العياضي برباس','El Ayadi Barbes','عين البيضاء أحريش','Ain Bea Harriche','43','ميلة','Mila'),
+(' عين البيضاء أحريش','Ain Bea Harriche','عين البيضاء أحريش','Ain Bea Harriche','43','ميلة','Mila'),
+('تسالة لمطاعي','Tassala Lematai','ترعي باينان','Terrai Bainen','43','ميلة','Mila'),
+('ترعي باينان','Terrai Bainen','ترعي باينان','Terrai Bainen','43','ميلة','Mila'),
+('اعميرة اراس','Amira Arres','ترعي باينان','Terrai Bainen','43','ميلة','Mila'),
+('تسدان حدادة','Tassadane Haddada','تسدان حدادة','Tassadane Haddada','43','ميلة','Mila'),
+('مينار زارزة','Minar Zarza','تسدان حدادة','Tassadane Haddada','43','ميلة','Mila'),
+('سيدي مروان','Si Merouane','سيدي مروان','Si Merouane','43','ميلة','Mila'),
+('الشيقارة','Chigara','سيدي مروان','Si Merouane','43','ميلة','Mila'),
+('حمالة','Hamala','القرارم قوقة','Grarem Gouga','43','ميلة','Mila'),
+('القرارم قوقة','Grarem Gouga','القرارم قوقة','Grarem Gouga','43','ميلة','Mila'),
+('تيبرقنت','Tiberguent','الرواشد','Rouached','43','ميلة','Mila'),
+('الرواشد','Rouached','الرواشد','Rouached','43','ميلة','Mila'),
+('دراحي بوصلاح','Derrahi Bousselah','بوحاتم','Bouhatem','43','ميلة','Mila'),
+('زغاية','Zeghaia','وادي النجاء','Oued Endja','43','ميلة','Mila'),
+('وادي النجاء','Oued Endja','وادي النجاء','Oued Endja','43','ميلة','Mila'),
+('أحمد راشدي','Ahmed Rachedi','وادي النجاء','Oued Endja','43','ميلة','Mila'),
+('تاجنانت','Tadjenanet','تاجنانت','Tadjenanet','43','ميلة','Mila'),
+('عين الملوك','Ain Mellouk','شلغوم العيد','Chelghoum La','43','ميلة','Mila'),
+('أولاد اخلوف','Ouled Khalouf','تاجنانت','Tadjenanet','43','ميلة','Mila'),
+('بن يحي عبد الرحمن','Benyahia Abderrahmane','تاجنانت','Tadjenanet','43','ميلة','Mila'),
+('التلاغمة','Teleghma','التلاغمة','Teleghma','43','ميلة','Mila'),
+('وادي سقان','Oued Seguen','التلاغمة','Teleghma','43','ميلة','Mila'),
+('وادي العثمانية','Oued Athmenia','شلغوم العيد','Chelghoum La','43','ميلة','Mila'),
+('عين التين','Ain Tine','ميلة','Mila','43','ميلة','Mila'),
+('شلغوم العيد','Chelghoum La','شلغوم العيد','Chelghoum La','43','ميلة','Mila'),
+('يحي بني قشة','Yahia Beniguecha','فرجيوة','Ferdjioua','43','ميلة','Mila'),
+('فرجيوة','Ferdjioua','فرجيوة','Ferdjioua','43','ميلة','Mila'),
+('سيدي خليفة','Si Khelifa','ميلة','Mila','43','ميلة','Mila'),
+('ميلة','Mila','ميلة','Mila','43','ميلة','Mila'),
+('بوحاتم','Bouhatem','بوحاتم','Bouhatem','43','ميلة','Mila'),
+('خميس مليانة','Khemis-Miliana','خميس','Khemis','44','عين الدفلة','Aïn Defla'),
+('سيدي الأخضر','Si-Lakhdar','خميس','Khemis','44','عين الدفلة','Aïn Defla'),
+('عين البنيان','Ain-Benian','حمام ريغة','Hammam Righa','44','عين الدفلة','Aïn Defla'),
+('عين التركي','Ain-Torki','حمام ريغة','Hammam Righa','44','عين الدفلة','Aïn Defla'),
+('حمام ريغة','Hammam-Righa','حمام ريغة','Hammam Righa','44','عين الدفلة','Aïn Defla'),
+('بوراشد','Bourached','جليدة','Djela','44','عين الدفلة','Aïn Defla'),
+('الحسينية','Hoceinia','بومدفع','Boumedfaa','44','عين الدفلة','Aïn Defla'),
+('جليدة','Djela','جليدة','Djela','44','عين الدفلة','Aïn Defla'),
+('عريب','Arib','العامرة','El Amra','44','عين الدفلة','Aïn Defla'),
+('جمعة أولاد الشيخ','Djemaa Ouled Cheikh','جليدة','Djela','44','عين الدفلة','Aïn Defla'),
+('العامرة','El-Amra','العامرة','El Amra','44','عين الدفلة','Aïn Defla'),
+('العطاف','El-Attaf','العطاف','El Attaf','44','عين الدفلة','Aïn Defla'),
+('تبركانين','Tiberkanine','العطاف','El Attaf','44','عين الدفلة','Aïn Defla'),
+('عين بويحيى','Ain-Bouyahia','العبادية','El Abadia','44','عين الدفلة','Aïn Defla'),
+('العبادية','El-Abadia','العبادية','El Abadia','44','عين الدفلة','Aïn Defla'),
+('تاشتة زقاغة','Tacheta Zegagha','العبادية','El Abadia','44','عين الدفلة','Aïn Defla'),
+('بربوش','Birbouche','جندل','Djendel','44','عين الدفلة','Aïn Defla'),
+('جندل','Djendel','جندل','Djendel','44','عين الدفلة','Aïn Defla'),
+('بن علال','Ben Allal','مليانة','Miliana','44','عين الدفلة','Aïn Defla'),
+('وادي الشرفاء','Oued Chorfa','جندل','Djendel','44','عين الدفلة','Aïn Defla'),
+('بومدفع','Boumedfaa','بومدفع','Boumedfaa','44','عين الدفلة','Aïn Defla'),
+('عين الاشياخ','Ain-Lechiakh','عين الاشياخ','Ain Lechiakh','44','عين الدفلة','Aïn Defla'),
+('عين السلطان','Ain-Soltane','عين الاشياخ','Ain Lechiakh','44','عين الدفلة','Aïn Defla'),
+('واد الجمعة','Oued Djemaa','عين الاشياخ','Ain Lechiakh','44','عين الدفلة','Aïn Defla'),
+('الماين','El-Maine','الروينة','Rouina','44','عين الدفلة','Aïn Defla'),
+('الروينة','Rouina','الروينة','Rouina','44','عين الدفلة','Aïn Defla'),
+('زدين','Zeddine','الروينة','Rouina','44','عين الدفلة','Aïn Defla'),
+('بئر ولد خليفة','Bir-Ould-Khelifa','برج الأمير خالد','Bordj El Emir Khaled','44','عين الدفلة','Aïn Defla'),
+('برج الأمير خالد','Bordj-Emir-Khaled','برج الأمير خالد','Bordj El Emir Khaled','44','عين الدفلة','Aïn Defla'),
+('طارق بن زياد','Tarik-Ibn-Ziad','برج الأمير خالد','Bordj El Emir Khaled','44','عين الدفلة','Aïn Defla'),
+('بطحية','Bathia','بطحية','Bathia','44','عين الدفلة','Aïn Defla'),
+('بلعاص','Belaas','بطحية','Bathia','44','عين الدفلة','Aïn Defla'),
+('الحسانية','Hassania','بطحية','Bathia','44','عين الدفلة','Aïn Defla'),
+('عين الدفلى','Ain-Defla','عين الدفلى','Ain Defla','44','عين الدفلة','Aïn Defla'),
+('مليانة','Miliana','مليانة','Miliana','44','عين الدفلة','Aïn Defla'),
+('المخاطرية','Mekhatria','العامرة','El Amra','44','عين الدفلة','Aïn Defla'),
+('تيوت','Tiout','عين الصفراء','Ain Sefra','45','النعامة','Naâma'),
+('مغرار','Moghrar','مغرار','Moghrar','45','النعامة','Naâma'),
+('عسلة','Asla','عسلة','Asla','45','النعامة','Naâma'),
+('القصدير','Kasdir','مكمن بن عمار','Mekmen Ben Amar','45','النعامة','Naâma'),
+('مكمن بن عمار','Makmen Ben Amar','مكمن بن عمار','Mekmen Ben Amar','45','النعامة','Naâma'),
+('عين الصفراء','Ain Sefra','عين الصفراء','Ain Sefra','45','النعامة','Naâma'),
+('المشرية','Mecheria','المشرية','Mecheria','45','النعامة','Naâma'),
+('البيوض','El Biodh','المشرية','Mecheria','45','النعامة','Naâma'),
+('عين بن خليل','Ain Ben Khelil','المشرية','Mecheria','45','النعامة','Naâma'),
+('النعامة','Naama','النعامة','Naama','45','النعامة','Naâma'),
+('جنين بورزق','Djenienne Bourezg','مغرار','Moghrar','45','النعامة','Naâma'),
+('سفيسيفة','Sfissifa','سفيسيفة','Sfissifa','45','النعامة','Naâma'),
+('سيدي بومدين','Si Boumediene','عين الأربعاء','Ain Larbaa','46','عين تيموشنت','Aïn Témouchent'),
+('تامزورة','Tamzoura','عين الأربعاء','Ain Larbaa','46','عين تيموشنت','Aïn Témouchent'),
+('شعبة اللحم','Chaabat El Ham','المالح','El Maleh','46','عين تيموشنت','Aïn Témouchent'),
+('المالح','El Maleh','المالح','El Maleh','46','عين تيموشنت','Aïn Témouchent'),
+('أولاد الكيحل','Ouled Kihal','المالح','El Maleh','46','عين تيموشنت','Aïn Témouchent'),
+('شنتوف','Chentouf','حمام بوحجر','Hammam Bou Hadjar','46','عين تيموشنت','Aïn Témouchent'),
+('تارقة','Terga','المالح','El Maleh','46','عين تيموشنت','Aïn Témouchent'),
+('وادي الصباح','Oued Sebbah','عين الأربعاء','Ain Larbaa','46','عين تيموشنت','Aïn Témouchent'),
+('العامرية','El Amria','العامرية','El Amria','46','عين تيموشنت','Aïn Témouchent'),
+('حاسي الغلة','Hassi El Ghella','العامرية','El Amria','46','عين تيموشنت','Aïn Témouchent'),
+('أولاد بوجمعة','Ouled Boudjemaa','العامرية','El Amria','46','عين تيموشنت','Aïn Témouchent'),
+('أغلال','Aghlal','عين الكيحل','Ain Kihel','46','عين تيموشنت','Aïn Témouchent'),
+('عين الكيحل','Ain Kihal','عين الكيحل','Ain Kihel','46','عين تيموشنت','Aïn Témouchent'),
+('عين الطلبة','Ain Tolba','عين الكيحل','Ain Kihel','46','عين تيموشنت','Aïn Témouchent'),
+('عقب الليل','Aoubellil','عين الكيحل','Ain Kihel','46','عين تيموشنت','Aïn Témouchent'),
+('بني صاف','Beni Saf','بني صاف','Beni Saf','46','عين تيموشنت','Aïn Témouchent'),
+('الحساسنة','Hassasna','حمام بوحجر','Hammam Bou Hadjar','46','عين تيموشنت','Aïn Témouchent'),
+('الأمير عبد القادر','Emir Abdelkader','بني صاف','Beni Saf','46','عين تيموشنت','Aïn Témouchent'),
+('سيدي صافي','Si Safi','بني صاف','Beni Saf','46','عين تيموشنت','Aïn Témouchent'),
+('ولهاصة الغرابة','Oulhaca El Gheraba','ولهاصة الغرابة','Oulhassa Gheraba','46','عين تيموشنت','Aïn Témouchent'),
+('سيدي ورياش','Si Ouriache','ولهاصة الغرابة','Oulhassa Gheraba','46','عين تيموشنت','Aïn Témouchent'),
+('عين الأربعاء','Ain El Arbaa','عين الأربعاء','Ain Larbaa','46','عين تيموشنت','Aïn Témouchent'),
+('المساعيد','El Messa','العامرية','El Amria','46','عين تيموشنت','Aïn Témouchent'),
+('وادي برقش','Oued Berkeche','حمام بوحجر','Hammam Bou Hadjar','46','عين تيموشنت','Aïn Témouchent'),
+('سيدي بن عدة','Si Ben Adda','عين تموشنت','Ain Temouchent','46','عين تيموشنت','Aïn Témouchent'),
+('عين تموشنت','Ain Temouchent','عين تموشنت','Ain Temouchent','46','عين تيموشنت','Aïn Témouchent'),
+('بوزجار','Bouzedjar','العامرية','El Amria','46','عين تيموشنت','Aïn Témouchent'),
+('حمام بوحجر','Hammam Bou Hadjar','حمام بوحجر','Hammam Bou Hadjar','46','عين تيموشنت','Aïn Témouchent'),
+('ضاية بن ضحوة','Dhayet Bendhahoua','ضاية بن ضحوة','Dhayet Ben Dhahoua','47','غرداية','Ghardaïa'),
+('المنصورة','Mansoura','المنصورة','Mansourah','47','غرداية','Ghardaïa'),
+('العطف','El Atteuf','بونورة','Bounoura','47','غرداية','Ghardaïa'),
+('بونورة','Bounoura','بونورة','Bounoura','47','غرداية','Ghardaïa'),
+('زلفانة','Zelfana','زلفانة','Zelfana','47','غرداية','Ghardaïa'),
+('القرارة','El Guerrara','القرارة','El Guerrara','47','غرداية','Ghardaïa'),
+('سبسب','Sebseb','متليلي','Metlili','47','غرداية','Ghardaïa'),
+('متليلي','Metlili','متليلي','Metlili','47','غرداية','Ghardaïa'),
+('بريان','Berriane','بريان','Berriane','47','غرداية','Ghardaïa'),
+('غرداية','Ghardaia','غرداية','Ghardaia','47','غرداية','Ghardaïa'),
+('القطار','El-Guettar','مازونة','Mazouna','48','غليزان','Relizane'),
+('أولاد يعيش','Ouled Aiche','عمي موسى','Ammi Moussa','48','غليزان','Relizane'),
+('بني درقن','Beni Dergoun','زمورة','Zemmoura','48','غليزان','Relizane'),
+('دار بن عبد الله','Dar Ben Abdelah','زمورة','Zemmoura','48','غليزان','Relizane'),
+('زمورة','Zemmoura','زمورة','Zemmoura','48','غليزان','Relizane'),
+('جديوية','Djiouia','جديوية','Djiouia','48','غليزان','Relizane'),
+('حمري','Hamri','جديوية','Djiouia','48','غليزان','Relizane'),
+('بلعسل بوزقزة','Belaassel Bouzagza','المطمر','El Matmar','48','غليزان','Relizane'),
+('المطمر','El-Matmar','المطمر','El Matmar','48','غليزان','Relizane'),
+('سيدي  خطاب','Si Khettab','المطمر','El Matmar','48','غليزان','Relizane'),
+('سيدي امحمد بن عودة','Si M''hamed Benaouda','المطمر','El Matmar','48','غليزان','Relizane'),
+('عين طارق','Ain-Tarek','عين طارق','Ain Tarek','48','غليزان','Relizane'),
+('حد الشكالة','Had Echkalla','عين طارق','Ain Tarek','48','غليزان','Relizane'),
+('الولجة','El Ouldja','عمي موسى','Ammi Moussa','48','غليزان','Relizane'),
+('مازونة','Mazouna','مازونة','Mazouna','48','غليزان','Relizane'),
+('عين الرحمة','Ain Rahma','يلل','Yellel','48','غليزان','Relizane'),
+('القلعة','Kalaa','يلل','Yellel','48','غليزان','Relizane'),
+('سيدي سعادة','Si Saada','يلل','Yellel','48','غليزان','Relizane'),
+('يلل','Yellel','يلل','Yellel','48','غليزان','Relizane'),
+('سوق الحد','Souk El Had','الرمكة','Ramka','48','غليزان','Relizane'),
+('منداس','Mendes','منداس','Mendes','48','غليزان','Relizane'),
+('وادي السلام','Oued Essalem','منداس','Mendes','48','غليزان','Relizane'),
+('سيدي لزرق','Si Lazreg','منداس','Mendes','48','غليزان','Relizane'),
+('عمي موسى','Ammi Moussa','عمي موسى','Ammi Moussa','48','غليزان','Relizane'),
+('واريزان','Ouarizane','وادي رهيو','Oued Rhiou','48','غليزان','Relizane'),
+('مرجة سيدي عابد','Merdja Si Abed','وادي رهيو','Oued Rhiou','48','غليزان','Relizane'),
+('أولاد سيدي الميهوب','Ouled Si Mihoub','جديوية','Djiouia','48','غليزان','Relizane'),
+('بن داود','Bendaoud','غليزان','Relizane','48','غليزان','Relizane'),
+('وادي رهيو','Oued-Rhiou','وادي رهيو','Oued Rhiou','48','غليزان','Relizane'),
+('الحاسي','El Hassi','عمي موسى','Ammi Moussa','48','غليزان','Relizane'),
+('سيدي أمحمد بن علي','Si M''hamed Benali','سيدي أمحمد بن علي','Si M''hamed Ben Ali','48','غليزان','Relizane'),
+('مديونة','Mediouna','سيدي أمحمد بن علي','Si M''hamed Ben Ali','48','غليزان','Relizane'),
+('بني زنطيس','Beni Zentis','سيدي أمحمد بن علي','Si M''hamed Ben Ali','48','غليزان','Relizane'),
+('وادي الجمعة','Oued El Djemaa','الحمادنة','El H''madna','48','غليزان','Relizane'),
+('لحلاف','Lahlef','وادي رهيو','Oued Rhiou','48','غليزان','Relizane'),
+('غليزان','Relizane','غليزان','Relizane','48','غليزان','Relizane'),
+('الحمادنة','El H''madna','الحمادنة','El H''madna','48','غليزان','Relizane'),
+('الرمكة','Ramka','الرمكة','Ramka','48','غليزان','Relizane'),
+('تنركوك','Tinerkouk','تنركوك','Tinerkouk','49','تيميمون','Timimoun'),
+('تيميمون','Timimoun','تيميمون','Timimoun','49','تيميمون','Timimoun'),
+('أولاد السعيد','Ouled Sa','تيميمون','Timimoun','49','تيميمون','Timimoun'),
+('المطارفة','Metarfa','أوقروت','Aougrout','49','تيميمون','Timimoun'),
+('طالمين','Talmine','شروين','Charouine','49','تيميمون','Timimoun'),
+('أولاد عيسى','Ouled Aissa','شروين','Charouine','49','تيميمون','Timimoun'),
+('شروين','Charouine','شروين','Charouine','49','تيميمون','Timimoun'),
+('أوقروت','Aougrout','أوقروت','Aougrout','49','تيميمون','Timimoun'),
+('دلدول','Deldoul','أوقروت','Aougrout','49','تيميمون','Timimoun'),
+('قصر قدور','Ksar Kaddour','تنركوك','Tinerkouk','49','تيميمون','Timimoun'),
+('تيمياوين','Timiaouine','برج باجي مختار','Bordj Badji Mokhtar','50','برج باجي مختار','Bordj Badji Mokhtar'),
+('برج باجي مختار','Bordj Badji Mokhtar','برج باجي مختار','Bordj Badji Mokhtar','50','برج باجي مختار','Bordj Badji Mokhtar'),
+('رأس الميعاد','Ras El Miad','سيدي  خالد','Si Khaled','51','أولاد جلال','Ouled Djellal'),
+('بسباس','Besbes','سيدي  خالد','Si Khaled','51','أولاد جلال','Ouled Djellal'),
+('سيدي  خالد','Si Khaled','سيدي  خالد','Si Khaled','51','أولاد جلال','Ouled Djellal'),
+('الدوسن','Doucen','أولاد جلال','Ouled Djellal','51','أولاد جلال','Ouled Djellal'),
+('الشعيبة','Chaiba','أولاد جلال','Ouled Djellal','51','أولاد جلال','Ouled Djellal'),
+('أولاد جلال','Ouled Djellal','أولاد جلال','Ouled Djellal','51','أولاد جلال','Ouled Djellal'),
+('بني عباس','Beni-Abbes','بني عباس','Beni Abbes','52','بني عباس','Béni Abbès'),
+('تامترت','Tamtert','بني عباس','Beni Abbes','52','بني عباس','Béni Abbès'),
+('إقلي','Igli','إقلي','Igli','52','بني عباس','Béni Abbès'),
+('الواتة','El Ouata','الواتة','El Ouata','52','بني عباس','Béni Abbès'),
+('أولاد خضير','Ouled-Khodeir','أولاد خضير','Ouled Khodeir','52','بني عباس','Béni Abbès'),
+('كرزاز','Kerzaz','كرزاز','Kerzaz','52','بني عباس','Béni Abbès'),
+('تيمودي','Timoudi','كرزاز','Kerzaz','52','بني عباس','Béni Abbès'),
+('القصابي','Ksabi','أولاد خضير','Ouled Khodeir','52','بني عباس','Béni Abbès'),
+('بن يخلف','Beni-Ikhlef','كرزاز','Kerzaz','52','بني عباس','Béni Abbès'),
+('إينغر','Inghar','إينغر','In Ghar','53','عين صالح','In Salah'),
+('عين صالح','Ain Salah','عين صالح','In Salah','53','عين صالح','In Salah'),
+('فقارة الزوى','Foggaret Ezzoua','عين صالح','In Salah','53','عين صالح','In Salah'),
+('تين زواتين','Tin Zouatine','تين زواتين','Tin Zouatine','54','عين قزام','In Guezzam'),
+('عين قزام','Ain Guezzam','عين قزام','In Guezzam','54','عين قزام','In Guezzam'),
+('تماسين','Temacine','تماسين','Temacine','55','تقرت','Touggourt'),
+('سيدي سليمان','Si Slimane','المقارين','Megarine','55','تقرت','Touggourt'),
+('المقارين','Megarine','المقارين','Megarine','55','تقرت','Touggourt'),
+('النزلة','Nezla','تقرت','Touggourt','55','تقرت','Touggourt'),
+('بلدة اعمر','Blet Amor','تماسين','Temacine','55','تقرت','Touggourt'),
+('تبسبست','Tebesbest','تقرت','Touggourt','55','تقرت','Touggourt'),
+('تقرت','Touggourt','تقرت','Touggourt','55','تقرت','Touggourt'),
+('الطيبات','Taibet','الطيبات','Taibet','55','تقرت','Touggourt'),
+('العالية','El Alia','الحجيرة','El-Hadjira','55','تقرت','Touggourt'),
+('الحجيرة','El-Hadjira','الحجيرة','El-Hadjira','55','تقرت','Touggourt'),
+('بن ناصر','Benaceur','الطيبات','Taibet','55','تقرت','Touggourt'),
+('المنقر','M''naguer','الطيبات','Taibet','55','تقرت','Touggourt'),
+('الزاوية العابدية','Zaouia El Abia','تقرت','Touggourt','55','تقرت','Touggourt'),
+('جانت','Djanet','جانت','Djanet','56','جانت','Djanet'),
+('برج الحواس','Bordj El Haouass','جانت','Djanet','56','جانت','Djanet'),
+('أم الطيور','Oum Touyour','المغير','El Meghaier','57','المغير','El Meghaier'),
+('سيدي عمران','Si Amrane','جامعة','Djamaa','57','المغير','El Meghaier'),
+('المرارة','M''rara','جامعة','Djamaa','57','المغير','El Meghaier'),
+('جامعة','Djamaa','جامعة','Djamaa','57','المغير','El Meghaier'),
+('تندلة','Tenedla','جامعة','Djamaa','57','المغير','El Meghaier'),
+('المغير','El-M''ghaier','المغير','El Meghaier','57','المغير','El Meghaier'),
+('سطيل','Still','المغير','El Meghaier','57','المغير','El Meghaier'),
+('سيدي خليل','Si Khelil','المغير','El Meghaier','57','المغير','El Meghaier'),
+('المنيعة','El Meniaa','المنيعة','El Menia','58','المنيعة','El Menia'),
+('حاسي القارة','Hassi Gara','المنيعة','El Menia','58','المنيعة','El Menia'),
+('حاسي الفحل','Hassi Fehal','المنصورة','Mansourah','58','المنيعة','El Menia');
+
+
 
 
 
@@ -1611,69 +1620,41 @@ CREATE TABLE IF NOT EXISTS wilayas (
     name VARCHAR(255) NOT NULL
 );
 
-
-
-
-
 INSERT INTO wilayas (id, name)
-SELECT DISTINCT
-       CAST(wilaya_code AS UNSIGNED) AS id,
-       wilaya_name
+SELECT DISTINCT CAST(wilaya_code AS INTEGER), wilaya_name
 FROM algeria_cities
-ON DUPLICATE KEY UPDATE name = VALUES(name); 
+ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name;
 
-DROP TABLE IF EXISTS communes;
-
-
-
-CREATE TABLE communes (
-    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS communes (
+    id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
-    wilaya_id INT NOT NULL,
-    FOREIGN KEY (wilaya_id) REFERENCES wilayas(id)
+    wilaya_id INT NOT NULL REFERENCES wilayas(id)
 );
 
 INSERT INTO communes (name, wilaya_id)
-SELECT commune_name, CAST(wilaya_code AS UNSIGNED) AS wilaya_id
+SELECT commune_name, CAST(wilaya_code AS INTEGER)
 FROM algeria_cities;
 
-
-
-
-
 CREATE TABLE IF NOT EXISTS orders (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  product_id VARCHAR(100),
-  product_name VARCHAR(255),
-  product_price DECIMAL(10,2),
-  customer_name VARCHAR(255),
-  customer_phone VARCHAR(50),
-  wilaya VARCHAR(255),
-  commune VARCHAR(255),
-  address TEXT,
-  size VARCHAR(50),
-  color VARCHAR(50),
-  created_at DATETIME,
-  status VARCHAR(50) DEFAULT 'pending'
-) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
+    id SERIAL PRIMARY KEY,
+    product_id VARCHAR(100),
+    product_name VARCHAR(255),
+    product_price DECIMAL(10,2),
+    customer_name VARCHAR(255),
+    customer_phone VARCHAR(50),
+    wilaya VARCHAR(255),
+    commune VARCHAR(255),
+    address TEXT,
+    size VARCHAR(50),
+    color VARCHAR(50),
+    created_at TIMESTAMP DEFAULT NOW(),
+    status VARCHAR(50) DEFAULT 'pending'
+);
 
 INSERT INTO categories (name) VALUES 
-('dresses'),('tops'),('outewear'),('accessories');
+('dresses'),('tops'),('outerwear'),('accessories');
 
+SELECT COUNT(*) FROM algeria_cities;
+SELECT COUNT(*) FROM wilayas;
+SELECT COUNT(*) FROM communes;
 
-SELECT * FROM categories ;
-
-DROP TABLE IF EXISTS products;
-
-CREATE TABLE IF NOT EXISTS products (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    price DECIMAL(10,2) NOT NULL,
-    description TEXT,
-    media TEXT,
-    colors VARCHAR(255),
-    sizes VARCHAR(255),
-    category_id INT,
-    FOREIGN KEY (category_id) REFERENCES categories(id)
-)CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
