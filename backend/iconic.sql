@@ -1,20 +1,22 @@
--- Clean everything before (drop all related tables)
-DROP TABLE IF EXISTS orders CASCADE;
-DROP TABLE IF EXISTS communes CASCADE;
-DROP TABLE IF EXISTS wilayas CASCADE;
-DROP TABLE IF EXISTS products CASCADE;
-DROP TABLE IF EXISTS categories CASCADE;
-DROP TABLE IF EXISTS colors CASCADE;
-DROP TABLE IF EXISTS sizes CASCADE;
-DROP TABLE IF EXISTS algeria_cities CASCADE;
 
--- Categories table
+
 CREATE TABLE categories (
     id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL
 );
 
--- Products table
+CREATE TABLE wilayas (
+    id INT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL
+);
+
+
+CREATE TABLE communes (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    wilaya_id INT NOT NULL REFERENCES wilayas(id)
+);
+
 CREATE TABLE products (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
@@ -26,29 +28,33 @@ CREATE TABLE products (
     category_id INT REFERENCES categories(id)
 );
 
--- Colors table
+CREATE TABLE orders (
+    id SERIAL PRIMARY KEY,
+    product_id INT,
+    product_name VARCHAR(255),
+    product_price DECIMAL(10,2),
+    customer_name VARCHAR(255),
+    customer_phone VARCHAR(50),
+    wilaya VARCHAR(255),
+    commune VARCHAR(255),
+    address TEXT,
+    size VARCHAR(50),
+    color VARCHAR(50),
+    created_at TIMESTAMP DEFAULT NOW(),
+    status VARCHAR(50) DEFAULT 'pending'
+);
+
 CREATE TABLE colors (
     id SERIAL PRIMARY KEY,
     name VARCHAR(50) NOT NULL
 );
 
--- Sizes table
 CREATE TABLE sizes (
     id SERIAL PRIMARY KEY,
     name VARCHAR(10) NOT NULL
 );
 
--- Insert initial colors
-INSERT INTO colors (name) VALUES 
-('red'), ('blue'), ('green'), ('black'), ('pink'), ('yellow'), ('peach'), ('white'), ('Lavender'), ('grey'), ('orange')
-ON CONFLICT DO NOTHING;
 
--- Insert initial sizes
-INSERT INTO sizes (name) VALUES 
-('S'), ('M'), ('L'), ('XL')
-ON CONFLICT DO NOTHING;
-
--- Algeria cities table
 CREATE TABLE algeria_cities (
     id SERIAL PRIMARY KEY,
     commune_name VARCHAR(255) NOT NULL,
@@ -60,6 +66,15 @@ CREATE TABLE algeria_cities (
     wilaya_name_ascii VARCHAR(255) NOT NULL
 );
 
+
+
+INSERT INTO colors (name) VALUES 
+('red'), ('blue'), ('green'), ('black'), ('pink'), ('yellow'), ('peach'), ('white'), ('Lavender'), ('grey'), ('orange')
+ON CONFLICT DO NOTHING;
+
+INSERT INTO sizes (name) VALUES 
+('S'), ('M'), ('L'), ('XL')
+ON CONFLICT DO NOTHING;
 
 
 
@@ -1620,58 +1635,30 @@ INSERT INTO algeria_cities (
 
 
 
-
-
--- Wilayas table
-CREATE TABLE wilayas (
-    id INT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL
-);
-
 INSERT INTO wilayas (id, name)
 SELECT DISTINCT CAST(wilaya_code AS INTEGER), wilaya_name
 FROM algeria_cities
 ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name;
 
--- Communes table
-CREATE TABLE communes (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    wilaya_id INT NOT NULL REFERENCES wilayas(id)
-);
+
+
 
 INSERT INTO communes (name, wilaya_id)
 SELECT commune_name, CAST(wilaya_code AS INTEGER)
 FROM algeria_cities;
 
--- Orders table
-CREATE TABLE orders (
-    id SERIAL PRIMARY KEY,
-    product_id VARCHAR(100),
-    product_name VARCHAR(255),
-    product_price DECIMAL(10,2),
-    customer_name VARCHAR(255),
-    customer_phone VARCHAR(50),
-    wilaya VARCHAR(255),
-    commune VARCHAR(255),
-    address TEXT,
-    size VARCHAR(50),
-    color VARCHAR(50),
-    created_at TIMESTAMP DEFAULT NOW(),
-    status VARCHAR(50) DEFAULT 'pending'
-);
 
--- Insert initial categories
 INSERT INTO categories (name) VALUES 
 ('dresses'),('tops'),('outerwear'),('accessories')
 ON CONFLICT DO NOTHING;
 
--- Add a test product (optional, for dashboard testing)
+
+
 INSERT INTO products (name, price, description, category_id, media, colors, sizes)
 VALUES ('Test Product', 1000, 'Description', 1, '["1766094675366.jpeg"]', '["red","blue"]', '["M","L"]')
 ON CONFLICT DO NOTHING;
 
--- Check data
-SELECT * FROM products;
-SELECT * FROM colors;
-SELECT * FROM sizes;
+
+
+SELECT COUNT(*) FROM products;
+
