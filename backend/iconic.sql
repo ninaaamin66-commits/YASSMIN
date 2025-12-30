@@ -1,14 +1,21 @@
-DROP TABLE IF EXISTS orders, communes, wilayas, products, categories, colors, sizes, algeria_cities CASCADE;
-
+-- Clean everything before (drop all related tables)
+DROP TABLE IF EXISTS orders CASCADE;
+DROP TABLE IF EXISTS communes CASCADE;
+DROP TABLE IF EXISTS wilayas CASCADE;
+DROP TABLE IF EXISTS products CASCADE;
+DROP TABLE IF EXISTS categories CASCADE;
+DROP TABLE IF EXISTS colors CASCADE;
+DROP TABLE IF EXISTS sizes CASCADE;
+DROP TABLE IF EXISTS algeria_cities CASCADE;
 
 -- Categories table
-CREATE TABLE IF NOT EXISTS categories (
+CREATE TABLE categories (
     id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL
 );
 
 -- Products table
-CREATE TABLE IF NOT EXISTS products (
+CREATE TABLE products (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     price DECIMAL(10,2) NOT NULL,
@@ -20,13 +27,13 @@ CREATE TABLE IF NOT EXISTS products (
 );
 
 -- Colors table
-CREATE TABLE IF NOT EXISTS colors (
+CREATE TABLE colors (
     id SERIAL PRIMARY KEY,
     name VARCHAR(50) NOT NULL
 );
 
 -- Sizes table
-CREATE TABLE IF NOT EXISTS sizes (
+CREATE TABLE sizes (
     id SERIAL PRIMARY KEY,
     name VARCHAR(10) NOT NULL
 );
@@ -42,7 +49,7 @@ INSERT INTO sizes (name) VALUES
 ON CONFLICT DO NOTHING;
 
 -- Algeria cities table
-CREATE TABLE IF NOT EXISTS algeria_cities (
+CREATE TABLE algeria_cities (
     id SERIAL PRIMARY KEY,
     commune_name VARCHAR(255) NOT NULL,
     commune_name_ascii VARCHAR(255) NOT NULL,
@@ -52,7 +59,6 @@ CREATE TABLE IF NOT EXISTS algeria_cities (
     wilaya_name VARCHAR(255) NOT NULL,
     wilaya_name_ascii VARCHAR(255) NOT NULL
 );
-
 
 
 
@@ -1613,8 +1619,11 @@ INSERT INTO algeria_cities (
 
 
 
+
+
+
 -- Wilayas table
-CREATE TABLE IF NOT EXISTS wilayas (
+CREATE TABLE wilayas (
     id INT PRIMARY KEY,
     name VARCHAR(255) NOT NULL
 );
@@ -1625,7 +1634,7 @@ FROM algeria_cities
 ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name;
 
 -- Communes table
-CREATE TABLE IF NOT EXISTS communes (
+CREATE TABLE communes (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     wilaya_id INT NOT NULL REFERENCES wilayas(id)
@@ -1636,7 +1645,7 @@ SELECT commune_name, CAST(wilaya_code AS INTEGER)
 FROM algeria_cities;
 
 -- Orders table
-CREATE TABLE IF NOT EXISTS orders (
+CREATE TABLE orders (
     id SERIAL PRIMARY KEY,
     product_id VARCHAR(100),
     product_name VARCHAR(255),
@@ -1657,17 +1666,12 @@ INSERT INTO categories (name) VALUES
 ('dresses'),('tops'),('outerwear'),('accessories')
 ON CONFLICT DO NOTHING;
 
--- Ensure all columns exist in products (for safety)
-ALTER TABLE products
-ADD COLUMN IF NOT EXISTS name VARCHAR(100),
-ADD COLUMN IF NOT EXISTS price NUMERIC,
-ADD COLUMN IF NOT EXISTS description TEXT,
-ADD COLUMN IF NOT EXISTS media TEXT,
-ADD COLUMN IF NOT EXISTS colors TEXT,
-ADD COLUMN IF NOT EXISTS sizes TEXT,
-ADD COLUMN IF NOT EXISTS category_id INTEGER;
+-- Add a test product (optional, for dashboard testing)
+INSERT INTO products (name, price, description, category_id, media, colors, sizes)
+VALUES ('Test Product', 1000, 'Description', 1, '["1766094675366.jpeg"]', '["red","blue"]', '["M","L"]')
+ON CONFLICT DO NOTHING;
 
+-- Check data
 SELECT * FROM products;
 SELECT * FROM colors;
 SELECT * FROM sizes;
-
