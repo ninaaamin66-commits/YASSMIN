@@ -163,7 +163,7 @@ function setCheckboxes(containerId, valuesStr) {
     });
 }
 
-// جلب كل المنتجات وعرضهم في الجدول (مع إزالة تكرار الألوان/الأحجام قبل العرض)
+
 async function loadProducts() {
     try {
         const res = await fetch(API_URL);
@@ -171,52 +171,53 @@ async function loadProducts() {
 
         tableBody.innerHTML = '';
 
-        products.forEach(p => {
-            let mediaArray = [];
-            try {
-                mediaArray = p.media ? JSON.parse(p.media) : [];
-            } catch(e) {
-                console.error("Invalid JSON for media:", p.media);
-                mediaArray = [];
-            }
 
-            let colors = [];
-            try { colors = p.colors ? JSON.parse(p.colors) : []; } catch(e){ colors = []; }
-            let sizes = [];
-            try { sizes = p.sizes ? JSON.parse(p.sizes) : []; } catch(e){ sizes = []; }
+products.forEach(p => {
+    let mediaArray = [];
+    try {
+        mediaArray = p.media ? JSON.parse(p.media) : [];
+    } catch(e) {
+        console.error("Invalid JSON for media:", p.media);
+        mediaArray = [];
+    }
 
-           
-            colors = uniquePreserveOrder(colors);
-            sizes = uniquePreserveOrder(sizes);
+    let colors = [];
+    try { colors = p.colors ? JSON.parse(p.colors) : []; } catch(e){ colors = []; }
+    let sizes = [];
+    try { sizes = p.sizes ? JSON.parse(p.sizes) : []; } catch(e){ sizes = []; }
 
-            const mediaHTML = mediaArray.map(file => {
-                const ext = file.split('.').pop().toLowerCase();
-                if(['mp4','webm'].includes(ext)){
-                    return `<video width="50" controls>
-                                <source src="http://localhost:5003/uploads/${file}" type="video/${ext}">
-                            </video>`;
-                } else {
-                    return `<img src="http://localhost:5003/uploads/${file}" width="50">`;
-                }
-            }).join('');
+    colors = uniquePreserveOrder(colors);
+    sizes = uniquePreserveOrder(sizes);
 
-            tableBody.innerHTML += `
-                <tr>
-                    <td>${p.id}</td>
-                    <td>${p.name}</td>
-                    <td>${p.price}</td>
-                    <td>${p.description}</td>
-                    <td>${mediaHTML}</td>
-                    <td>${p.category_id}</td>
-                    <td>${colors.join(', ')}</td>
-                    <td>${sizes.join(', ')}</td>
-                    <td>
-                        <button onclick="editProduct(${p.id})">Edit</button>
-                        <button onclick="deleteProduct(${p.id})">Delete</button>
-                    </td>
-                </tr>
-            `;
-        });
+    const mediaHTML = mediaArray.map(file => {
+        const ext = file.split('.').pop().toLowerCase();
+        if(['mp4','webm'].includes(ext)){
+            return `<video width="50" controls>
+                        <source src="http://localhost:5003/uploads/${file}" type="video/${ext}">
+                    </video>`;
+        } else {
+            return `<img src="http://localhost:5003/uploads/${file}" width="50">`;
+        }
+    }).join('');
+
+    tableBody.innerHTML += `
+        <tr>
+            <td>${p.id}</td>
+            <td>${p.name}</td>
+            <td>${p.price}</td>
+            <td>${p.description}</td>
+            <td>${mediaHTML}</td>
+            <td>${p.category_id}</td>
+            <td>${colors.join(', ')}</td>
+            <td>${sizes.join(', ')}</td>
+            <td>
+                <button onclick="editProduct(${p.id})">Edit</button>
+                <button onclick="deleteProduct(${p.id})">Delete</button>
+            </td>
+        </tr>
+    `;
+});
+
     } catch(err) {
         console.error("Error loading products:", err);
         tableBody.innerHTML = `<tr><td colspan="9">Erreur de chargement des produits</td></tr>`;
