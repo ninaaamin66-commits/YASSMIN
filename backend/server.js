@@ -32,43 +32,42 @@ app.use('/admin/products', adminProducts);
 app.use('/api/products', productspub);
 app.use('/orders', ordersRouter);
 
-// wilayas
-app.get('/api/wilayas', (req, res) => {
-  db.query(
-    `SELECT DISTINCT wilaya_code AS id,
-     COALESCE(NULLIF(wilaya_name_ascii, ''), wilaya_name) AS name
-     FROM algeria_cities
-     ORDER BY name ASC`,
-    [],
-    (err, rows) => {
-      if (err) {
-        console.error(err);
-        return res.status(500).json({ error: 'Server error' });
-      }
-      res.json(rows);
-    }
-  );
-});
+// app.get('/api/wilayas', (req, res) => {
+//   db.query(
+//     `SELECT DISTINCT wilaya_code AS id,
+//      COALESCE(NULLIF(wilaya_name_ascii, ''), wilaya_name) AS name
+//      FROM algeria_cities
+//      ORDER BY name ASC`,
+//     [],
+//     (err, rows) => {
+//       if (err) {
+//         console.error(err);
+//         return res.status(500).json({ error: 'Server error' });
+//       }
+//       res.json(rows);
+//     }
+//   );
+// });
 
-// communes
-app.get('/api/communes/:wilayaId', (req, res) => {
-  const wid = req.params.wilayaId;
-  db.query(
-    `SELECT id,
-     COALESCE(NULLIF(commune_name_ascii, ''), commune_name) AS name
-     FROM algeria_cities
-     WHERE wilaya_code = $1
-     ORDER BY name ASC`,
-    [wid],
-    (err, rows) => {
-      if (err) {
-        console.error(err);
-        return res.status(500).json({ error: 'Server error' });
-      }
-      res.json(rows);
-    }
-  );
-});
+// app.get('/api/communes/:wilayaId', (req, res) => {
+//   const wid = req.params.wilayaId;
+//   db.query(
+//     `SELECT id,
+//      COALESCE(NULLIF(commune_name_ascii, ''), commune_name) AS name
+//      FROM algeria_cities
+//      WHERE wilaya_code = $1
+//      ORDER BY name ASC`,
+//     [wid],
+//     (err, rows) => {
+//       if (err) {
+//         console.error(err);
+//         return res.status(500).json({ error: 'Server error' });
+//       }
+//       res.json(rows);
+//     }
+//   );
+// });
+
 
 // default route → frontend
 app.use((req, res) => {
