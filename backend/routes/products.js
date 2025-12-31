@@ -105,7 +105,7 @@ router.put('/:id', upload, (req, res) => {
     UPDATE products
     SET name = $1, price = $2, description = $3, category_id = $4, colors = $5, sizes = $6
     ${mediaSQL}
-    WHERE id = $1
+    WHERE id = $${params.length}
   `;
 
   db.query(sql, params, err => {
